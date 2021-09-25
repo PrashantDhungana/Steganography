@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-
+    
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function gallery()
+    {
+        return $this->hasMany(\App\gallery::class);
+    }
+    public function email()
+    {
+        return $this->hasOne(\App\email::class);
+    }
+
+
 }
