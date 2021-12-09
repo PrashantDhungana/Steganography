@@ -10,19 +10,14 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 </head>
 <body>
-
+	<?php 
+		echo request()->getPathInfo();
+	?>
+	@if(request()->getPathInfo() == "/register")
+	<div class="container right-panel-active" id="main">
+	@else
 	<div class="container" id="main">
-		@if($errors->any())
-		
-		<ul>
-			@foreach ($errors->all() as $error)
-			<li class="danger">{{$error}}</li>
-			@endforeach	
-		
-				
-			
-		</ul>
-		@endif
+	@endif
 		<div class="sign-up">
 			<form action="/register" method="POST" enctype="multipart/form-data">
 				@csrf
