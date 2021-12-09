@@ -32,31 +32,23 @@
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-google-plus-g"></i></a>
 					<a href="https://www.linkedin.com/" class="icon"><i class="fab fa-linkedin-in"></i></a>
 				</div> -->
-				
-				<input type="text" name="txt" placeholder="Username" required>
+				<input type="text" name="name" placeholder="Name" required>
 				<input type="email" name="email" placeholder="E-mail" required>
-
+				<input type="password" name="password" id="password">
 				<label for="Passimage">PassImage</label>
-				<input type="file" name="pswd" placeholder="Password" required>
-
-				
+				<input type="file" name="passimg" placeholder="Upload a Password photo" required>				
 				 <br><br>
 				<button type="Sign Up" class="button button1">Sign Up</button>
 			</form>
 		</div>
 		<div class="sign-in">
-			<form action="#">
+			<form action="/login">
 				<h1>Sign in to Steg</h1>
 				<!-- <div class="icon-container">
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-f"></i></a>
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-google-plus-g"></i></a>
 					<a href="https://www.linkedin.com/" class="icon"><i class="fab fa-linkedin-in"></i></a>
 				</div> -->
-				
-				<input type="email1" name="email" placeholder="Enter your email" required>
-				
-				<label for="Passimage">PassImage</label>
-
 				<input type="file" name="pswd" placeholder="Password" required>
 				<label class="forgot-password"><a >Forget Passimage?</a></label>
                 <input type="checkbox"> <label class="form-remember">Remember me</label>
