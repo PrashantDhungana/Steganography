@@ -10,9 +10,22 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 </head>
 <body>
+
 	<div class="container" id="main">
+		@if($errors->any())
+		
+		<ul>
+			@foreach ($errors->all() as $error)
+			<li class="danger">{{$error}}</li>
+			@endforeach	
+		
+				
+			
+		</ul>
+		@endif
 		<div class="sign-up">
-			<form action="#">
+			<form action="/register" method="POST">
+				@csrf
 				<h1>Create Account</h1>
 				<!-- <div class="icon-container">
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-f"></i></a>

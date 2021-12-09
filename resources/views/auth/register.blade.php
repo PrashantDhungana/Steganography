@@ -1,59 +1,43 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Steganography</title>
+	<link rel="stylesheet" type="text/css" href="/css/form.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+</head>
+<body>
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+	<div class="container" id="main">
+		@if($errors->any())
+		<ul>
+			@foreach ($errors->all() as $error)
+			<li class="danger">{{$error}}</li>
+			@endforeach	
+		
+				
+			
+		</ul>
+		@endif
+		<div class="sign-up">
+			<form action="#">
+				<h1>Create Account</h1>
+				<!-- <div class="icon-container">
+					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-f"></i></a>
+					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-google-plus-g"></i></a>
+					<a href="https://www.linkedin.com/" class="icon"><i class="fab fa-linkedin-in"></i></a>
+				</div> -->
+				
+				<input type="text" name="txt" placeholder="Username" required>
+				<input type="email" name="email" placeholder="E-mail" required>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+				<label for="Passimage">PassImage</label>
+				<input type="file" name="pswd" placeholder="Password" required>
 
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            </div>
-
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+				
+				 <br><br>
+				<button type="Sign Up" class="button button1">Sign Up</button>
+			</form>
