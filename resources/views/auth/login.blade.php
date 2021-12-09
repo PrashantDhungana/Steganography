@@ -24,7 +24,7 @@
 		</ul>
 		@endif
 		<div class="sign-up">
-			<form action="/register" method="POST">
+			<form action="/register" method="POST" enctype="multipart/form-data">
 				@csrf
 				<h1>Create Account</h1>
 				<!-- <div class="icon-container">
@@ -34,7 +34,9 @@
 				</div> -->
 				<input type="text" name="name" placeholder="Name" required>
 				<input type="email" name="email" placeholder="E-mail" required>
-				<input type="password" name="password" id="password">
+				<input type="password" name="password" id="password" placeholder="Password">
+				<input type="password" name="password_confirmation" placeholder="Confirm Password">
+
 				<label for="Passimage">PassImage</label>
 				<input type="file" name="passimg" placeholder="Upload a Password photo" required>				
 				 <br><br>
