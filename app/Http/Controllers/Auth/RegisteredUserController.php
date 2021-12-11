@@ -34,18 +34,29 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $attributes=$request->validate([
-            'name'=> ['required', 'string', 'max:255'],
+            'name'=> ['required', 'string', 'max:10'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'confirmed'],
+            'password' => ['required', 'confirmed','min:7','max:255'],
+            'password_confirmation' => ['required_with:password|same:password|min:6'],
             'passimg' => ['required', 'image']
+            
         ]);
+        if($file = $request->hasFile('image')) {
+             
+            $file = $request->file('image') ;
+            $fileName = $file->getClientOriginalName() ;
+            $destinationPath = public_path().'/images' ;
+            $file->move($destinationPath,$fileName);
+            return redirect('/uploadfile');
+    }
 
         dd('here');
         $user = User::create([
             'username' => $request->name,
             'email' => $request->email,
-            'passimage' => Hash::make($request->password),
+            'password' => Hash::make($request->password),
         ]);
+
     
 
         event(new Registered($user));
@@ -55,4 +66,5 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME);
        
     }
+    
 }
