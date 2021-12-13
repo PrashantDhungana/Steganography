@@ -8,8 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -42,20 +41,15 @@ class RegisteredUserController extends Controller
 
         $hashedPassword = bcrypt($request->password);
         $file = $request->file('passimg') ;
-        $this->steganize($file,$hashedPassword);
-        dd($this->desteganize('secret.png'));
-    //     if($file = $request->hasFile('image')) {
-             
-    //         $fileName = $file->getClientOriginalName() ;
-    //         $destinationPath = public_path().'/images' ;
-    //         $file->move($destinationPath,$fileName);
-    //         return redirect('/uploadfile');
-    // }
+        $filename = uniqid('img_').".".$file->extension();
+        $this->steganize($file,$hashedPassword,$filename);
 
         $user = User::create([
             'username' => $request->name,
             'email' => $request->email,
             'password' => $hashedPassword,
+            'name' => $request->name,
+            'filename' => $filename,
         ]);
     
 
@@ -67,7 +61,7 @@ class RegisteredUserController extends Controller
        
     }
     
-    public function steganize($file, $message) 
+    public function steganize($file, $message,$filename) 
     {
         // Encode the message into a binary string.
         $binaryMessage = '';
@@ -80,7 +74,7 @@ class RegisteredUserController extends Controller
         $binaryMessage .= '00000011';
       
         // Load the image into memory.
-        $img = imagecreatefromjpeg($file);
+        $img = imagecreatefromjpeg($file);;
       
         // Get image dimensions.
         $width = imagesx($img);
@@ -122,64 +116,10 @@ class RegisteredUserController extends Controller
         }
       
         // Save the image to a file.
-        $newImage = 'secret.png';
-        $op = imagepng($img, $newImage, 9);
+        $newImage = $filename;
+        // $newImage = 'secret.png';
+        imagepng($img, $newImage, 9);
         // Destroy the image handler.
         imagedestroy($img);
-    }
-
-    public function desteganize($file) {
-        // Read the file into memory.
-        $img = imagecreatefrompng($file);
-      
-        // Read the message dimensions.
-        $width = imagesx($img);
-        $height = imagesy($img);
-      
-        // Set the message.
-        $binaryMessage = '';
-      
-        // Initialise message buffer.
-        $binaryMessageCharacterParts = [];
-      
-        for ($y = 0; $y < $height; $y++) {
-          for ($x = 0; $x < $width; $x++) {
-      
-            // Extract the colour.
-            $rgb = imagecolorat($img, $x, $y);
-            $colors = imagecolorsforindex($img, $rgb);
-      
-            $blue = $colors['blue'];
-      
-            // Convert the blue to binary.
-            $binaryBlue = decbin($blue);
-      
-            // Extract the least significant bit into out message buffer..
-            $binaryMessageCharacterParts[] = $binaryBlue[strlen($binaryBlue) - 1];
-      
-            if (count($binaryMessageCharacterParts) == 8) {
-              // If we have 8 parts to the message buffer we can update the message string.
-              $binaryCharacter = implode('', $binaryMessageCharacterParts);
-              $binaryMessageCharacterParts = [];
-              if ($binaryCharacter == '00000011') {
-                // If the 'end of text' character is found then stop looking for the message.
-                break 2;
-              }
-              else {
-                // Append the character we found into the message.
-                $binaryMessage .= $binaryCharacter;
-              }
-            }
-          }
-        }
-      
-        // Convert the binary message we have found into text.
-        $message = '';
-        for ($i = 0; $i < strlen($binaryMessage); $i += 8) {
-          $character = mb_substr($binaryMessage, $i, 8);
-          $message .= chr(bindec($character));
-        }
-      
-        return $message;
     }
 }
