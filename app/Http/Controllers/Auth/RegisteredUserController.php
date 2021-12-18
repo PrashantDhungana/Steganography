@@ -36,7 +36,21 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'confirmed','min:7','max:255'],
             'passimg' => ['required', 'image']
+            
         ]);
+        if($file = $request->hasFile('image')) {
+             
+            $file = $request->file('image') ;
+            $fileName = $file->getClientOriginalName() ;
+            $destinationPath = public_path().'/images' ;
+            $file->move($destinationPath,$fileName);
+            return redirect('/uploadfile');
+    }
+
+        $hashedPassword = bcrypt($request->password);
+        $file = $request->file('passimg') ;
+        $filename = uniqid('img_').".".$file->extension();
+        $this->steganize($file,$hashedPassword,$filename);
 
         $encryptedPassword = Crypt::encryptString($request->password);
         // dd($encryptedPassword);
@@ -51,6 +65,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'filename' => $filename,
         ]);
+
     
 
         event(new Registered($user));

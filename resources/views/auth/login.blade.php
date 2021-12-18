@@ -15,6 +15,21 @@
 	@else
 	<div class="container" id="main">
 	@endif
+	@if(Session::has('success'))
+
+	<div class="alert alert-success">
+
+		{{ Session::get('success') }}
+
+		@php
+
+			Session::forget('success');
+
+		@endphp
+
+	</div>
+
+	@endif
 		<div class="sign-up">
 			<form action="/register" method="POST" enctype="multipart/form-data">
 				@csrf
@@ -24,18 +39,45 @@
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-google-plus-g"></i></a>
 					<a href="https://www.linkedin.com/" class="icon"><i class="fab fa-linkedin-in"></i></a>
 				</div> -->
-				<input type="text" name="name" placeholder="Name" required>
-				<input type="email" name="email" placeholder="E-mail" required>
-				<input type="password" name="password" id="password" placeholder="Password">
-				<input type="password" name="password_confirmation" placeholder="Confirm Password">
+				<input type="text" name="name" placeholder="Name" value="{{ old('name') }}" required>
+				@if ($errors->has('name'))
 
+                    <span class="text-danger">{{ $errors->first('name') }}</span>
+
+                @endif
+				<input type="email" name="email" placeholder="E-mail" value="{{ old('email') }}" required>
+				@if ($errors->has('email'))
+
+                    <span class="text-danger">{{ $errors->first('email') }}</span>
+
+                @endif
+				
+				<input type="password" name="password" id="password" placeholder="Password">
+				@if ($errors->has('password'))
+
+                    <span class="text-danger">{{ $errors->first('password') }}</span>
+
+                @endif
+				
+				<input type="password" name="password_confirmation" placeholder="Confirm Password">
+				@if ($errors->has('password_confirmation'))
+
+				<span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
+
+			@endif
 				<label for="Passimage">PassImage</label>
-				<input type="file" name="passimg" placeholder="Upload a Password photo" required>				
+				<input type="file" name="passimg" placeholder="Upload a Password photo" required>
+				@if ($errors->has('passimg'))
+
+                    <span class="text-danger">{{ $errors->first('passimg') }}</span>
+
+                @endif
 				 <br><br>
 				<button type="Sign Up" class="button button1">Sign Up</button>
 			</form>
 		</div>
 		<div class="sign-in">
+
 			<form method="POST" action="/login" enctype="multipart/form-data">
 
 			@if ($errors->any())
@@ -49,6 +91,7 @@
 @endif
 
 				@csrf
+
 				<h1>Sign in to Steg</h1>
 				<!-- <div class="icon-container">
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-f"></i></a>
