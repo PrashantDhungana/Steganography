@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gallery;
 use Illuminate\Http\Request;
 
-class GalleryController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $gallery = Gallery::all();
-
-        return view('gallery', compact('gallery'));
+        return view('user.index');
     }
 
     /**
@@ -26,7 +23,7 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**

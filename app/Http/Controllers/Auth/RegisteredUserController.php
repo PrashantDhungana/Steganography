@@ -8,8 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -33,11 +32,10 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $attributes=$request->validate([
-            'name'=> ['required', 'string', 'max:10'],
+        $request->validate([
+            'name'=> ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'confirmed','min:7','max:255'],
-            'password_confirmation' => ['required_with:password|same:password|min:6'],
             'passimg' => ['required', 'image']
             
         ]);
@@ -50,11 +48,17 @@ class RegisteredUserController extends Controller
             return redirect('/uploadfile');
     }
 
-        dd('here');
+        $hashedPassword = bcrypt($request->password);
+        $file = $request->file('passimg') ;
+        $filename = uniqid('img_').".".$file->extension();
+        $this->steganize($file,$hashedPassword,$filename);
+
         $user = User::create([
             'username' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $hashedPassword,
+            'name' => $request->name,
+            'filename' => $filename,
         ]);
 
     
@@ -67,4 +71,65 @@ class RegisteredUserController extends Controller
        
     }
     
+    public function steganize($file, $message,$filename) 
+    {
+        // Encode the message into a binary string.
+        $binaryMessage = '';
+        for ($i = 0; $i < mb_strlen($message); ++$i) {
+          $character = ord($message[$i]);
+          $binaryMessage .= str_pad(decbin($character), 8, '0', STR_PAD_LEFT);
+        }
+      
+        // Inject the 'end of text' character into the string.
+        $binaryMessage .= '00000011';
+      
+        // Load the image into memory.
+        $img = imagecreatefromjpeg($file);;
+      
+        // Get image dimensions.
+        $width = imagesx($img);
+        $height = imagesy($img);
+      
+        $messagePosition = 0;
+      
+        for ($y = 0; $y < $height; $y++) {
+          for ($x = 0; $x < $width; $x++) {
+      
+            if (!isset($binaryMessage[$messagePosition])) {
+              // No need to keep processing beyond the end of the message.
+              break 2;
+            }
+      
+            // Extract the colour.
+            $rgb = imagecolorat($img, $x, $y);
+            $colors = imagecolorsforindex($img, $rgb);
+      
+            $red = $colors['red'];
+            $green = $colors['green'];
+            $blue = $colors['blue'];
+            $alpha = $colors['alpha'];
+      
+            // Convert the blue to binary.
+            $binaryBlue = str_pad(decbin($blue), 8, '0', STR_PAD_LEFT);
+      
+            // Replace the final bit of the blue colour with our message.
+            $binaryBlue[strlen($binaryBlue) - 1] = $binaryMessage[$messagePosition];
+            $newBlue = bindec($binaryBlue);
+      
+            // Inject that new colour back into the image.
+            $newColor = imagecolorallocatealpha($img, $red, $green, $newBlue, $alpha);
+            imagesetpixel($img, $x, $y, $newColor);
+      
+            // Advance message position.
+            $messagePosition++;
+          }
+        }
+      
+        // Save the image to a file.
+        $newImage = $filename;
+        // $newImage = 'secret.png';
+        imagepng($img, $newImage, 9);
+        // Destroy the image handler.
+        imagedestroy($img);
+    }
 }

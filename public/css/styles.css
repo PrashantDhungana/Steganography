@@ -113,3 +113,46 @@ margin: 5px 5px 5px 20px;
     object-fit: cover;
     border-radius: 5px;
   }
+  .sidebar{
+      background-color: black;
+      height: 1000px;
+      color: white;
+
+  }
+  .sidebar a {
+      color: white;
+      padding: 15px;
+      min-width: 285px;
+     
+  }
+  .nav-pills .nav-link{
+    border-radius: 0px;
+
+  }
+  .profile{
+    font-family: sans-serif;
+    text-align: center;
+    font-size: 30px;
+    width: 350px;
+    height: 400px;
+    /* padding: 50px; */
+    /* margin: 5% 0px 0px 20%; */
+    background-color: #ada9a9;
+    position: relative;
+    float: left;
+    width: 95%;
+  }
+  .profile_image{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 20px auto 40px auto;
+    display: block;
+  
+  }
+  .profile_name{
+      font-size: 20px;
+      padding: 5px;
+      /* background-color: rgb(204, 198, 198); */
+  }

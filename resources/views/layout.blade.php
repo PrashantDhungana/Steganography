@@ -67,65 +67,7 @@
      </div>
     </div>
      </nav>
-     <div class="wrap__body mt-3">
-       <div class="container">
-       <div class="gallery">
-       <div class="row">
-        <div class="card-deck mt-3">
-        @foreach ($gallery as $gall)
-        <div class="col-sm-3 mt-5">
-        <div class="card ">
-            <img class="card-img-top" src="/img/img2 (1).jpg" alt="Card image cap">
-            <div class="card-body">
-              <p class="card-text">{{$gall->text}}</p>
-                <div class="icons">
-                    <a href=""><i class="fa fa-bookmark" aria-hidden="true"></i></a>
-                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-
-                </div>
-            </div>
-          </div>
-        </div>
-
-            
-        @endforeach
-         
-        </div>
-       </div>      
-       </div>
-       <div class="encode mt-5 mb-5">
-         <h3>Encode and Decode</h3>
-         <div class="row">
-           <div class="col-md-6">
-            <div class="drag-area gap-3">
-              <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-              <header>Encode</header>
-              <span>OR</span>
-              <button>Browse File</button>
-              <input type="file" hidden>
-            </div>
-           </div>
-           <div class="col-md-6">
-            <div class="drag-area gap-3">
-              <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-              <header>Decode</header>
-              <span>OR</span>
-              <button>Browse File</button>
-              <input type="file" hidden>
-            </div>
-           </div>
-         </div>
-         <!-- <div class="box">
-           <div class="enc"><h6 class="hide">Hide message</h6></div>
-           <div class="dec"><h6 class="decc">Decode message</h6></div>
-         </div> -->
-
-       </div>
-      
-
-       </div>
-       <div class="back" mt-></div>
-     </div>
+     @yield('contents')
    
 </div>
 

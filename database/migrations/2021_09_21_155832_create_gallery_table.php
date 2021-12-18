@@ -13,7 +13,7 @@ class CreateGalleryTable extends Migration
      */
     public function up()
     {
-        Schema::create('gallery', function (Blueprint $table) {
+        Schema::create('galleries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users','id');
             $table->string('image');
