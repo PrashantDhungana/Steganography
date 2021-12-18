@@ -1,76 +1,8 @@
 <?php
+namespace App\Http\Traits;
 
-namespace App\Http\Controllers\Auth;
-
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
-class RegisteredUserController extends Controller
+trait EncodeDecodeTrait
 {
-    /**
-     * Display the registration view.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('auth.login');
-    }
-
-    /**
-     * Handle an incoming registration request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name'=> ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'confirmed','min:7','max:255'],
-            'passimg' => ['required', 'image']
-            
-        ]);
-        if($file = $request->hasFile('image')) {
-             
-            $file = $request->file('image') ;
-            $fileName = $file->getClientOriginalName() ;
-            $destinationPath = public_path().'/images' ;
-            $file->move($destinationPath,$fileName);
-            return redirect('/uploadfile');
-    }
-
-        $encryptedPassword = Crypt::encryptString($request->password);
-        // dd($encryptedPassword);
-        $file = $request->file('passimg') ;
-        $filename = uniqid('img_').".".$file->extension();
-        $this->steganize($file,$encryptedPassword,$filename);
-
-        $user = User::create([
-            'username' => $request->name,
-            'email' => $request->email,
-            'password' => $encryptedPassword,
-            'name' => $request->name,
-            'filename' => $filename,
-        ]);
-
-    
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
-       
-    }
-    
     public function steganize($file, $message,$filename) 
     {
         // Encode the message into a binary string.

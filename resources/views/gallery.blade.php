@@ -56,10 +56,13 @@
                    Activity Log
                </a>
                <div class="dropdown-divider text-white"></div>
-               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                   Logout
-               </a>
+               <form action="/logout" method="POST" class="dropdown-item">
+                 @csrf
+                   <button type="submit" >
+                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
+                   </button>
+                </a>
+               </form>
            </div>
        </li>
    
@@ -102,7 +105,9 @@
               <header>Encode</header>
               <span>OR</span>
               <button>Browse File</button>
-              <input type="file" hidden>
+              <form action="">
+                <input type="file" hidden>
+              </form>
             </div>
            </div>
            <div class="col-md-6">

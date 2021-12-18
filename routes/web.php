@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EncodeDecodeController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -18,10 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::resource('/gallery' , GalleryController::class);
 Route::resource('/user' , UserController::class);
 
-
+Route::get('test',[EncodeDecodeController::class,'huhu']);
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
