@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 </head>
 <body>
-	
 	@if(request()->getPathInfo() == "/register")
 	<div class="container right-panel-active" id="main">
 	@else
@@ -78,16 +77,34 @@
 			</form>
 		</div>
 		<div class="sign-in">
+<<<<<<< HEAD
 			<form action="/login" method="POST" enctype="multipart/form-data">
+=======
+			<form method="POST" action="/login" >
+
+			@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+				@csrf
+>>>>>>> 60a6521ecbbc2a7c34d730f554922590dab52a3b
 				<h1>Sign in to Steg</h1>
 				<!-- <div class="icon-container">
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-f"></i></a>
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-google-plus-g"></i></a>
 					<a href="https://www.linkedin.com/" class="icon"><i class="fab fa-linkedin-in"></i></a>
 				</div> -->
-				<input type="file" name="pswd" placeholder="Password" required>
+				Email
+				<input type="email" name="email" id="email" placeholder="ex.test@test.com">
+				<input type="file" name="passimg" required>
 				<label class="forgot-password"><a >Forget Passimage?</a></label>
-                <input type="checkbox"> <label class="form-remember">Remember me</label>
+                <input type="checkbox" name="remember"> <label class="form-remember">Remember me</label>
 				<br><br><br>
 				<button type="Sign in" class="button button2">Sign in</button>
 			</form>

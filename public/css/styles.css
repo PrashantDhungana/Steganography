@@ -1,0 +1,115 @@
+
+.card-img-top{
+    height: 180px;
+}
+.icons{
+    display: flex;
+    justify-content: flex-end;
+}
+.icons a{
+    margin-right: 18px;
+    text-decoration: none;
+    color: black;
+}
+.card-body{
+    padding: 5px 0px 0px 0px;
+}
+.enc{
+    height: 220px;
+    width: 350px;
+    border: 2px dashed black;
+    margin-right: 20px;
+    text-align: center;
+}
+.dec{
+    height: 220px;
+    width: 350px;
+    border: 2px dashed black;
+    text-align: center;
+}
+.box{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+.back{
+    height: 200px;
+    width: 100%;
+    background-color: black;
+}
+.hide{
+    position: relative;
+    top: 91px;
+    left: 0px;
+    
+}
+.decc{
+    position: relative;
+top: 93px;
+
+}
+h3{
+    font-size: 22px;
+
+margin: 0px 0px 25px 0px;
+}
+.card{
+    padding: 20px;
+    border-radius: 1px solid black;
+    box-shadow: 2px 4px 3px #ced6e0;
+}
+.card:hover{
+    box-shadow: 4px 4px 10px #ced6e0;
+}
+.carousel-item{
+    padding: 10px;
+}
+.drag-area{
+    border: 2px dashed #aca7a7;
+height: 305px;
+width: 399px;
+border-radius: 5px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+/* margin: 0px 0px 0px 42px; */
+background: #e5e7eb;
+margin: 5px 5px 5px 20px;
+  }
+  .drag-area.active{
+    border: 2px solid #fff;
+  }
+  .drag-area .icon{
+    font-size: 50px;
+    color: #fff;
+  }
+  .drag-area header{
+    font-size: 30px;
+    font-weight: 500;
+    color: #fff;
+  }
+  .drag-area span{
+    font-size: 25px;
+    font-weight: 500;
+    color: #fff;
+    margin: 10px 0 15px 0;
+  }
+  .drag-area button{
+    padding: 10px 25px;
+    font-size: 20px;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background: #fff;
+    color: #5256ad;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .drag-area img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+  }

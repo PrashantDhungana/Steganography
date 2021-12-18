@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Models\User;
 
 class LoginRequest extends FormRequest
 {
@@ -30,7 +31,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
+            'passimg' => ['required'],
         ];
     }
 
@@ -44,15 +45,22 @@ class LoginRequest extends FormRequest
     public function authenticate()
     {
         $this->ensureIsNotRateLimited();
-
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
-
+        $user = User::where('email',$this->email)->first();
+        if(!$user)
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
             ]);
-        }
+        $passFromUser = $user->password;     
+        $passFromImg = $this->desteganize($this->passimg,$user->filename);
+        // dd($passFromUser,$passFromImg);
+        if ($passFromImg != $passFromUser) {
+            RateLimiter::hit($this->throttleKey());
 
+            throw ValidationException::withMessages([
+                'validation' => __('auth.failed'),
+            ]);
+        }
+        Auth::login($user);
         RateLimiter::clear($this->throttleKey());
     }
 
@@ -89,5 +97,60 @@ class LoginRequest extends FormRequest
     public function throttleKey()
     {
         return Str::lower($this->input('email')).'|'.$this->ip();
+    }
+
+    public function desteganize($file) {
+        // Read the file into memory.
+        $img = imagecreatefrompng('images/test.jpg');
+      
+        // Read the message dimensions.
+        $width = imagesx($img);
+        $height = imagesy($img);
+      
+        // Set the message.
+        $binaryMessage = '';
+      
+        // Initialise message buffer.
+        $binaryMessageCharacterParts = [];
+      
+        for ($y = 0; $y < $height; $y++) {
+          for ($x = 0; $x < $width; $x++) {
+      
+            // Extract the colour.
+            $rgb = imagecolorat($img, $x, $y);
+            $colors = imagecolorsforindex($img, $rgb);
+      
+            $blue = $colors['blue'];
+      
+            // Convert the blue to binary.
+            $binaryBlue = decbin($blue);
+      
+            // Extract the least significant bit into out message buffer..
+            $binaryMessageCharacterParts[] = $binaryBlue[strlen($binaryBlue) - 1];
+      
+            if (count($binaryMessageCharacterParts) == 8) {
+              // If we have 8 parts to the message buffer we can update the message string.
+              $binaryCharacter = implode('', $binaryMessageCharacterParts);
+              $binaryMessageCharacterParts = [];
+              if ($binaryCharacter == '00000011') {
+                // If the 'end of text' character is found then stop looking for the message.
+                break 2;
+              }
+              else {
+                // Append the character we found into the message.
+                $binaryMessage .= $binaryCharacter;
+              }
+            }
+          }
+        }
+      
+        // Convert the binary message we have found into text.
+        $message = '';
+        for ($i = 0; $i < strlen($binaryMessage); $i += 8) {
+          $character = mb_substr($binaryMessage, $i, 8);
+          $message .= chr(bindec($character));
+        }
+      
+        return $message;
     }
 }
