@@ -36,7 +36,7 @@
 			</form>
 		</div>
 		<div class="sign-in">
-			<form method="POST" action="/login" >
+			<form method="POST" action="/login" enctype="multipart/form-data">
 
 			@if ($errors->any())
     <div class="alert alert-danger">
