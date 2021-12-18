@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use Illuminate\Support\Facades\Crypt;
 
 class LoginRequest extends FormRequest
 {
@@ -50,9 +51,11 @@ class LoginRequest extends FormRequest
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
             ]);
-        $passFromUser = $user->password;     
-        $passFromImg = $this->desteganize($this->passimg,$user->filename);
-        // dd($passFromUser,$passFromImg);
+        // Getting Users' Passwd
+        $passFromUser = $user->password;
+        //Decrypting image for the hidden encrypted password 
+        $passFromImg = $this->desteganize($this->file('passimg'));
+        
         if ($passFromImg != $passFromUser) {
             RateLimiter::hit($this->throttleKey());
 
@@ -101,7 +104,7 @@ class LoginRequest extends FormRequest
 
     public function desteganize($file) {
         // Read the file into memory.
-        $img = imagecreatefrompng('images/test.jpg');
+        $img = imagecreatefrompng($file);
       
         // Read the message dimensions.
         $width = imagesx($img);

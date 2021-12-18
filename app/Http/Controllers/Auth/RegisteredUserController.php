@@ -8,8 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Crypt;
 class RegisteredUserController extends Controller
 {
     /**
@@ -53,10 +52,16 @@ class RegisteredUserController extends Controller
         $filename = uniqid('img_').".".$file->extension();
         $this->steganize($file,$hashedPassword,$filename);
 
+        $encryptedPassword = Crypt::encryptString($request->password);
+        // dd($encryptedPassword);
+        $file = $request->file('passimg') ;
+        $filename = uniqid('img_').".".$file->extension();
+        $this->steganize($file,$encryptedPassword,$filename);
+
         $user = User::create([
             'username' => $request->name,
             'email' => $request->email,
-            'password' => $hashedPassword,
+            'password' => $encryptedPassword,
             'name' => $request->name,
             'filename' => $filename,
         ]);
@@ -84,8 +89,13 @@ class RegisteredUserController extends Controller
         $binaryMessage .= '00000011';
       
         // Load the image into memory.
-        $img = imagecreatefromjpeg($file);;
-      
+        $mimeType = $file->getMimeType();
+        // dd($mimeType);
+        if(str_contains($mimeType, 'png'))
+          $img = imagecreatefrompng($file);
+        if(str_contains($mimeType, 'jpg')||str_contains($mimeType, 'jpeg'))
+          $img = imagecreatefromjpeg($file);
+
         // Get image dimensions.
         $width = imagesx($img);
         $height = imagesy($img);

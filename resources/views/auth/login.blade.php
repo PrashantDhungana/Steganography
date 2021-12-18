@@ -77,10 +77,8 @@
 			</form>
 		</div>
 		<div class="sign-in">
-<<<<<<< HEAD
-			<form action="/login" method="POST" enctype="multipart/form-data">
-=======
-			<form method="POST" action="/login" >
+
+			<form method="POST" action="/login" enctype="multipart/form-data">
 
 			@if ($errors->any())
     <div class="alert alert-danger">
@@ -93,7 +91,7 @@
 @endif
 
 				@csrf
->>>>>>> 60a6521ecbbc2a7c34d730f554922590dab52a3b
+
 				<h1>Sign in to Steg</h1>
 				<!-- <div class="icon-container">
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-f"></i></a>
