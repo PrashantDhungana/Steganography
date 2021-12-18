@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('gallery' , GalleryController::class);
-Route::resource('user' , UserController::class);
+Route::resource('/gallery' , GalleryController::class);
+Route::resource('/user' , UserController::class);
 
 
 Route::get('/dashboard', function () {

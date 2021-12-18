@@ -115,7 +115,7 @@ margin: 5px 5px 5px 20px;
   }
   .sidebar{
       background-color: black;
-      height: 1000px;
+      height: 500px;
       color: white;
 
   }
@@ -134,10 +134,10 @@ margin: 5px 5px 5px 20px;
     text-align: center;
     font-size: 30px;
     width: 350px;
-    height: 400px;
+    height: 350px;
     /* padding: 50px; */
     /* margin: 5% 0px 0px 20%; */
-    background-color: #ada9a9;
+    background-color: #f5f1f1;
     position: relative;
     float: left;
     width: 95%;
@@ -155,4 +155,22 @@ margin: 5px 5px 5px 20px;
       font-size: 20px;
       padding: 5px;
       /* background-color: rgb(204, 198, 198); */
+  }
+  .email{
+    font-size: 15px;
+    padding: 5px;
+  }
+  .form{
+    width: 350px;
+    height: 350px;
+    padding: 20px;
+    /* margin: 5% 0px 0px 20%; */
+    background-color: #f5f1f1;
+    position: relative;
+  }
+  #contains{
+      height: auto;
+      background-color: rgb(228, 220, 228);
+      margin-top:40px;
+
   }

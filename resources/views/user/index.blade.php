@@ -1,7 +1,7 @@
 @extends('layout')
 @section('contents')
 <div class="wrapper">
-    <div class="container">
+    <div class="container" id="contains">
        <div class="row">
              <div class=" sidebar nav col-md-3 flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">User Profile</a>
@@ -19,8 +19,29 @@
                             <div class="profile">
                                 <img src="/img/user.png" alt="User Profile image" class="profile_image">
                                 <div class="profile_name">Karishma Karki</div>
-                                <button type="Admin" class="btn btn-primary">Admin</button>
+                                <p class="email">Karkikarishma143@gmail.com</p>
+                                <button type="Admin" class="btn btn-primary">Edit Profile</button>
                             </div>
+                           </div>
+                           <div class="form col-md-8">
+                            <form>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Username</label>
+                                    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                  </div>
+                                
+
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">Password</label>
+                                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Confirm Password</label>
+                                    <input type="password_confirmation" class="form-control" id="exampleInputPassword1" placeholder="Enter confirmation Password">
+                                  </div>
+                                
+                                <button type="submit" class="btn btn-primary float-right">Submit</button>
+                              </form>
                            </div>
                         </div>
                     </div>
