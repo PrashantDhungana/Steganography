@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'passimg' => ['required', 'image']
         ]);
 
-        $hashedPassword = bcrypt($request->password);
+        $hashedPassword = bcrypt($request->password); 
         $file = $request->file('passimg') ;
         $filename = uniqid('img_').".".$file->extension();
         $this->steganize($file,$hashedPassword,$filename);
