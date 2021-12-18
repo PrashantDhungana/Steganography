@@ -57,6 +57,7 @@
 				</div> -->
 				Email
 				<input type="email" name="email" id="email" placeholder="ex.test@test.com">
+				Password:
 				<input type="file" name="passimg" required>
 				<label class="forgot-password"><a >Forget Passimage?</a></label>
                 <input type="checkbox" name="remember"> <label class="form-remember">Remember me</label>
