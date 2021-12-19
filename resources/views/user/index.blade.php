@@ -23,8 +23,9 @@
                                 <button type="Admin" class="btn btn-primary">Edit Profile</button>
                             </div>
                            </div>
-                           <div class="form col-md-8">
-                            <form>
+                           <div class="form col-md-8 ">
+                          <div class="userb">
+                            <form class="m-3">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Username</label>
                                     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -41,7 +42,8 @@
                                   </div>
                                 
                                 <button type="submit" class="btn btn-primary float-right">Submit</button>
-                              </form>
+                            </form>
+                          </div>
                            </div>
                         </div>
                     </div>
@@ -51,7 +53,35 @@
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus ratione deserunt veritatis, quod pariatur quos deleniti maxime non dolor, neque sequi ducimus maiores molestiae, odio esse est ut quis blanditiis consequatur doloribus minus nulla. Impedit magnam fuga amet, vero neque hic asperiores, velit quae illo exercitationem quisquam necessitatibus nobis odit reiciendis at id dolor earum repellat quidem rerum, nulla incidunt? Suscipit inventore eveniet ab, sequi illum nihil temporibus quam totam dolorum amet quae esse. Impedit ratione temporibus reprehenderit, eum unde earum fugit, quisquam atque, exercitationem sunt voluptatibus dolorum autem distinctio necessitatibus iure tenetur error iste molestiae excepturi accusamus fugiat dolorem. Dolorum, ab eveniet repellendus praesentium nobis porro atque explicabo, aperiam vel ipsam quia consectetur modi impedit magni, sunt fuga quas quam sapiente quis saepe at iure. Dicta odio, voluptatem earum esse harum delectus fugit vitae in ratione voluptatibus ex deserunt quisquam, exercitationem pariatur. Est et exercitationem corrupti distinctio totam consequatur dolorem, perspiciatis soluta impedit similique suscipit excepturi optio non vero consequuntur dolores ad temporibus omnis rerum, unde assumenda! Consequatur vitae rem asperiores numquam error assumenda, laboriosam molestias earum perspiciatis expedita sint unde voluptatem optio, suscipit mollitia quod eius ipsam repudiandae ipsum omnis enim minima doloribus neque quam. Minima, eligendi dolorum!
                     </div>
                 </div>
-                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                   <div class="card-pass">
+                       <div class="img-sec col-md-6">
+                           <h5 class="my-2">Lets Change the Password</h5>
+                           <img src="/img/secure.png"/ style="width: 100%">
+                       </div>
+                       <div class="text-sec col-md-6">
+                        <form class="m-3">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Username</label>
+                                <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                              </div>
+                            
+
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Password</label>
+                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Confirm Password</label>
+                                <input type="password_confirmation" class="form-control" id="exampleInputPassword1" placeholder="Enter confirmation Password">
+                              </div>
+                            
+                            <button type="submit" class="btn btn-primary mt-2 float-right">Submit</button>
+                        </form>
+                       </div>
+
+                   </div>
+                </div>
                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
               </div>
           

@@ -65,7 +65,7 @@ margin: 0px 0px 25px 0px;
 .carousel-item{
     padding: 10px;
 }
-.drag-area{
+.drag-area  ,.drag-darea{
     border: 2px dashed #aca7a7;
 height: 305px;
 width: 399px;
@@ -78,25 +78,25 @@ flex-direction: column;
 background: #e5e7eb;
 margin: 5px 5px 5px 20px;
   }
-  .drag-area.active{
+  .drag-area.active, .drag-darea.active{
     border: 2px solid #fff;
   }
-  .drag-area .icon{
+  .drag-area .icon, .drag-darea .icon{
     font-size: 50px;
     color: #fff;
   }
-  .drag-area header{
+  .drag-area header,.drag-darea header{
     font-size: 30px;
     font-weight: 500;
     color: #fff;
   }
-  .drag-area span{
+  .drag-area span,  .drag-darea span{
     font-size: 25px;
     font-weight: 500;
     color: #fff;
     margin: 10px 0 15px 0;
   }
-  .drag-area button{
+  .drag-area button, .drag-darea button{
     padding: 10px 25px;
     font-size: 20px;
     font-weight: 500;
@@ -107,7 +107,7 @@ margin: 5px 5px 5px 20px;
     border-radius: 5px;
     cursor: pointer;
   }
-  .drag-area img{
+  .drag-area img , .drag-darea img{
     height: 100%;
     width: 100%;
     object-fit: cover;
@@ -135,7 +135,7 @@ margin: 5px 5px 5px 20px;
     font-size: 30px;
     width: 350px;
     height: 350px;
-    /* padding: 50px; */
+    margin-top: 60px;
     /* margin: 5% 0px 0px 20%; */
     background-color: #f5f1f1;
     position: relative;
@@ -160,18 +160,24 @@ margin: 5px 5px 5px 20px;
     font-size: 15px;
     padding: 5px;
   }
-  .form{
+  .userb{
     width: 350px;
     height: 350px;
     padding: 20px;
-    /* margin: 5% 0px 0px 20%; */
+   margin-top :60px;
+    width: 350px;
+    height: 350px;
+ 
     background-color: #f5f1f1;
     position: relative;
+    float: left;
+    width: 95%;
   }
   #contains{
+      /* margin: auto; */
       height: auto;
       background-color: rgb(228, 220, 228);
-      margin-top:40px;
+      margin-top:80px;
 
   }
   .cat-wrap{
@@ -204,4 +210,23 @@ margin: 5px 5px 5px 20px;
 .hell{
     font-size: 30px;
     font-weight: 600;
+}
+.card-pass{
+    margin: 40px;
+    height:400px ;
+    width: 800px;
+    padding: 20px;
+    background-color: whitesmoke;
+    box-shadow: 1px 2px 0px rgb(228, 220, 228);
+}
+.card-pass{
+    display: flex;
+    flex-direction: row;
+    margin: 40px auto auto auto;
+}
+.img-sec{
+
+}
+.img-sec img{
+    object-fit: contain;
 }
