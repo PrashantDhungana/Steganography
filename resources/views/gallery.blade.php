@@ -136,21 +136,23 @@
           </button>
         </div>
         <div class="modal-body">
-            <form>
+            <form method="POST" action="/gallery" enctype="multipart/form-data">
+              @csrf
                 <div class="row">
-                    <div class="col-md-6">
+                  <!-- <div class="col-md-6">
                         <div class="drag-area gap-3">
                             <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
                             <header>Encode</header>
                             <span>OR</span>
                             <button>Browse File</button>
-                            <input type="file" hidden>
-                          </div>
-                    </div>
+                            <input type="file" name="encode">
+                        </div>
+                  </div>  -->
+                    <input type="file" name="encode">
                     <div class="col-md-6 p-5">
                       <div class="form-group mt-3">
                         <label for="exampleInputEmail1">Text to be encoded</label>
-                        <input type="text" placeholder="Regular" class="form-control" name="text" />
+                        <input type="text" placeholder="Hidden text" class="form-control" name="text" />
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="chkYes" onclick="ShowHideDiv()" value="option2">
