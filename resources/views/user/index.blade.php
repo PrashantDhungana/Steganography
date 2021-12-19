@@ -50,7 +50,50 @@
                 </div>
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                     <div class="wrap">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus ratione deserunt veritatis, quod pariatur quos deleniti maxime non dolor, neque sequi ducimus maiores molestiae, odio esse est ut quis blanditiis consequatur doloribus minus nulla. Impedit magnam fuga amet, vero neque hic asperiores, velit quae illo exercitationem quisquam necessitatibus nobis odit reiciendis at id dolor earum repellat quidem rerum, nulla incidunt? Suscipit inventore eveniet ab, sequi illum nihil temporibus quam totam dolorum amet quae esse. Impedit ratione temporibus reprehenderit, eum unde earum fugit, quisquam atque, exercitationem sunt voluptatibus dolorum autem distinctio necessitatibus iure tenetur error iste molestiae excepturi accusamus fugiat dolorem. Dolorum, ab eveniet repellendus praesentium nobis porro atque explicabo, aperiam vel ipsam quia consectetur modi impedit magni, sunt fuga quas quam sapiente quis saepe at iure. Dicta odio, voluptatem earum esse harum delectus fugit vitae in ratione voluptatibus ex deserunt quisquam, exercitationem pariatur. Est et exercitationem corrupti distinctio totam consequatur dolorem, perspiciatis soluta impedit similique suscipit excepturi optio non vero consequuntur dolores ad temporibus omnis rerum, unde assumenda! Consequatur vitae rem asperiores numquam error assumenda, laboriosam molestias earum perspiciatis expedita sint unde voluptatem optio, suscipit mollitia quod eius ipsam repudiandae ipsum omnis enim minima doloribus neque quam. Minima, eligendi dolorum!
+                      <table class="table table-striped table-dark">
+                        <thead>
+                          <tr>
+                            <th scope="col">S.No</th>
+                            <th scope="col">Image Name</th>
+                            <th scope="col">Visibility</th>
+                            <th scope="col">Uploaded At</th>
+                            <th scope="col">Action</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>
+                              <a href="#" type="button" rel="tooltip"  data-toggle="modal" data-target="#showModal">
+                                <i class="fas fa-eye"></i>
+                                </a>                              
+                                <a href=""><i class="fas fa-trash-alt"></i></a>
+                              <a href=""><i class="bi bi-unlock-fill"></i></a>
+                            </td>
+                            
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                            <td>Otto</td>
+
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                            <td>Otto</td>
+
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
@@ -90,4 +133,27 @@
     </div>
 </div>
     
+
+{{-- //Modal --}}
+
+<!-- Modal -->
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection

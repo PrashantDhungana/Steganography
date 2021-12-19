@@ -199,7 +199,7 @@ margin: 5px 5px 5px 20px;
 
 }
 .category:hover {
-    background-color: #5e72e4;
+    background-color: #17a2b8;
     
     color: white;
 }
@@ -210,6 +210,14 @@ margin: 5px 5px 5px 20px;
 .hell{
     font-size: 30px;
     font-weight: 600;
+}
+.category button{
+  background-color: #17a2b8;
+  border: none;
+}
+.category button:hover{
+  transform: scale(1.02);
+  background-color: rgb(209, 208, 205);
 }
 .card-pass{
     margin: 40px;
@@ -229,4 +237,53 @@ margin: 5px 5px 5px 20px;
 }
 .img-sec img{
     object-fit: contain;
+}
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+.wrap thead {
+  background-color: #17a2b8;
+}
+tr:nth-child(even){
+  background-color: #69bcc9;
+}
+.wrap{
+  margin-top: 50px;
+}
+.fa-trash-alt{
+  color: red;
+}
+.fa-eye{
+  color: rgb(0, 162, 255);
+}
+.bi-unlock-fill{
+  color: orange;
+}
+.gallery .card-img-top {
+  /*height: 11vw;*/
+  max-height: 200px;
+  min-height: 200px;
+  width: 100%;
+  object-position: 100% 0%;
+  object-fit: cover;
+
+}
+.wrap table a{
+  padding: 5px;
 }

@@ -75,7 +75,7 @@
         @foreach ($gallery as $gall)
         <div class="col-sm-3 mt-5">
         <div class="card ">
-            <img class="card-img-top" src="/img/img2 (1).jpg" alt="Card image cap">
+            <img class="card-img-top img-fluid" src="/img/img2 (1).jpg" alt="Card image cap">
             <div class="card-body">
               <p class="card-text">{{$gall->text}}</p>
                 <div class="icons">
@@ -144,8 +144,10 @@
                             <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
                             <header>Encode</header>
                             <span>OR</span>
-                            <button>Browse File</button>
-                            <input type="file" hidden>
+                            <span class="btn btn-secondary btn-file">
+                              Browse file<input type="file" name="encode">
+                          </span>
+                          <p id="filename"></p>
                           </div>
                     </div>
                     <div class="col-md-6 p-5">
@@ -203,8 +205,10 @@
                             <div class="icons"><i class="fas fa-cloud-upload-alt"></i></div>
                             <header>Encode</header>
                             <span>OR</span>
-                            <button>Browse File</button>
-                            <input type="file" hidden>
+                            <span class="btn btn-secondary btn-file">
+                              Browse file<input type="file" name="decode">
+                          </span>
+                          <p id="filename"></p>
                           </div>
                     </div>
                     <div class="col-md-6 p-5">
@@ -261,114 +265,119 @@
         var dvtext = document.getElementById("dvtext");
         dvtext.style.display = chkYes.checked ? "block" : "none";
     }
+//     var fileInput = document.querySelector('input[type=file]');
+//     var filenameContainer = document.querySelector('#filename');
+//     fileInput.addEventListener('change', function() {
+// 	filenameContainer.innerText = fileInput.value.split('\\').pop();
+// });
          //selecting all required elements
-const dropArea = document.querySelector(".drag-area"),
+// const dropArea = document.querySelector(".drag-area"),
 
 
-dragText = dropArea.querySelector("header"),
-button = dropArea.querySelector("button"),
-input = dropArea.querySelector("input");
+// dragText = dropArea.querySelector("header"),
+// button = dropArea.querySelector("button"),
+// input = dropArea.querySelector("input");
 
-let file; //this is a global variable and we'll use it inside multiple functions
-button.onclick = ()=>{
-  input.click(); //if user click on the button then the input also clicked
-}
-input.addEventListener("change", function(){
-  //getting user select file and [0] this means if user select multiple files then we'll select only the first one
-  file = this.files[0];
-  dropArea.classList.add("active");
-  showFile(); //calling function
-});
-//If user Drag File Over DropArea
-dropArea.addEventListener("dragover", (event)=>{
-  event.preventDefault(); //preventing from default behaviour
-  dropArea.classList.add("active");
-  dragText.textContent = "Release to Upload File";
-});
-//If user leave dragged File from DropArea
-dropArea.addEventListener("dragleave", ()=>{
-  dropArea.classList.remove("active");
-  dragText.textContent = "Drag & Drop to Upload File";
-});
-//If user drop File on DropArea
-dropArea.addEventListener("drop", (event)=>{
-  event.preventDefault(); //preventing from default behaviour
-  //getting user select file and [0] this means if user select multiple files then we'll select only the first one
-  file = event.dataTransfer.files[0];
-  showFile(); //calling function
-});
-function showFile(){
-  let fileType = file.type; //getting selected file type
-  let validExtensions = ["image/jpeg", "image/jpg", "image/png", "image/mp4", ]; //adding some valid image extensions in array
-  if(validExtensions.includes(fileType)){ //if user selected file is an image file
-    let fileReader = new FileReader(); //creating new FileReader object
-    fileReader.onload = ()=>{
-      let fileURL = fileReader.result; //passing user file source in fileURL variable
-        // UNCOMMENT THIS BELOW LINE. I GOT AN ERROR WHILE UPLOADING THIS POST SO I COMMENTED IT
-      let imgTag = `<img src="${fileURL}" alt="image">`; //creating an img tag and passing user selected file source inside src attribute
-      dropArea.innerHTML = imgTag; //adding that created img tag inside dropArea container
-    }
-    fileReader.readAsDataURL(file);
-  }else{
-    alert("This is not an Image File!");
-    dropArea.classList.remove("active");
-    dragText.textContent = "Drag & Drop to Upload File";
-  }
-}
+// let file; //this is a global variable and we'll use it inside multiple functions
+// button.onclick = ()=>{
+//   input.click(); //if user click on the button then the input also clicked
+// }
+// input.addEventListener("change", function(){
+//   //getting user select file and [0] this means if user select multiple files then we'll select only the first one
+//   file = this.files[0];
+//   dropArea.classList.add("active");
+//   showFile(); //calling function
+// });
+// //If user Drag File Over DropArea
+// dropArea.addEventListener("dragover", (event)=>{
+//   event.preventDefault(); //preventing from default behaviour
+//   dropArea.classList.add("active");
+//   dragText.textContent = "Release to Upload File";
+// });
+// //If user leave dragged File from DropArea
+// dropArea.addEventListener("dragleave", ()=>{
+//   dropArea.classList.remove("active");
+//   dragText.textContent = "Drag & Drop to Upload File";
+// });
+// //If user drop File on DropArea
+// dropArea.addEventListener("drop", (event)=>{
+//   event.preventDefault(); //preventing from default behaviour
+//   //getting user select file and [0] this means if user select multiple files then we'll select only the first one
+//   file = event.dataTransfer.files[0];
+//   showFile(); //calling function
+// });
+// function showFile(){
+//   let fileType = file.type; //getting selected file type
+//   let validExtensions = ["image/jpeg", "image/jpg", "image/png", "image/mp4", ]; //adding some valid image extensions in array
+//   if(validExtensions.includes(fileType)){ //if user selected file is an image file
+//     let fileReader = new FileReader(); //creating new FileReader object
+//     fileReader.onload = ()=>{
+//       let fileURL = fileReader.result; //passing user file source in fileURL variable
+//         // UNCOMMENT THIS BELOW LINE. I GOT AN ERROR WHILE UPLOADING THIS POST SO I COMMENTED IT
+//       let imgTag = `<img src="${fileURL}" alt="image">`; //creating an img tag and passing user selected file source inside src attribute
+//       dropArea.innerHTML = imgTag; //adding that created img tag inside dropArea container
+//     }
+//     fileReader.readAsDataURL(file);
+//   }else{
+//     alert("This is not an Image File!");
+//     dropArea.classList.remove("active");
+//     dragText.textContent = "Drag & Drop to Upload File";
+//   }
+// }
 
-// Decode area
+// // Decode area
 
-const dropDarea = document.querySelector(".drag-darea"),
+// const dropDarea = document.querySelector(".drag-darea"),
 
-dragDtext = dropDarea.querySelector("header"),
-buttons = dropDarea.querySelector("button"),
-inputs = dropDarea.querySelector("input");
-let files; //this is a global variable and we'll use it inside multiple functions
-buttons.onclick = ()=>{
-  inputs.click(); //if user click on the button then the inputs also clicked
-}
-inputs.addEventListener("change", function(){
-  //getting user select file and [0] this means if user select multiple files then we'll select only the first one
-  files = this.files[0];
-  dropDarea.classList.add("active");
-  showFile(); //calling function
-});
-//If user Drag File Over DropArea
-dropDarea.addEventListener("dragover", (event)=>{
-  event.preventDefault(); //preventing from default behaviour
-  dropDarea.classList.add("active");
- dragDtext.textContent = "Release to Upload File";
-});
-//If user leave dragged File from DropArea
-dropDarea.addEventListener("dragleave", ()=>{
-  dropDarea.classList.remove("active");
- dragDtext.textContent = "Drag & Drop to Upload File";
-});
-//If user drop File on DropArea
-dropDarea.addEventListener("drop", (event)=>{
-  event.preventDefault(); //preventing from default behaviour
-  //getting user select file and [0] this means if user select multiple files then we'll select only the first one
-  files = event.dataTransfer.files[0];
-  showFile(); //calling function
-});
-function showFile(){
-  let fileType = files.type; //getting selected file type
-  let validExtensions = ["image/jpeg", "image/jpg", "image/png", "image/mp4", ]; //adding some valid image extensions in array
-  if(validExtensions.includes(fileType)){ //if user selected file is an image file
-    let fileReader = new FileReader(); //creating new FileReader object
-    fileReader.onload = ()=>{
-      let fileURL = fileReader.result; //passing user file source in fileURL variable
-        // UNCOMMENT THIS BELOW LINE. I GOT AN ERROR WHILE UPLOADING THIS POST SO I COMMENTED IT
-      let imgTag = `<img src="${fileURL}" alt="image">`; //creating an img tag and passing user selected file source inside src attribute
-      dropDarea.innerHTML = imgTag; //adding that created img tag inside dropDarea container
-    }
-    fileReader.readAsDataURL(files);
-  }else{
-    alert("This is not an Image File!");
-    dropDarea.classList.remove("active");
-   dragDtext.textContent = "Drag & Drop to Upload File";
-  }
-}
+// dragDtext = dropDarea.querySelector("header"),
+// buttons = dropDarea.querySelector("button"),
+// inputs = dropDarea.querySelector("input");
+// let files; //this is a global variable and we'll use it inside multiple functions
+// buttons.onclick = ()=>{
+//   inputs.click(); //if user click on the button then the inputs also clicked
+// }
+// inputs.addEventListener("change", function(){
+//   //getting user select file and [0] this means if user select multiple files then we'll select only the first one
+//   files = this.files[0];
+//   dropDarea.classList.add("active");
+//   showFile(); //calling function
+// });
+// //If user Drag File Over DropArea
+// dropDarea.addEventListener("dragover", (event)=>{
+//   event.preventDefault(); //preventing from default behaviour
+//   dropDarea.classList.add("active");
+//  dragDtext.textContent = "Release to Upload File";
+// });
+// //If user leave dragged File from DropArea
+// dropDarea.addEventListener("dragleave", ()=>{
+//   dropDarea.classList.remove("active");
+//  dragDtext.textContent = "Drag & Drop to Upload File";
+// });
+// //If user drop File on DropArea
+// dropDarea.addEventListener("drop", (event)=>{
+//   event.preventDefault(); //preventing from default behaviour
+//   //getting user select file and [0] this means if user select multiple files then we'll select only the first one
+//   files = event.dataTransfer.files[0];
+//   showFile(); //calling function
+// });
+// function showFile(){
+//   let fileType = files.type; //getting selected file type
+//   let validExtensions = ["image/jpeg", "image/jpg", "image/png", "image/mp4", ]; //adding some valid image extensions in array
+//   if(validExtensions.includes(fileType)){ //if user selected file is an image file
+//     let fileReader = new FileReader(); //creating new FileReader object
+//     fileReader.onload = ()=>{
+//       let fileURL = fileReader.result; //passing user file source in fileURL variable
+//         // UNCOMMENT THIS BELOW LINE. I GOT AN ERROR WHILE UPLOADING THIS POST SO I COMMENTED IT
+//       let imgTag = `<img src="${fileURL}" alt="image">`; //creating an img tag and passing user selected file source inside src attribute
+//       dropDarea.innerHTML = imgTag; //adding that created img tag inside dropDarea container
+//     }
+//     fileReader.readAsDataURL(files);
+//   }else{
+//     alert("This is not an Image File!");
+//     dropDarea.classList.remove("active");
+//    dragDtext.textContent = "Drag & Drop to Upload File";
+//   }
+// }
 
 
 
