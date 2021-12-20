@@ -20,6 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/decode',[GalleryController::class,'decode']);
 Route::resource('/gallery' , GalleryController::class);
 Route::resource('/user' , UserController::class);
 

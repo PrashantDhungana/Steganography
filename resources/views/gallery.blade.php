@@ -36,14 +36,14 @@
           <li class="nav-item dropdown text-white">
            <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <span class="mr-2 d-none d-lg-inline text-white small">Douglas McGee</span>
+               <span class="mr-2 d-none d-lg-inline text-white small">{{auth()->user()->name}}</span>
                <img class="img-profile rounded-circle"
-                   src="undraw_profile.svg" height="25px" width="23px">
+                   src="avatar.png" height="25px" width="23px">
            </a>
            <!-- Dropdown - User Information -->
            <div class="dropdown-menu dropdown-menu-right bg-gray shadow animated--grow-in text-white"
                aria-labelledby="userDropdown">
-               <a class="dropdown-item "  href="#">
+               <a class="dropdown-item "  href="/user">
                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                    Profile
                </a>
@@ -73,12 +73,13 @@
      <div class="wrap__body mt-3">
        <div class="container">
        <div class="gallery">
-       <div class="row">
-        <div class="card-deck mt-3">
+         <div class="row">
+           <h3>Gallery</h3>
+           <div class="card-deck">
         @foreach ($gallery as $gall)
-        <div class="col-sm-3 mt-5">
+        <div class="col-sm-3 mt-3">
         <div class="card ">
-            <img class="card-img-top" src="/img/img2 (1).jpg" alt="Card image cap">
+            <img class="card-img-top" src="{{$gall->image}}" alt="Card image cap">
             <div class="card-body">
               <p class="card-text">{{$gall->text}}</p>
                 <div class="icons">
@@ -107,7 +108,12 @@
                 </button>               
             </div>
             <div class="category">
-                <div class="hell mt-5">Decode</div>             
+                <div class="hell mt-5">Decoding</div> 
+                <form action="/decode" method="POST" enctype="multipart/form-data">
+                  @csrf
+                  <input type="file" name="decode">   
+                  <input type="submit" value="Start Decode" class="btn btn-primary">         
+                </form>
             </div>
 
         </div>
@@ -152,23 +158,23 @@
                     <div class="col-md-6 p-5">
                       <div class="form-group mt-3">
                         <label for="exampleInputEmail1">Text to be encoded</label>
-                        <input type="text" placeholder="Hidden text" class="form-control" name="text" />
+                        <input type="text" placeholder="Hidden text" class="form-control" name="encode_text" />
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="chkYes" onclick="ShowHideDiv()" value="option2">
+                        <input class="form-check-input" type="radio" name="visibility" id="chkYes" onclick="ShowHideDiv()" value="public">
                         <label class="form-check-label" for="exampleRadios2">
                           Post Publicly
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="chkNo" onclick="ShowHideDiv()" value="option2">
+                        <input class="form-check-input" type="radio" name="visibility" id="chkNo" onclick="ShowHideDiv()" value="private" checked>
                         <label class="form-check-label" for="exampleRadios2">
                           Post Privately
                         </label>
                       </div>
                       <div class="form-group mt-3" id="dvtext" style="display: none">
                         <label for="exampleInputEmail1">Small Message</label>
-                        <input type="text" placeholder="Regular" class="form-control" name="sm_text" />
+                        <input type="text" placeholder="Regular" class="form-control" name="message" />
                     </div>
            
                       
