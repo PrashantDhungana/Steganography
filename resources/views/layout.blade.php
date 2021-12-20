@@ -11,6 +11,7 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   {{-- <link rel="stylesheet" type="text/css" href="css"> --}}
   {{-- <link rel="stylesheet" type="text/css" href="index.css"> --}}
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
