@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/gallery');
 });
 // Route::get('/logout',[App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
 Route::post('/encode',[GalleryController::class,'encode']);

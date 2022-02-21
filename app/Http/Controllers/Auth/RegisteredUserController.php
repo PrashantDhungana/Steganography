@@ -131,7 +131,7 @@ class RegisteredUserController extends Controller
         }
       
         // Save the image to a file.
-        $newImage = $filename;
+        $newImage = 'users/'.$filename;
         // $newImage = 'secret.png';
         imagepng($img, $newImage, 9);
         // Destroy the image handler.

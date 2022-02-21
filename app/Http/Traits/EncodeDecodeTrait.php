@@ -64,7 +64,7 @@ trait EncodeDecodeTrait
         
         $filename = uniqid('img_').".".$file->extension();
         // Save the image to a file.
-        $newImage = $filename;
+        $newImage = 'images/'.$filename;
         // $newImage = 'secret.png';
         if(imagepng($img, $newImage, 9))
         {
