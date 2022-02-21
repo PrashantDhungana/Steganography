@@ -82,7 +82,7 @@
         @foreach ($gallery as $gall)
         <div class="col-sm-3 mt-5">
         <div class="card ">
-            <img class="card-img-top" src="{{$gall->image}}" alt="Card image cap">
+            <img class="card-img-top" src="images/{{$gall->image}}" alt="Card image cap">
             <div class="card-body">
               <p class="card-text">{{$gall->text}}</p>
                 <div class="icons">
@@ -164,13 +164,13 @@
                         <input type="text" placeholder="Hidden text" class="form-control" name="encode_text" autocomplete="off" />
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="chkYes" onclick="ShowHideDiv()" value="option2">
+                        <input class="form-check-input" type="radio" name="visibility" value="public" id="chkYes" onclick="ShowHideDiv()">
                         <label class="form-check-label" for="exampleRadios2">
                           Post Publicly
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="chkNo" onclick="ShowHideDiv()" value="option2">
+                        <input class="form-check-input" type="radio" name="visibility" value="public" id="chkNo" onclick="ShowHideDiv()">
                         <label class="form-check-label" for="exampleRadios2">
                           Post Privately
                         </label>
