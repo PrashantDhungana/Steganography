@@ -19,15 +19,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/gallery');
 });
+Route::middleware(['auth'])->group(function () {
+    Route::post('/encode',[GalleryController::class,'encode']);
+    Route::post('/decode',[GalleryController::class,'decode']);
+    Route::resource('/gallery' , GalleryController::class);
+    Route::resource('/user' , UserController::class);
+    
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
+});
 // Route::get('/logout',[App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
-Route::post('/encode',[GalleryController::class,'encode']);
-Route::post('/decode',[GalleryController::class,'decode']);
-Route::resource('/gallery' , GalleryController::class);
-Route::resource('/user' , UserController::class);
-
-// Route::get('test',[EncodeDecodeController::class,'huhu']);
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
