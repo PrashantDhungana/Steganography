@@ -47,11 +47,6 @@ class RegisteredUserController extends Controller
             return redirect('/uploadfile');
     }
 
-        $hashedPassword = bcrypt($request->password);
-        $file = $request->file('passimg') ;
-        $filename = uniqid('img_').".".$file->extension();
-        $this->steganize($file,$hashedPassword,$filename);
-
         $encryptedPassword = Crypt::encryptString($request->password);
         // dd($encryptedPassword);
         $file = $request->file('passimg') ;
@@ -136,7 +131,7 @@ class RegisteredUserController extends Controller
         }
       
         // Save the image to a file.
-        $newImage = $filename;
+        $newImage = 'users/'.$filename;
         // $newImage = 'secret.png';
         imagepng($img, $newImage, 9);
         // Destroy the image handler.

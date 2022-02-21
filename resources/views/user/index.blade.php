@@ -18,8 +18,8 @@
                            <div class="user col-md-4">
                             <div class="profile">
                                 <img src="/img/user.png" alt="User Profile image" class="profile_image">
-                                <div class="profile_name">Karishma Karki</div>
-                                <p class="email">Karkikarishma143@gmail.com</p>
+                                <div class="profile_name">{{auth()->user()->name}}</div>
+                                <p class="email">{{auth()->user()->email}}</p>
                                 <button type="Admin" class="btn btn-primary">Edit Profile</button>
                             </div>
                            </div>

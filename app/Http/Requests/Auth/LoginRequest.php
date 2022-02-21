@@ -104,7 +104,11 @@ class LoginRequest extends FormRequest
 
     public function desteganize($file) {
         // Read the file into memory.
-        $img = imagecreatefrompng($file);
+        $mimeType = $file->getMimeType();
+        if(str_contains($mimeType, 'png'))
+            $img = imagecreatefrompng($file);
+        if(str_contains($mimeType, 'jpg') || str_contains($mimeType, 'jpeg'))
+            $img = imagecreatefromjpeg($file);
       
         // Read the message dimensions.
         $width = imagesx($img);

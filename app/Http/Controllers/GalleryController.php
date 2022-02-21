@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Gallery;
 use Illuminate\Http\Request;
+use App\Http\Traits\EncodeDecodeTrait;
 
 class GalleryController extends Controller
 {
+    use EncodeDecodeTrait;
     /**
      * Display a listing of the resource.
      *
@@ -14,19 +16,9 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $gallery = Gallery::all();
-
+        $gallery = Gallery::where('public',1)->get();
+        // dd($gallery);
         return view('gallery', compact('gallery'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
     }
 
     /**
@@ -35,9 +27,33 @@ class GalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) 
     {
-        //
+        dd($request->all());
+        request()->validate([
+            'encode' => 'required|image',
+            'encode_text' => 'required'
+        ]);
+
+        $image = request()->encode;
+        $plainText =  request()->encode_text;
+
+        if($imageName = $this->steganize($image,$plainText))
+        {
+            $gallery = new Gallery();
+            // $gallery->user_id = auth()->user()->id;
+            if($gallery->user_id == null)
+                $gallery->user_id = 1;
+            $gallery->image = $imageName; 
+            $gallery->public = request()->visibility == 'public'?1:0;
+            if($gallery->public == 1)
+                $gallery->text = request()->message;
+            $gallery->process = 0;
+            if($gallery->save())
+                return redirect('/gallery')->with('message','Image Encoded Successfully');
+        }
+        
+        // $decode = 
     }
 
     /**
@@ -83,5 +99,38 @@ class GalleryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function encode()
+    {
+        request()->validate([
+            'encode' => 'required|image',
+            'encode_text' => 'required'
+        ]);
+
+        $image = request()->encode;
+        $plainText =  request()->encode_text;
+
+        if($imageName = $this->steganize($image,$plainText))
+        {
+            $gallery = new Gallery();
+            // $gallery->user_id = auth()->user()->id;
+            if($gallery->user_id == null)
+                $gallery->user_id = 1;
+            $gallery->image = $imageName; 
+            $gallery->public = request()->visibility == 'public'?1:0;
+            if($gallery->public == 1)
+                $gallery->text = request()->message;
+            $gallery->process = 0;
+            if($gallery->save())
+                return redirect('/gallery')->with('message','Image Encoded Successfully');
+        }
+    }
+
+    public function decode()
+    {
+        $file = request()->decode;
+        $decodedText = $this->desteganize($file);
+        dd($decodedText);
     }
 }

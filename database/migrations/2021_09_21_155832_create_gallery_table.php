@@ -19,7 +19,7 @@ class CreateGalleryTable extends Migration
             $table->string('image');
             $table->boolean('public');
             $table->boolean('process');
-            $table->string('text');
+            $table->string('text')->nullable();
             $table->timestamps();
         });
     }
