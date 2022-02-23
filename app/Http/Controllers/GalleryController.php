@@ -98,7 +98,13 @@ class GalleryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        {
+            $gallery = Gallery::where('id', $id)->firstorFail();
+            if($gallery->delete()){
+                return  redirect()->route('user.index')->with("message", "History Deleted Successfully");
+    
+            }
+        }
     }
 
     public function encode()
@@ -133,4 +139,6 @@ class GalleryController extends Controller
         $decodedText = $this->desteganize($file);
         dd($decodedText);
     }
+
+    
 }

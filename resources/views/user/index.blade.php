@@ -62,36 +62,72 @@
                           </tr>
                         </thead>
                         <tbody>
+                          @foreach ($posts as $post)
                           <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <th scope="row">{{$loop->iteration}}</th>
+                            <td>{{$post->image}}  </td>
+                            <td>{{$post->public == '0'?'private':'public'}}</td>
+                            <td>{{$post->created_at}}</td>
                             <td>
-                              <a href="#" type="button" rel="tooltip"  data-toggle="modal" data-target="#showModal">
+                              <a href="#" type="button" rel="tooltip"  data-toggle="modal" data-target="#showModal{{$post->id}}">
                                 <i class="fas fa-eye"></i>
                                 </a>                              
-                                <a href=""><i class="fas fa-trash-alt"></i></a>
+                                <a href="#" type="button" rel="tooltip" class="btn  " data-toggle="modal" data-target="#postdelete{{ $post->id }}">
+                                  <i class="fas fa-trash-alt"></i></a>
                               <a href=""><i class="bi bi-unlock-fill"></i></a>
+                           
                             </td>
-                            
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>Otto</td>
 
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>Otto</td>
+                            {{-- modal for deleting post --}}
+                            <div class="modal fade" id="postdelete{{ $post->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h2 class="modal-title mx-auto" id="exampleModalLabel" style="font-size: 1.5rem;">Delete the Post</h2>
+                                  </div>
+                                  <div class="modal-body mx-auto">
+                                 <h3 class="mx-auto">Are you sure you want to delete this entry</h3>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <form method="post" action="{{route('gallery.destroy', $post->id )}}">
+                                      @method('DELETE')
+                                      @csrf
+                                      <button  rel="tooltip" class="btn btn-danger ">
+                                        Yes
+                                      </button>
+                                    </form>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
 
+                            <!-- Modal for viewing image -->
+<div class="modal fade" id="showModal{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mx-auto" id="exampleModalLongTitle">View Image</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="img-sec">
+          <img src="/images/{{$post->image}}" alt="" class="img-fluid">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
                           </tr>
+                          @endforeach
+                        
                         </tbody>
                       </table>
                     </div>
@@ -136,24 +172,5 @@
 
 {{-- //Modal --}}
 
-<!-- Modal -->
-<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 @endsection

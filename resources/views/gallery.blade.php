@@ -4,27 +4,57 @@
 <div class="wrap__body mt-3">
   <div class="container">
   <div class="gallery">
-  <div class="row">
+ 
    <div class="card-deck mt-3">
    @foreach ($gallery as $gall)
-   <div class="col-sm-3 mt-5">
-   <div class="card ">
-       <img class="card-img-top" src="images/{{$gall->image}}" alt="Card image cap">
-       <div class="card-body">
-         <p class="card-text">{{$gall->text}}</p>
-           <div class="icons">
-               <a href=""><i class="fa fa-bookmark" aria-hidden="true"></i></a>
-               <a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
+    <div class="col-3 mt-5">
+        <div class="card position-relative" style="margin-left: 0px; margin-right:0px; height:325px;">
+            <img class="card-img-top" src="images/{{$gall->image}}" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text" style="font-size: 15px;">{{$gall->text}}</p>
+              <div class="icons position-absolute" style="bottom: 15px;left: 148px;">
+                <a href="#"   data-toggle="modal" data-target="#exampleModal">
+                  <i class="fas fa-chart-line text-warning"></i>
+                </a>
+                    <a href=""><i class="fa fa-bookmark text-info" aria-hidden="true"></i></a>
+                    <a href=""><i class="fa fa-eye text-danger" aria-hidden="true"></i></a>
+              </div>
 
-           </div>
-       </div>
-     </div>
-   </div>
+            </div>
+        </div>
+    </div>
+  
 
        
    @endforeach
-    
-   </div>
+
+
+
+<!-- Modal for histogram --> 
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Comparison of historgram after encode and decode</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="chartCard">
+          <div class="chartBox">
+            <canvas id="myChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
+
   </div>      
   </div>
   <div class="encode mt-5 mb-5">
@@ -129,5 +159,49 @@
   dvtext.style.display = chkYes.checked ? "block" : "none";
 }
 </script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    // setup 
+    const data = {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Weekly Sales',
+        data: [18, 12, 6, 9, 12, 3, 9],
+        backgroundColor: 'rgba(255, 26, 104, 0.2)',
+        borderColor:  'rgba(255, 26, 104, 1)',
+         
+        borderWidth: 1
+      },
+      {
+        label: 'Weekly Sales',
+        data: [1, 19, 6, 9, 2, 8, 9],
+        backgroundColor:'rgba(54, 162, 235, 0.2)',
+        
+        borderColor: 'rgba(255, 206, 86, 1)',
+         
+        borderWidth: 1
+      },
+      ]
+    };
+
+    // config 
+    const config = {
+      type: 'bar',
+      data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // render init block
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+    </script>
     
 @endsection
