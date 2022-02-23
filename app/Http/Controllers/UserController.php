@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gallery;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.index');
+        $posts = Gallery::all(); 
+        return view('user.index' ,compact('posts'));
     }
 
     /**
