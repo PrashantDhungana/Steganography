@@ -1,9 +1,9 @@
 @extends('layout')
 @section('contents')
 <div class="wrapper">
-    <div class="container" id="contains">
+    <div class="container-fluid" id="contains">
        <div class="row">
-             <div class=" sidebar nav col-md-3 flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+             <div class=" sidebar nav col-md-2 flex-column nav-pills pt-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">User Profile</a>
                 <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">History</a>
                 <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Change Password</a>
@@ -11,7 +11,7 @@
               </div>
           
           
-            <div class="col-md-9 tab-content" id="v-pills-tabContent">
+            <div class="col-md-10 tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                     <div class="wrap mt-3">
                         <div class="row">
@@ -104,19 +104,26 @@
                             </div>
 
                             <!-- Modal for viewing image -->
-<div class="modal fade" id="showModal{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade bd-example-modal-lg" id="showModal{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title mx-auto" id="exampleModalLongTitle">View Image</h5>
+        <h5 class="modal-title mx-auto" id="exampleModalLongTitle">View Image and Decode Image</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <div class="img-sec">
-          <img src="/images/{{$post->image}}" alt="" class="img-fluid">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="img-sec">
+            <img src="/images/{{$post->image}}" alt="" class="img-fluid">
+          </div>
         </div>
+        <div class="col-sm-4">
+          <a href=""><i class="bi bi-unlock-fill"></i></a>
+        </div>
+      </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

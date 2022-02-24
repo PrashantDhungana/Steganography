@@ -109,6 +109,7 @@ class GalleryController extends Controller
 
     public function encode()
     {
+        // dd(request()->all());
         request()->validate([
             'encode' => 'required|image',
             'encode_text' => 'required'
@@ -125,8 +126,9 @@ class GalleryController extends Controller
                 $gallery->user_id = 1;
             $gallery->image = $imageName; 
             $gallery->public = request()->visibility == 'public'?1:0;
+            // dd($gallery->public);
             if($gallery->public == 1)
-                $gallery->text = request()->message;
+            $gallery->text = request()->message;
             $gallery->process = 0;
             if($gallery->save())
                 return redirect('/gallery')->with('message','Image Encoded Successfully');
