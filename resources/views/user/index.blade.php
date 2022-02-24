@@ -121,7 +121,8 @@
           </div>
         </div>
         <div class="col-sm-4">
-          <a href=""><i class="bi bi-unlock-fill"></i></a>
+          <a href=""><i class="bi bi-unlock-fill"></i></a> 
+          Decoding the message
         </div>
       </div>
       </div>
