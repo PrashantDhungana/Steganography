@@ -174,3 +174,17 @@
 
 
 @endsection
+
+@section('javascripts')
+<script>
+$(document).ready(function(){
+	$('a[data-toggle="pill"]').on('show.bs.tab', function(e) {
+		localStorage.setItem('activeTab', $(e.target).attr('href'));
+	});
+	var activeTab = localStorage.getItem('activeTab');
+	if(activeTab){
+		$('#v-pills-tab a[href="' + activeTab + '"]').tab('show');
+	}
+});
+</script>
+@endsection

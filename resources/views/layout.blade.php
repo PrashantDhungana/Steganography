@@ -57,10 +57,14 @@
                    Activity Log
                </a>
                <div class="dropdown-divider text-white"></div>
-               <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
+               <!-- <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                    Logout
-               </a>
+               </a> -->
+               <form action="/logout" method="POST">
+                 @csrf
+                 <button type="submit" class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Logout</button>
+               </form>
            </div>
        </li>
    
