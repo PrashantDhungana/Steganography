@@ -10,11 +10,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 </head>
 <body>
-	@if(request()->getPathInfo() == "/register")
-	<div class="container right-panel-active" id="main">
-	@else
-	<div class="container" id="main">
-	@endif
+<div class="container" id="main">
+
 	@if(Session::has('success'))
 
 	<div class="alert alert-success">
@@ -40,38 +37,16 @@
 					<a href="https://www.linkedin.com/" class="icon"><i class="fab fa-linkedin-in"></i></a>
 				</div> -->
 				<input type="text" name="name" placeholder="Name" value="{{ old('name') }}" required>
-				@if ($errors->has('name'))
-
-                    <span class="text-danger">{{ $errors->first('name') }}</span>
-
-                @endif
+				
 				<input type="email" name="email" placeholder="E-mail" value="{{ old('email') }}" required>
-				@if ($errors->has('email'))
-
-                    <span class="text-danger">{{ $errors->first('email') }}</span>
-
-                @endif
 				
 				<input type="password" name="password" id="password" placeholder="Password">
-				@if ($errors->has('password'))
-
-                    <span class="text-danger">{{ $errors->first('password') }}</span>
-
-                @endif
 				
 				<input type="password" name="password_confirmation" placeholder="Confirm Password">
-				@if ($errors->has('password_confirmation'))
-
-				<span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
-
-			@endif
+				
 				<label for="Passimage">PassImage</label>
 				<input type="file" name="passimg" placeholder="Upload a Password photo" required>
-				@if ($errors->has('passimg'))
-
-                    <span class="text-danger">{{ $errors->first('passimg') }}</span>
-
-                @endif
+				
 				 <br><br>
 				<button type="Sign Up" class="button button1">Sign Up</button>
 			</form>
@@ -99,9 +74,21 @@
 					<a href="https://www.linkedin.com/" class="icon"><i class="fab fa-linkedin-in"></i></a>
 				</div> -->
 				Email
-				<input type="email" name="email" id="email" placeholder="ex.test@test.com">
+				<input type="email" name="loginemail" id="email" placeholder="ex.test@test.com">
+				@error('loginemail')
+					<div class="alert alert-danger">
+						{{$message}}
+					</div>
+				@enderror
+
 				Password:
-				<input type="file" name="passimg" required>
+				<input type="file" name="loginpassimg" required>
+				@error('loginpassimg')
+					<div class="alert alert-danger">
+						{{$message}}
+					</div>
+				@enderror
+
 				<label class="forgot-password"><a >Forget Passimage?</a></label>
                 <input type="checkbox" name="remember"> <label class="form-remember">Remember me</label>
 				<br><br><br>
@@ -138,11 +125,23 @@
 		const main = document.getElementById('main');
 
 		signUpButton.addEventListener('click', () => {
+			localStorage.setItem('loginActiveTab', 'login');
 			main.classList.add("right-panel-active");
 		});
 		signInButton.addEventListener('click', () => {
+			localStorage.setItem('loginActiveTab', 'signup');
 			main.classList.remove("right-panel-active");
 		});
+
+		var activeTab = localStorage.getItem('loginActiveTab');
+
+		if(activeTab == "login")
+		{
+			main.classList.add("right-panel-active");
+		}
+		else
+			main.classList.remove("right-panel-active");
+
 // 		var owl = $('.owl-carousel');
 // owl.owlCarousel({
 //     items:1,

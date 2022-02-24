@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CookieController;
 use App\Http\Controllers\EncodeDecodeController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\UserController;
@@ -24,7 +25,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/decode',[GalleryController::class,'decode']);
     Route::resource('/gallery' , GalleryController::class);
     Route::resource('/user' , UserController::class);
-    
     // Route::get('/dashboard', function () {
     //     return view('dashboard');
     // })->name('dashboard');

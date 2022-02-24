@@ -46,10 +46,10 @@ class LoginRequest extends FormRequest
     public function authenticate()
     {
         $this->ensureIsNotRateLimited();
-        $user = User::where('email',$this->email)->first();
+        $user = User::where('loginemail',$this->email)->first();
         if(!$user)
             throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
+                'loginemail' => __('auth.failed'),
             ]);
         // Getting Users' Passwd
         $passFromUser = $user->password;
@@ -60,7 +60,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'validation' => __('auth.failed'),
+                'loginpassimg' => __('auth.failed'),
             ]);
         }
         Auth::login($user);
