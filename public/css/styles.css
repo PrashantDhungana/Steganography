@@ -115,14 +115,14 @@ margin: 5px 5px 5px 20px;
   }
   .sidebar{
       background-color: black;
-      height: 500px;
+      height: 800px;
       color: white;
 
   }
   .sidebar a {
       color: white;
       padding: 15px;
-      min-width: 285px;
+      min-width: 254px;
      
   }
   .nav-pills .nav-link{
@@ -177,7 +177,7 @@ margin: 5px 5px 5px 20px;
       /* margin: auto; */
       height: auto;
       background-color: rgb(228, 220, 228);
-      margin-top:80px;
+      /* margin-top:80px; */
 
   }
   .cat-wrap{
@@ -286,4 +286,8 @@ tr:nth-child(even){
 }
 .wrap table a{
   padding: 5px;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #17a2b8;
 }

@@ -134,7 +134,7 @@
                  </div>
                  <div class="form-group mt-3" id="dvtext" style="display: none">
                    <label for="exampleInputEmail1">Small Message</label>
-                   <input type="text" placeholder="Regular" class="form-control" name="sm_text" />
+                   <input type="text" placeholder="Regular" class="form-control" name="message" />
                </div>
       
                  
