@@ -1,5 +1,6 @@
 @extends('layout')
 @section('contents')
+
 <div class="wrapper">
     <div class="container-fluid" id="contains">
        <div class="row">
@@ -121,13 +122,13 @@
                           </div>
                         </div>
                         <div class="col-sm-4" >
-                          <div class="decode-block" id="decodes{{$post->id}}" onclick="changeClick(this,{{$post->id}})">
+                          <div class="decode-block" id="decodes{{$post->id}}" onclick="changeClick(this,{{$post->id}},'{{$post->decoded}}')">
                             
                               <a href=""><i class="bi bi-lock-fill"></i></a> 
                             Decoding the message
                             
                           </div>
-                          <span class="enc_text" id="display_text{{$post->id}}" style="display: none;">The decoded message is this kind of fool</span>
+                          <span class="enc_text" id="display_text{{$post->id}}" style="display: none;"></span>
                         </div>
                       </div>
                       </div>
@@ -191,18 +192,39 @@
 @section('javascripts')
 
 <script>
-  function changeClick(element , id){
+const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+function generateString(length) {
+    let result = '';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+}
+  function changeClick(element , id, finaltext){
+
+    //Create Decode Text Effect
+    let randomString = generateString(finaltext.length)
+    $(`#display_text${id}`).html(randomString)
+    $(`#display_text${id}`).decrypt_effect({
+      speed: 45,
+      decrypted_text: finaltext
+    });
+
+    
     const div = document.querySelector(`#decodes${id}`);
     if (div.classList.contains("decode-block")){
     document.getElementById(`decodes${id}`).innerHTML = 
-              `<a href=""><i class="bi bi-unlock-fill"></i></a> Encoding the message`;
+              `<a href=""><i class="bi bi-unlock-fill"></i></a> Hide the Message`;
               div.classList.remove("decode-block");
               element.classList.add("encodes");
               document.querySelector(`#display_text${id}`).style.display = "block"  
                }
     else{
       document.getElementById(`decodes${id}`).innerHTML = 
-              `<a href=""><i class="bi bi-lock-fill"></i></a> Decoding the message`;
+              `<a href=""><i class="bi bi-lock-fill"></i></a> Decoding the Message`;
               div.classList.remove("encodes");
               element.classList.add("decode-block");
               document.querySelector(`#display_text${id}`).style.display = "none"  
@@ -239,6 +261,8 @@
 // });
 </script>
 
+<script src="/js/decrypt.js"></script>
+
 <script>
 $(document).ready(function(){
 	$('a[data-toggle="pill"]').on('show.bs.tab', function(e) {
@@ -249,5 +273,6 @@ $(document).ready(function(){
 		$('#v-pills-tab a[href="' + activeTab + '"]').tab('show');
 	}
 });
+
 </script>
 @endsection
