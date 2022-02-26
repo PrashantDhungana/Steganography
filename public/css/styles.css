@@ -221,8 +221,8 @@ margin: 5px 5px 5px 20px;
 }
 .card-pass{
     margin: 40px;
-    height:400px ;
-    width: 800px;
+    /* height:400px ; */
+    width: 90%;
     padding: 20px;
     background-color: whitesmoke;
     box-shadow: 1px 2px 0px rgb(228, 220, 228);
@@ -290,4 +290,25 @@ tr:nth-child(even){
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #17a2b8;
+}
+.decode-block{
+  margin-top: 40px;
+  background: #12d7cd;
+padding: 7px;
+border-radius: 7px;
+}
+.bi-lock-fill{
+  color: coral;
+}
+
+.encodes{
+  margin-top: 40px;
+  padding: 7px;
+border-radius: 7px;
+  background-color: red;
+}
+.enc_text{
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 26px;
 }

@@ -7,7 +7,7 @@
                 <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">User Profile</a>
                 <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">History</a>
                 <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Change Password</a>
-                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Favourite Saved</a>
               </div>
           
           
@@ -103,35 +103,41 @@
                               </div>
                             </div>
 
-                            <!-- Modal for viewing image -->
-<div class="modal fade bd-example-modal-lg" id="showModal{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title mx-auto" id="exampleModalLongTitle">View Image and Decode Image</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <div class="row">
-        <div class="col-sm-8">
-          <div class="img-sec">
-            <img src="/images/{{$post->image}}" alt="" class="img-fluid">
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <a href=""><i class="bi bi-unlock-fill"></i></a>
-        </div>
-      </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-       
-      </div>
-    </div>
-  </div>
-</div>
+                                            <!-- Modal for viewing image -->
+                  <div class="modal fade bd-example-modal-lg" id="showModal{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title mx-auto" id="exampleModalLongTitle">View Image and Decode Image</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                      <div class="row">
+                        <div class="col-sm-8">
+                          <div class="img-sec">
+                            <img src="/images/{{$post->image}}" alt="" class="img-fluid">
+                          </div>
+                        </div>
+                        <div class="col-sm-4" >
+                          <div class="decode-block" id="decodes{{$post->id}}" onclick="changeClick(this,{{$post->id}})">
+                            
+                              <a href=""><i class="bi bi-lock-fill"></i></a> 
+                            Decoding the message
+                            
+                          </div>
+                          <span class="enc_text" id="display_text{{$post->id}}" style="display: none;">The decoded message is this kind of fool</span>
+                        </div>
+                      </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  </div>
                           </tr>
                           @endforeach
                         
@@ -146,21 +152,21 @@
                            <img src="/img/secure.png"/ style="width: 100%">
                        </div>
                        <div class="text-sec col-md-6">
-                        <form class="m-3">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Username</label>
-                                <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                              </div>
+                        <form class="m-3"method="post" enctype="multipart/form-data" action="{{route('update_password')}}">
+                          @csrf
+                          <div class="form-group">
+                            <label for="exampleFormControlFile1">Current PassImage</label>
+                            <input type="file" class="form-control-file" id="exampleFormControlFile1" name="currentimage">
+                          </div>
                             
-
                             <div class="form-group">
                               <label for="exampleInputPassword1">Password</label>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password">
+                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password" name="password">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Confirm Password</label>
-                                <input type="password_confirmation" class="form-control" id="exampleInputPassword1" placeholder="Enter confirmation Password">
-                              </div>
+                              <label for="exampleFormControlFile1">New Image</label>
+                              <input type="file" class="form-control-file" id="exampleFormControlFile1" name="newimage">
+                            </div>
                             
                             <button type="submit" class="btn btn-primary mt-2 float-right">Submit</button>
                         </form>
@@ -183,6 +189,56 @@
 @endsection
 
 @section('javascripts')
+
+<script>
+  function changeClick(element , id){
+    const div = document.querySelector(`#decodes${id}`);
+    if (div.classList.contains("decode-block")){
+    document.getElementById(`decodes${id}`).innerHTML = 
+              `<a href=""><i class="bi bi-unlock-fill"></i></a> Encoding the message`;
+              div.classList.remove("decode-block");
+              element.classList.add("encodes");
+              document.querySelector(`#display_text${id}`).style.display = "block"  
+               }
+    else{
+      document.getElementById(`decodes${id}`).innerHTML = 
+              `<a href=""><i class="bi bi-lock-fill"></i></a> Decoding the message`;
+              div.classList.remove("encodes");
+              element.classList.add("decode-block");
+              document.querySelector(`#display_text${id}`).style.display = "none"  
+    }
+  }
+//   $(document).ready( function() {
+
+// $("#decodes").click( function() {
+//   $(this).html('<a href=""><i class="bi bi-unlock-fill"></i></a> Encoding the message');
+// });
+
+
+// });
+// var $uniqueid = $("#decodes");
+// $uniqueid.attr('id', function (index) {
+//     return '#decodes' + index;
+// });
+
+
+// $( document ).on( "click", function( event ) {
+//   var listItem = document.getElementById( "decodes" );
+// alert( "Index: " + $( "#decodes" ).index( listItem ) );
+//   if($( "#decodes" ).closest( "#decodes" ).hasClass( "decode-block" )){
+//     console.log("hello")
+
+//   $( event.target ).closest( "#decodes" ).html('<a href=""><i class="bi bi-unlock-fill"></i></a> Encoding the message').addClass("encodes").removeClass("decode-block");
+ 
+//   }
+//   else{
+//     console.log("gulu")
+//     $( event.target ).closest( "#decodes" ).html('<a href=""><i class="bi bi-lock-fill"></i></a> Decoding the message').addClass("decode-block").removeClass("encodes");
+
+//   }
+// });
+</script>
+
 <script>
 $(document).ready(function(){
 	$('a[data-toggle="pill"]').on('show.bs.tab', function(e) {
