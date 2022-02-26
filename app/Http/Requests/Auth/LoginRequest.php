@@ -31,8 +31,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'string', 'email'],
-            'passimg' => ['required'],
+            'loginemail' => ['required', 'string', 'email'],
+            'loginpassimg' => ['required'],
         ];
     }
 
@@ -46,7 +46,7 @@ class LoginRequest extends FormRequest
     public function authenticate()
     {
         $this->ensureIsNotRateLimited();
-        $user = User::where('loginemail',$this->email)->first();
+        $user = User::where('email',$this->loginemail)->first();
         if(!$user)
             throw ValidationException::withMessages([
                 'loginemail' => __('auth.failed'),
@@ -54,7 +54,7 @@ class LoginRequest extends FormRequest
         // Getting Users' Passwd
         $passFromUser = $user->password;
         //Decrypting image for the hidden encrypted password 
-        $passFromImg = $this->desteganize($this->file('passimg'));
+        $passFromImg = $this->desteganize($this->file('loginpassimg'));
         
         if ($passFromImg != $passFromUser) {
             RateLimiter::hit($this->throttleKey());

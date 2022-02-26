@@ -118,18 +118,23 @@ class GalleryController extends Controller
         $image = request()->encode;
         $plainText =  request()->encode_text;
 
-        if($imageName = $this->steganize($image,$plainText))
+        $imageInfo = $this->steganize($image,$plainText);
+        // dd($imageInfo);
+        if($imageInfo[0])
         {
             $gallery = new Gallery();
             // $gallery->user_id = auth()->user()->id;
             if($gallery->user_id == null)
                 $gallery->user_id = 1;
-            $gallery->image = $imageName; 
+            $gallery->image = $imageInfo[0]; 
             $gallery->public = request()->visibility == 'public'?1:0;
             // dd($gallery->public);
             if($gallery->public == 1)
             $gallery->text = request()->message;
             $gallery->process = 0;
+            $gallery->before = json_encode($imageInfo[1]);
+            $gallery->after = json_encode($imageInfo[2]);
+
             if($gallery->save())
                 return redirect('/gallery')->with('message','Image Encoded Successfully');
         }

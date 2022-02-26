@@ -23,8 +23,8 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     Route::post('/encode',[GalleryController::class,'encode']);
     Route::post('/decode',[GalleryController::class,'decode']);
-    Route::resource('/gallery' , GalleryController::class);
     Route::resource('/user' , UserController::class);
+    Route::resource('/gallery' , GalleryController::class);
     // Route::get('/dashboard', function () {
     //     return view('dashboard');
     // })->name('dashboard');

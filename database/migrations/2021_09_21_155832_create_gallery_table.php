@@ -19,6 +19,8 @@ class CreateGalleryTable extends Migration
             $table->string('image');
             $table->boolean('public');
             $table->boolean('process');
+            $table->string('before',511);
+            $table->string('after',511);
             $table->string('text')->nullable();
             $table->timestamps();
         });
@@ -31,6 +33,6 @@ class CreateGalleryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gallery');
+        Schema::dropIfExists('galleries');
     }
 }
