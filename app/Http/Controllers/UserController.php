@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\EncodeDecodeTrait;
 use App\Models\Gallery;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class UserController extends Controller
 {
+    use EncodeDecodeTrait;
     /**
      * Display a listing of the resource.
      *
@@ -87,5 +90,25 @@ class UserController extends Controller
             return  redirect()->route('user.index')->with("message", "User Deleted Successfully");
 
         }
+    }
+    public function updatePassword(Request $request){
+        // dd("hello");
+        $request->validate([
+            'currentimage' =>'required',
+            'password' => 'required',
+            'newimage' => 'required'
+        ]);
+        // dd($this->desteganize($request->currentimage));
+       if( auth()->user()->password != $this->desteganize($request->currentimage)){
+           abort(404);
+
+       }
+       else{
+            $newpass = Crypt::decryptString($request->password);
+           $this->steganize($request->newimage, $newpass);
+           
+
+       }
+
     }
 }
