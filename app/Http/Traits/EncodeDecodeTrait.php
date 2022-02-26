@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Traits;
 
+use App\Models\Gallery;
+
 trait EncodeDecodeTrait
 {
     public function steganize($file, $message) 
@@ -14,7 +16,7 @@ trait EncodeDecodeTrait
       
         // Inject the 'end of text' character into the string.
         $binaryMessage .= '00000011';
-      
+
         // Load the image into memory.
         $mimeType = $file->getMimeType();
         // dd($mimeType);
@@ -28,6 +30,8 @@ trait EncodeDecodeTrait
         $height = imagesy($img);
       
         $messagePosition = 0;
+        $histogram = [];
+        $bluesClues =[];
       
         for ($y = 0; $y < $height; $y++) {
           for ($x = 0; $x < $width; $x++) {
@@ -45,14 +49,16 @@ trait EncodeDecodeTrait
             $green = $colors['green'];
             $blue = $colors['blue'];
             $alpha = $colors['alpha'];
-      
+
+            array_push($histogram,$blue);
             // Convert the blue to binary.
             $binaryBlue = str_pad(decbin($blue), 8, '0', STR_PAD_LEFT);
       
             // Replace the final bit of the blue colour with our message.
             $binaryBlue[strlen($binaryBlue) - 1] = $binaryMessage[$messagePosition];
             $newBlue = bindec($binaryBlue);
-      
+            
+            array_push($bluesClues,$newBlue);
             // Inject that new colour back into the image.
             $newColor = imagecolorallocatealpha($img, $red, $green, $newBlue, $alpha);
             imagesetpixel($img, $x, $y, $newColor);
@@ -61,7 +67,14 @@ trait EncodeDecodeTrait
             $messagePosition++;
           }
         }
-        
+
+        $histogram = $this->histoArray($histogram);
+        $bluesClues = $this->histoArray($bluesClues);
+        // dd($histogram,$bluesClues);
+        //// GALLERY BEFORE AFTER COLUMN INSERT ELOQUENT
+
+
+
         $filename = uniqid('img_').".".$file->extension();
         // Save the image to a file.
         $newImage = 'images/'.$filename;
@@ -70,7 +83,7 @@ trait EncodeDecodeTrait
         {
           // Destroy the image handler.
           imagedestroy($img);
-          return $filename;
+          return [$filename,$histogram,$bluesClues];
         }
     }
 
@@ -133,5 +146,20 @@ trait EncodeDecodeTrait
       }
     
       return $message;
+  }
+
+  public function histoArray($pixels){
+    //[0,1,2,3...,255]
+    
+    $initialArray = [];
+    for ($i=0; $i <255 ; $i++) { 
+      $initialArray[$i] = 0;
+    }
+
+    for ($i=0; $i <count($pixels); $i++) { 
+      $initialArray[$pixels[$i]] = $initialArray[$pixels[$i]]+1;
+    }
+    return $initialArray;
+
   }
 }
