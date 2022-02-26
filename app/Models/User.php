@@ -43,8 +43,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function gallery()
-    {
-        return $this->hasMany(\App\gallery::class);
+    { 
+        return $this->belongsToMany(Gallery::class);
     }
     public function email()
     {

@@ -17,7 +17,12 @@
                   onclick="createGraph({{$gall->id}},{{$gall->before}},{{$gall->after}}); return false;">
                   <i class="fas fa-chart-line text-warning"></i>
                 </a>
-                    <a href=""><i class="fa fa-bookmark text-info" aria-hidden="true"></i></a>
+                    <form action="{{route('favourite.store')}}" method="post" enctype="multipart/form-data">
+                      @csrf
+                      <input type="hidden" value="{{$gall->id}}" name="gall_id">
+                      <input type="hidden" value="{{auth()->user()->id}}" name="user_id">
+                      <button type="submit" class="btn"><i class="fa fa-bookmark text-info" aria-hidden="true"></i></button>
+                    </form>
                     <a href=""><i class="fa fa-eye text-danger" aria-hidden="true"></i></a>
               </div>
 
