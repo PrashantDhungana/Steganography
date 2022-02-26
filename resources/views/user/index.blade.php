@@ -120,9 +120,14 @@
             <img src="/images/{{$post->image}}" alt="" class="img-fluid">
           </div>
         </div>
-        <div class="col-sm-4">
-          <a href=""><i class="bi bi-unlock-fill"></i></a> 
-          Decoding the message
+        <div class="col-sm-4" >
+          <div class="decode-block" id="decodes{{$post->id}}" onclick="changeClick(this,{{$post->id}})">
+           
+              <a href=""><i class="bi bi-lock-fill"></i></a> 
+            Decoding the message
+            
+          </div>
+          <span class="enc_text" id="display_text{{$post->id}}" style="display: none;">The decoded message is this kind of fool</span>
         </div>
       </div>
       </div>
@@ -184,6 +189,56 @@
 @endsection
 
 @section('javascripts')
+
+<script>
+  function changeClick(element , id){
+    const div = document.querySelector(`#decodes${id}`);
+    if (div.classList.contains("decode-block")){
+    document.getElementById(`decodes${id}`).innerHTML = 
+              `<a href=""><i class="bi bi-unlock-fill"></i></a> Encoding the message`;
+              div.classList.remove("decode-block");
+              element.classList.add("encodes");
+              document.querySelector(`#display_text${id}`).style.display = "block"  
+               }
+    else{
+      document.getElementById(`decodes${id}`).innerHTML = 
+              `<a href=""><i class="bi bi-lock-fill"></i></a> Decoding the message`;
+              div.classList.remove("encodes");
+              element.classList.add("decode-block");
+              document.querySelector(`#display_text${id}`).style.display = "none"  
+    }
+  }
+//   $(document).ready( function() {
+
+// $("#decodes").click( function() {
+//   $(this).html('<a href=""><i class="bi bi-unlock-fill"></i></a> Encoding the message');
+// });
+
+
+// });
+// var $uniqueid = $("#decodes");
+// $uniqueid.attr('id', function (index) {
+//     return '#decodes' + index;
+// });
+
+
+// $( document ).on( "click", function( event ) {
+//   var listItem = document.getElementById( "decodes" );
+// alert( "Index: " + $( "#decodes" ).index( listItem ) );
+//   if($( "#decodes" ).closest( "#decodes" ).hasClass( "decode-block" )){
+//     console.log("hello")
+
+//   $( event.target ).closest( "#decodes" ).html('<a href=""><i class="bi bi-unlock-fill"></i></a> Encoding the message').addClass("encodes").removeClass("decode-block");
+ 
+//   }
+//   else{
+//     console.log("gulu")
+//     $( event.target ).closest( "#decodes" ).html('<a href=""><i class="bi bi-lock-fill"></i></a> Decoding the message').addClass("decode-block").removeClass("encodes");
+
+//   }
+// });
+</script>
+
 <script>
 $(document).ready(function(){
 	$('a[data-toggle="pill"]').on('show.bs.tab', function(e) {
