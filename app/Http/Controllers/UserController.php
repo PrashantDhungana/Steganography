@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $posts = Gallery::all(); 
+        $posts = Gallery::where('user_id',auth()->user()->id)->get(); 
         return view('user.index' ,compact('posts'));
     }
 

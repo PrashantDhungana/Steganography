@@ -213,6 +213,6 @@ function createGraph(id,before,after){
     config
   );
 }
-    </script>
+</script>
     
 @endsection

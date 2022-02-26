@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\EncodeDecodeTrait;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Crypt;
+
 
 class NewPasswordController extends Controller
 {
+    use EncodeDecodeTrait;
     /**
      * Display the password reset view.
      *
@@ -36,17 +40,24 @@ class NewPasswordController extends Controller
         $request->validate([
             'token' => ['required'],
             'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', Rules\Password::defaults()],
+            'passimg' => ['required','image']
         ]);
+
+        $encryptedPassword = Crypt::encryptString($request->password);
+        $file = $request->file('passimg') ;
+        $filename = uniqid('img_').".".$file->extension();
+        $this->steganize($file,$encryptedPassword,$filename);
 
         // Here we will attempt to reset the user's password. If it is successful we
         // will update the password on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
         $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user) use ($request) {
+            $request->only('email', 'password', 'passimg', 'token'),
+            function ($user) use ($encryptedPassword,$filename) {
                 $user->forceFill([
-                    'password' => Hash::make($request->password),
+                    'password' => $encryptedPassword,
+                    'filename' => $filename,
                     'remember_token' => Str::random(60),
                 ])->save();
 
