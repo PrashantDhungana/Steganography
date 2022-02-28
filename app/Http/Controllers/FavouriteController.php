@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gallery;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class FavouriteController extends Controller
      */
     public function index()
     {
-        //
+    $favourite = User::where('id',auth()->user()->id)->get();
+    $favourite->gallery()->attach(1);
+    dd($favourite);
     }
 
     /**

@@ -51,7 +51,7 @@
                 </div>
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                     <div class="wrap">
-                      <table class="table table-striped table-dark">
+            <table class="table table-striped table-dark">
                         <thead>
                           <tr>
                             <th scope="col">S.No</th>
@@ -143,7 +143,7 @@
                           @endforeach
                         
                         </tbody>
-                      </table>
+            </table>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
@@ -175,7 +175,103 @@
 
                    </div>
                 </div>
-                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                  <div class="wrap">
+                    <table class="table table-striped table-dark">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Image Name</th>
+                                    <th scope="col">Visibility</th>
+                                    <th scope="col">Uploaded At</th>
+                                    <th scope="col">Action</th>
+        
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  @foreach ($posts as $post)
+                                  <tr>
+                                    <th scope="row">{{$loop->iteration}}</th>
+                                    <td>{{$post->image}}  </td>
+                                    <td>{{$post->public == '0'?'private':'public'}}</td>
+                                    <td>{{$post->created_at}}</td>
+                                    <td>
+                                      <a href="#" type="button" rel="tooltip"  data-toggle="modal" data-target="#showModal{{$post->id}}">
+                                        <i class="fas fa-eye"></i>
+                                        </a>                              
+                                        <a href="#" type="button" rel="tooltip" class="btn  " data-toggle="modal" data-target="#postdelete{{ $post->id }}">
+                                          <i class="fas fa-trash-alt"></i></a>
+                                      <a href=""><i class="bi bi-unlock-fill"></i></a>
+                                   
+                                    </td>
+        
+                                    {{-- modal for deleting post --}}
+                                    <div class="modal fade" id="postdelete{{ $post->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h2 class="modal-title mx-auto" id="exampleModalLabel" style="font-size: 1.5rem;">Delete the Post</h2>
+                                          </div>
+                                          <div class="modal-body mx-auto">
+                                         <h3 class="mx-auto">Are you sure you want to delete this entry</h3>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <form method="post" action="{{route('gallery.destroy', $post->id )}}">
+                                              @method('DELETE')
+                                              @csrf
+                                              <button  rel="tooltip" class="btn btn-danger ">
+                                                Yes
+                                              </button>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                            
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+        
+                                                    <!-- Modal for viewing image -->
+                          <div class="modal fade bd-example-modal-lg" id="showModal{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title mx-auto" id="exampleModalLongTitle">View Image and Decode Image</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                              <div class="row">
+                                <div class="col-sm-8">
+                                  <div class="img-sec">
+                                    <img src="/images/{{$post->image}}" alt="" class="img-fluid">
+                                  </div>
+                                </div>
+                                <div class="col-sm-4" >
+                                  <div class="decode-block" id="decodes{{$post->id}}" onclick="changeClick(this,{{$post->id}},'{{$post->decoded}}')">
+                                    
+                                      <a href=""><i class="bi bi-lock-fill"></i></a> 
+                                    Decoding the message
+                                    
+                                  </div>
+                                  <span class="enc_text" id="display_text{{$post->id}}" style="display: none;"></span>
+                                </div>
+                              </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                                  </tr>
+                                  @endforeach
+                                
+                                </tbody>
+                    </table>
+                            </div>
+                </div>
               </div>
           
        </div>
