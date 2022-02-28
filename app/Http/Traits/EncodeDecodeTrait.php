@@ -89,7 +89,7 @@ trait EncodeDecodeTrait
 
     public function desteganize($file) {
 
-      $mimeType = $file->getMimeType();
+      $mimeType = mime_content_type($file);
       if(str_contains($mimeType, 'png'))
           $img = imagecreatefrompng($file);
         if(str_contains($mimeType, 'jpg')||str_contains($mimeType, 'jpeg'))

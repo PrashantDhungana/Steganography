@@ -12,7 +12,7 @@ class Gallery extends Model
     
     public function User()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function getDecodedAttribute()
