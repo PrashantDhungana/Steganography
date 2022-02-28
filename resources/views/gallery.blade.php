@@ -8,16 +8,21 @@
    <div class="card-deck mt-3">
    @foreach ($gallery as $gall)
     <div class="col-3 mt-5">
-        <div class="card position-relative" style="margin-left: 0px; margin-right:0px; height:325px;">
+        <div class="card position-relative" style="margin-left: 0px; margin-right:0px; height:333px;">
             <img class="card-img-top" src="images/{{$gall->image}}" alt="Card image cap">
             <div class="card-body">
-              <p class="card-text" style="font-size: 15px;">{{$gall->text}}</p>
-              <div class="icons position-absolute" style="bottom: 15px;left: 148px;">
+              <p class="card-text" style="font-size: 15px;">{{\Illuminate\Support\Str::limit($gall->text,50,'....')}}</p>
+              <div class="icons position-absolute" style="bottom: 15px;left: 155px;">
                 <a href="#"   data-toggle="modal" data-target="#exampleModal{{$gall->id}}" 
                   onclick="createGraph({{$gall->id}},{{$gall->before}},{{$gall->after}}); return false;">
                   <i class="fas fa-chart-line text-warning"></i>
                 </a>
-                    <a href=""><i class="fa fa-bookmark text-info" aria-hidden="true"></i></a>
+                    <form action="{{route('favourite.store')}}" method="post" enctype="multipart/form-data" style="  position: relative; top: -5px;">
+                      @csrf
+                      <input type="hidden" value="{{$gall->id}}" name="gall_id">
+                      <input type="hidden" value="{{auth()->user()->id}}" name="user_id">
+                      <button type="submit" class="btn"><i class="fa fa-bookmark text-info" aria-hidden="true"></i></button>
+                    </form>
                     <a href=""><i class="fa fa-eye text-danger" aria-hidden="true"></i></a>
               </div>
 

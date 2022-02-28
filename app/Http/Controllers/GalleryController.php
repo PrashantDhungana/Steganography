@@ -27,34 +27,34 @@ class GalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) 
-    {
-        dd($request->all());
-        request()->validate([
-            'encode' => 'required|image',
-            'encode_text' => 'required'
-        ]);
+    // public function store(Request $request) 
+    // {
+    //     // dd($request->all());
+    //     request()->validate([
+    //         'encode' => 'required|image',
+    //         'encode_text' => 'required'
+    //     ]);
 
-        $image = request()->encode;
-        $plainText =  request()->encode_text;
+    //     $image = request()->encode;
+    //     $plainText =  request()->encode_text;
 
-        if($imageName = $this->steganize($image,$plainText))
-        {
-            $gallery = new Gallery();
-            // $gallery->user_id = auth()->user()->id;
-            if($gallery->user_id == null)
-                $gallery->user_id = 1;
-            $gallery->image = $imageName; 
-            $gallery->public = request()->visibility == 'public'?1:0;
-            if($gallery->public == 1)
-                $gallery->text = request()->message;
-            $gallery->process = 0;
-            if($gallery->save())
-                return redirect('/gallery')->with('message','Image Encoded Successfully');
-        }
+    //     if($imageName = $this->steganize($image,$plainText))
+    //     {
+    //         $gallery = new Gallery();
+    //         // $gallery->user_id = auth()->user()->id;
+    //         if($gallery->user_id == null)
+    //             $gallery->user_id = 1;
+    //         $gallery->image = $imageName; 
+    //         $gallery->public = request()->visibility == 'public'?1:0;
+    //         if($gallery->public == 1)
+    //             $gallery->text = request()->message;
+    //         $gallery->process = 0;
+    //         if($gallery->save())
+    //             return redirect('/gallery')->with('message','Image Encoded Successfully');
+    //     }
         
-        // $decode = 
-    }
+    //     // $decode = 
+    // }
 
     /**
      * Display the specified resource.
