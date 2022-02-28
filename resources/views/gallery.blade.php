@@ -72,7 +72,7 @@
            <div class="hell mt-5">Decode</div>   
            <form action="/decode" method="POST" enctype="multipart/form-data">
              @csrf
-             <input type="file" name="decode">
+             <input type="file" name="decode" required>
              <button type="submit" class="btn btn-primary">Start Decode</button>
            </form>          
        </div>

@@ -2,6 +2,7 @@
 namespace App\Http\Traits;
 
 use App\Models\Gallery;
+use Exception;
 
 trait EncodeDecodeTrait
 {
@@ -26,13 +27,14 @@ trait EncodeDecodeTrait
           $img = imagecreatefromjpeg($file);
 
         // Get image dimensions.
+
         $width = imagesx($img);
         $height = imagesy($img);
       
         $messagePosition = 0;
-        $histogram = [];
-        $bluesClues =[];
       
+        $histoAfter = [];
+
         for ($y = 0; $y < $height; $y++) {
           for ($x = 0; $x < $width; $x++) {
       
@@ -50,15 +52,14 @@ trait EncodeDecodeTrait
             $blue = $colors['blue'];
             $alpha = $colors['alpha'];
 
-            array_push($histogram,$blue);
             // Convert the blue to binary.
             $binaryBlue = str_pad(decbin($blue), 8, '0', STR_PAD_LEFT);
       
             // Replace the final bit of the blue colour with our message.
             $binaryBlue[strlen($binaryBlue) - 1] = $binaryMessage[$messagePosition];
             $newBlue = bindec($binaryBlue);
-            
-            array_push($bluesClues,$newBlue);
+
+            array_push($histoAfterBlue,$newBlue);
             // Inject that new colour back into the image.
             $newColor = imagecolorallocatealpha($img, $red, $green, $newBlue, $alpha);
             imagesetpixel($img, $x, $y, $newColor);
@@ -67,13 +68,35 @@ trait EncodeDecodeTrait
             $messagePosition++;
           }
         }
+        dd($histoAfter);
 
-        $histogram = $this->histoArray($histogram);
-        $bluesClues = $this->histoArray($bluesClues);
-        // dd($histogram,$bluesClues);
+      $histoBefore = [];
+
+      for ($y = 0; $y < $height; $y++) {
+        for ($x = 0; $x < $width; $x++) {
+          // Extract the colour.
+          $rgb = imagecolorat($img, $x, $y);
+          $colors = imagecolorsforindex($img, $rgb);
+    
+          $red = $colors['red'];
+          $green = $colors['green'];
+          $blue = $colors['blue'];
+          
+          $averagebefore = intval(($red+$green+$blue)/3);
+
+          array_push($histoBefore,$averagebefore); 
+        }
+      }
+
+
+        // $histogram = $this->histoArray($histogram);
+        // $bluesClues = $this->histoArray($bluesClues);
         //// GALLERY BEFORE AFTER COLUMN INSERT ELOQUENT
 
 
+        $histoBefore = $this->histoCount($histoBefore);
+
+        $histoAfter = $this->histoCount($histoAfter);
 
         $filename = uniqid('img_').".".$file->extension();
         // Save the image to a file.
@@ -83,13 +106,19 @@ trait EncodeDecodeTrait
         {
           // Destroy the image handler.
           imagedestroy($img);
-          return [$filename,$histogram,$bluesClues];
+          return [$filename,$histoBefore,$histoAfter];
         }
     }
 
     public function desteganize($file) {
 
-      $mimeType = $file->getMimeType();
+      try{
+        $mimeType = mime_content_type($file);
+      }
+      catch(Exception $e){
+        $mimeType = $file->getMimeType();
+      }
+
       if(str_contains($mimeType, 'png'))
           $img = imagecreatefrompng($file);
         if(str_contains($mimeType, 'jpg')||str_contains($mimeType, 'jpeg'))
@@ -148,16 +177,15 @@ trait EncodeDecodeTrait
       return $message;
   }
 
-  public function histoArray($pixels){
+  public function histoCount($pixels){
     //[0,1,2,3...,255]
-    
     $initialArray = [];
-    for ($i=0; $i <255 ; $i++) { 
+    for ($i=0; $i <=255 ; $i++) { 
       $initialArray[$i] = 0;
     }
 
     for ($i=0; $i <count($pixels); $i++) { 
-      $initialArray[$pixels[$i]] = $initialArray[$pixels[$i]]+1;
+      $initialArray[$pixels[$i]]++;
     }
     return $initialArray;
 
