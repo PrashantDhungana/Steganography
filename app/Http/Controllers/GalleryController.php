@@ -98,25 +98,24 @@ class GalleryController extends Controller
      */
     public function destroy($id)
     {
-        {
-            $gallery = Gallery::where('id', $id)->firstorFail();
-            if($gallery->delete()){
-                return  redirect()->route('user.index')->with("message", "History Deleted Successfully");
-    
-            }
+
+        $gallery = Gallery::where('id', $id)->firstorFail();
+        if($gallery->delete()){
+            return  redirect()->route('user.index')->with("message", "History Deleted Successfully");
+
         }
     }
 
-    public function encode()
+    public function encode(Request $request)
     {
         // dd(request()->all());
-        request()->validate([
+        $request->validate([
             'encode' => 'required|image',
             'encode_text' => 'required'
         ]);
 
-        $image = request()->encode;
-        $plainText =  request()->encode_text;
+        $image = $request->encode;
+        $plainText =  $request->encode_text;
 
         $imageInfo = $this->steganize($image,$plainText);
         // dd($imageInfo);
@@ -127,10 +126,10 @@ class GalleryController extends Controller
             if($gallery->user_id == null)
                 $gallery->user_id = 1;
             $gallery->image = $imageInfo[0]; 
-            $gallery->public = request()->visibility == 'public'?1:0;
+            $gallery->public = $request->visibility == 'public'?1:0;
             // dd($gallery->public);
             if($gallery->public == 1)
-            $gallery->text = request()->message;
+            $gallery->text = $request->message;
             $gallery->process = 0;
             $gallery->before = json_encode($imageInfo[1]);
             $gallery->after = json_encode($imageInfo[2]);
@@ -140,9 +139,14 @@ class GalleryController extends Controller
         }
     }
 
-    public function decode()
+    public function decode(Request $request)
     {
-        $file = request()->decode;
+
+        $request->validate([
+            'decode' => 'required|image'
+        ]);
+
+        $file = $request->decode;
         $decodedText = $this->desteganize($file);
         dd($decodedText);
     }
