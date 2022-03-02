@@ -16,8 +16,8 @@ class FavouriteController extends Controller
     public function index()
     {
     $favourite = User::where('id',auth()->user()->id)->get();
-    $favourite->gallery()->attach(1);
-    dd($favourite);
+    dd($favourite[0]->gallery()->get());
+   
     }
 
     /**
@@ -45,6 +45,7 @@ class FavouriteController extends Controller
         ]);
         $user = User::find($request->user_id);
         $user->gallery()->sync([$request->gall_id]);
+        dd($user);
         return redirect()->route('user.index');
     }
 

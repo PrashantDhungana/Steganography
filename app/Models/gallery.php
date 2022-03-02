@@ -10,7 +10,7 @@ class Gallery extends Model
 {
     use HasFactory,EncodeDecodeTrait;
     
-    public function User()
+    public function user()
     {
         return $this->belongsToMany(User::class);
     }
