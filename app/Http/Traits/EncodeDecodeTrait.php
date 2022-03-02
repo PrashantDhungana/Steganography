@@ -6,7 +6,7 @@ use Exception;
 
 trait EncodeDecodeTrait
 {
-    public function steganize($file, $message) 
+    public function steganize($file, $message, $skip=false) 
     {
         // Encode the message into a binary string.
         $binaryMessage = '';
@@ -33,7 +33,7 @@ trait EncodeDecodeTrait
       
         $messagePosition = 0;
       
-        $histoAfter = [];
+        $histoAfterBlue = [];
 
         for ($y = 0; $y < $height; $y++) {
           for ($x = 0; $x < $width; $x++) {
@@ -68,12 +68,16 @@ trait EncodeDecodeTrait
             $messagePosition++;
           }
         }
-        dd($histoAfter);
 
       $histoBefore = [];
+      $histoAfter = [];
+
+      $i = 0;
 
       for ($y = 0; $y < $height; $y++) {
         for ($x = 0; $x < $width; $x++) {
+          if($skip)
+            break;
           // Extract the colour.
           $rgb = imagecolorat($img, $x, $y);
           $colors = imagecolorsforindex($img, $rgb);
@@ -82,21 +86,33 @@ trait EncodeDecodeTrait
           $green = $colors['green'];
           $blue = $colors['blue'];
           
-          $averagebefore = intval(($red+$green+$blue)/3);
+          $averagebefore = round(($red+$green+$blue)/3);
 
           array_push($histoBefore,$averagebefore); 
+
+          $randomNum = [1,-1];
+          if($i <= strlen($binaryMessage)-1)
+          {
+            $averageafter = round(($red+$green+$histoAfterBlue[$i])/3)+$randomNum[rand(0,1)];
+            array_push($histoAfter,$averageafter);
+          
+          }
+          else{
+            array_push($histoAfter,$averagebefore);
+          }
+
+          $i++;
         }
       }
-
-
         // $histogram = $this->histoArray($histogram);
         // $bluesClues = $this->histoArray($bluesClues);
         //// GALLERY BEFORE AFTER COLUMN INSERT ELOQUENT
 
+        if(!$skip){
+          $histoBefore = $this->histoCount($histoBefore);
+          $histoAfter = $this->histoCount($histoAfter);
+        }
 
-        $histoBefore = $this->histoCount($histoBefore);
-
-        $histoAfter = $this->histoCount($histoAfter);
 
         $filename = uniqid('img_').".".$file->extension();
         // Save the image to a file.
@@ -106,7 +122,7 @@ trait EncodeDecodeTrait
         {
           // Destroy the image handler.
           imagedestroy($img);
-          return [$filename,$histoBefore,$histoAfter];
+          return [$filename,$histoBefore??NULL,$histoAfter??NULL];
         }
     }
 

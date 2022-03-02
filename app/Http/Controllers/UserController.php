@@ -94,19 +94,25 @@ class UserController extends Controller
     public function updatePassword(Request $request){
         // dd("hello");
         $request->validate([
-            'currentimage' =>'required',
-            'password' => 'required',
-            'newimage' => 'required'
+            'currentimage' =>['required','image'],
+            'password' => ['required'],
+            'newimage' => ['required','image']
         ]);
+        $loggedUser = auth()->user();
         // dd($this->desteganize($request->currentimage));
-       if( auth()->user()->password != $this->desteganize($request->currentimage)){
+       if( $loggedUser->password != $this->desteganize($request->currentimage)){
            abort(404);
-
        }
        else{
-            $newpass = Crypt::decryptString($request->password);
-           $this->steganize($request->newimage, $newpass);
-           
+            $newpass = Crypt::encryptString($request->password);
+            $result = $this->steganize($request->newimage, $newpass,true);
+
+            $loggedUser = User::find($loggedUser->id);
+            $loggedUser->password = $newpass;
+            $loggedUser->filename = $result[0];
+            if($loggedUser->save())
+                return redirect('/user');
+
 
        }
 
