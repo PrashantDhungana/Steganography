@@ -37,7 +37,7 @@
           <li class="nav-item dropdown text-white">
            <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <span class="mr-2 d-none d-lg-inline text-white small">Douglas McGee</span>
+               <span class="mr-2 d-none d-lg-inline text-white small">{{auth()->user()->name}}</span>
                <img class="img-profile rounded-circle"
                    src="avatar.png" height="25px" width="23px">
            </a>

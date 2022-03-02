@@ -19,8 +19,8 @@ class CreateGalleryTable extends Migration
             $table->string('image');
             $table->boolean('public');
             $table->boolean('process');
-            $table->string('before',511);
-            $table->string('after',511);
+            $table->string('before',1300);
+            $table->string('after',1300);
             $table->string('text')->nullable();
             $table->timestamps();
         });
