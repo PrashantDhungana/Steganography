@@ -22,16 +22,16 @@ Route::get('/', function () {
     return redirect('/gallery');
 });
 Route::middleware(['auth'])->group(function () {
-    Route::post('/encode',[GalleryController::class,'encode']);
     Route::post('/decode',[GalleryController::class,'decode']);
     Route::resource('/user' , UserController::class);
-    Route::resource('/gallery' , GalleryController::class);
     Route::post('/update-password',[UserController::class,'updatePassword'])->name('update_password');
     Route::resource('/favourite',FavouriteController::class);
     // Route::get('/dashboard', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
-});
-// Route::get('/logout',[App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
+        //     return view('dashboard');
+        // })->name('dashboard');
+        Route::post('/encode',[GalleryController::class,'encode']);
+        Route::resource('/gallery' , GalleryController::class);
+    });
+    // Route::get('/logout',[App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
 
 require __DIR__.'/auth.php';

@@ -19,7 +19,10 @@ class UserController extends Controller
     public function index()
     {
         $posts = Gallery::where('user_id',auth()->user()->id)->get(); 
-        return view('user.index' ,compact('posts'));
+
+        $favourite = User::where('id',auth()->user()->id)->get();
+        $favourites = $favourite[0]->gallery()->get();
+        return view('user.index' ,compact('posts' ,'favourites'));
     }
 
     /**

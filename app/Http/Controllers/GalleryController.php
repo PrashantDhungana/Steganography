@@ -122,9 +122,9 @@ class GalleryController extends Controller
         if($imageInfo[0])
         {
             $gallery = new Gallery();
-            // $gallery->user_id = auth()->user()->id;
-            if($gallery->user_id == null)
-                $gallery->user_id = 1;
+            $gallery->user_id = auth()->user()->id;
+            // if($gallery->user_id == null)
+            //     $gallery->user_id = 1;
             $gallery->image = $imageInfo[0]; 
             $gallery->public = $request->visibility == 'public'?1:0;
             // dd($gallery->public);
