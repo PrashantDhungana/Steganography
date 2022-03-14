@@ -44,7 +44,7 @@
            <!-- Dropdown - User Information -->
            <div class="dropdown-menu dropdown-menu-right bg-gray shadow animated--grow-in text-white"
                aria-labelledby="userDropdown">
-               <a class="dropdown-item "  href="#">
+               <a class="dropdown-item "  href="/user">
                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                    Profile
                </a>

@@ -1,6 +1,6 @@
 @extends('layout')
 @section('contents')
-
+{{-- @dd($favourites); --}}
 <div class="wrapper">
     <div class="container-fluid" id="contains">
        <div class="row">
@@ -189,19 +189,19 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  @foreach ($posts as $post)
+                                  @foreach ($favourites as $favourite)
                                   <tr>
                                     <th scope="row">{{$loop->iteration}}</th>
-                                    <td>{{$post->image}}  </td>
-                                    <td>{{$post->public == '0'?'private':'public'}}</td>
-                                    <td>{{$post->created_at}}</td>
+                                    <td>{{$favourite->image}}  </td>
+                                    <td>{{$favourite->public == '0'?'private':'public'}}</td>
+                                    <td>{{$favourite->created_at}}</td>
                                     <td>
-                                      <a href="#" type="button" rel="tooltip"  data-toggle="modal" data-target="#showModal{{$post->id}}">
+                                      <a href="#" type="button" rel="tooltip"  data-toggle="modal" data-target="#showModal{{$favourite->id}}">
                                         <i class="fas fa-eye"></i>
                                         </a>                              
-                                        <a href="#" type="button" rel="tooltip" class="btn  " data-toggle="modal" data-target="#postdelete{{ $post->id }}">
-                                          <i class="fas fa-trash-alt"></i></a>
-                                      <a href=""><i class="bi bi-unlock-fill"></i></a>
+                                        {{-- <a href="#" type="button" rel="tooltip" class="btn  " data-toggle="modal" data-target="#postdelete{{ $post->id }}">
+                                          <i class="fas fa-trash-alt"></i></a> --}}
+                                      {{-- <a href=""><i class="bi bi-unlock-fill"></i></a> --}}
                                    
                                     </td>
         
@@ -229,6 +229,7 @@
                                         </div>
                                       </div>
                                     </div>
+
         
                                                     <!-- Modal for viewing image -->
                           <div class="modal fade bd-example-modal-lg" id="showModal{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -265,6 +266,7 @@
                             </div>
                           </div>
                           </div>
+                          
                                   </tr>
                                   @endforeach
                                 
