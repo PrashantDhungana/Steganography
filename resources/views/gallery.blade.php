@@ -123,7 +123,7 @@
                               <button>Browse File</button> --}}
                               <div class="drop-zone">
                                 <span class="drop-zone__prompt">Drop file here or click to upload</span>
-                                <input type="file" name="myFile" class="drop-zone__input">
+                                <input type="file" name="encode" class="drop-zone__input">
                               </div>
                           {{-- </div> --}}
                     </div>  
