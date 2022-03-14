@@ -17,7 +17,7 @@ class FavouriteController extends Controller
     {
     $favourite = User::where('id',auth()->user()->id)->get();
      $favourites = $favourite[0]->gallery()->get();
-    dd($favourites);
+    // dd($favourites);
     return view('user.index' ,compact('favourites'));
 
    
