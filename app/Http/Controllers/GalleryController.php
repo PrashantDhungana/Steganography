@@ -149,6 +149,7 @@ class GalleryController extends Controller
         $file = $request->decode;
         $decodedText = $this->desteganize($file);
         dd($decodedText);
+        return view('/gallery',compact('decodeText'));
     }
 
     

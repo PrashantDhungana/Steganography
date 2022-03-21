@@ -206,7 +206,7 @@
                                     </td>
         
                                     {{-- modal for deleting post --}}
-                                    <div class="modal fade" id="postdelete{{ $post->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="postdelete{{ $favourite->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                       <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                           <div class="modal-header">
@@ -216,7 +216,7 @@
                                          <h3 class="mx-auto">Are you sure you want to delete this entry</h3>
                                           </div>
                                           <div class="modal-footer">
-                                            <form method="post" action="{{route('gallery.destroy', $post->id )}}">
+                                            <form method="post" action="{{route('gallery.destroy', $favourite->id )}}">
                                               @method('DELETE')
                                               @csrf
                                               <button  rel="tooltip" class="btn btn-danger ">
@@ -232,7 +232,7 @@
 
         
                                                     <!-- Modal for viewing image -->
-                          <div class="modal fade bd-example-modal-lg" id="showModal{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal fade bd-example-modal-lg" id="showModal{{$favourite->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                           <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -245,17 +245,17 @@
                               <div class="row">
                                 <div class="col-sm-8">
                                   <div class="img-sec">
-                                    <img src="/images/{{$post->image}}" alt="" class="img-fluid">
+                                    <img src="/images/{{$favourite->image}}" alt="" class="img-fluid">
                                   </div>
                                 </div>
                                 <div class="col-sm-4" >
-                                  <div class="decode-block" id="decodes{{$post->id}}" onclick="changeClick(this,{{$post->id}},'{{$post->decoded}}')">
+                                  <div class="decode-block" id="decodes{{$favourite->id}}" onclick="changeClick(this,{{$favourite->id}},'{{$favourite->decoded}}')">
                                     
                                       <a href=""><i class="bi bi-lock-fill"></i></a> 
                                     Decoding the message
                                     
                                   </div>
-                                  <span class="enc_text" id="display_text{{$post->id}}" style="display: none;"></span>
+                                  <span class="enc_text" id="display_text{{$favourite->id}}" style="display: none;"></span>
                                 </div>
                               </div>
                               </div>
