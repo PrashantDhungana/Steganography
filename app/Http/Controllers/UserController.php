@@ -22,6 +22,7 @@ class UserController extends Controller
 
         $favourite = User::where('id',auth()->user()->id)->get();
         $favourites = $favourite[0]->gallery()->get();
+        
         return view('user.index' ,compact('posts' ,'favourites'));
     }
 
