@@ -135,7 +135,7 @@
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="visibility" value="public" id="chkNo" onclick="ShowHideDiv()">
+                          <input class="form-check-input" type="radio" name="visibility" value="private" id="chkNo" onclick="ShowHideDiv()">
                           <label class="form-check-label" for="exampleRadios2">
                             Post Privately
                           </label>
