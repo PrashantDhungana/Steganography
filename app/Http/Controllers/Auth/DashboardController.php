@@ -25,6 +25,7 @@ class DashboardController extends Controller
         ->get();
 
         
-
+        return view('admin.dashboard',compact('encodeDecodeCount','savedCount','usersCount'));
+        
     }
 }
