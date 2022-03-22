@@ -22,8 +22,9 @@ class UserController extends Controller
         $gallery = Gallery::where('user_id',auth()->user()->id)->where('public',0)->get();
         $favourite = User::where('id',auth()->user()->id)->get();
         $favourites = $favourite[0]->gallery()->get();
+        $user = User::where('id' , auth()->user()->id)->first();
         // dd($favourites);
-        return view('user.index' ,compact('posts' ,'favourites','gallery'));
+        return view('user.index' ,compact('posts' ,'favourites','gallery','user'));
     }
 
     /**
@@ -64,9 +65,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+       
     }
 
     /**
@@ -78,7 +79,34 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    //    dd($request->all());
+        $request->validate([
+            'avatar'=>['nullable','image'],
+            
+            'email'=>['required'],
+             
+            'name'=>['required']
+        ]);
+        $profileImg = $request->file('avatar');
+        if($profileImg){
+            
+            $extension = $profileImg->getClientOriginalExtension();
+            $imageName = uniqid('img_').'.'.$extension;
+            $profileImg->move('storage/profile/',$imageName);
+        }
+        else
+            $imageName = 'user.png';
+
+            
+            $user = User::find($id);
+            // dd($user);
+        $user->avatar = $imageName;
+        $user->email = $request->email;
+        $user->name = $request->name;
+       
+        if($user->save())
+            return redirect()->route('user.index');
+
     }
 
     /**

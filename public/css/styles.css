@@ -362,11 +362,17 @@ border-radius: 7px;
 }
 
 .button label {
-  background-color: rgb(27, 106, 209);
+  background-color: rgb(209, 109, 27);
   color: white;
   padding: 0.5rem;
   font-family: sans-serif;
   border-radius: 0.3rem;
   cursor: pointer;
   margin-top: 1rem;
+}
+.display__control{
+  display: none;
+}
+.display__show{
+  display: block;
 }

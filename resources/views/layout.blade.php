@@ -39,7 +39,7 @@
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                <span class="mr-2 d-none d-lg-inline text-white small">{{auth()->user()->name}}</span>
                <img class="img-profile rounded-circle"
-                   src="avatar.png" height="25px" width="23px">
+                   src="/storage/profile/{{auth()->user()->avatar}}" height="25px" width="23px">
            </a>
            <!-- Dropdown - User Information -->
            <div class="dropdown-menu dropdown-menu-right bg-gray shadow animated--grow-in text-white"
