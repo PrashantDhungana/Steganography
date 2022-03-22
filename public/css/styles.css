@@ -362,7 +362,7 @@ border-radius: 7px;
 }
 
 .button label {
-  background-color: indigo;
+  background-color: rgb(27, 106, 209);
   color: white;
   padding: 0.5rem;
   font-family: sans-serif;

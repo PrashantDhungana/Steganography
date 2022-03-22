@@ -39,20 +39,21 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Username</label>
                                                 <input type="name" class="form-control" id="exampleInputEmail1"
-                                                    aria-describedby="emailHelp" placeholder="Enter email">
+                                                 name="name"   aria-describedby="emailHelp" placeholder="Enter Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Email</label>
+                                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                                name="email"    aria-describedby="emailHelp" placeholder="Enter email">
                                             </div>
 
 
                                             <div class="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword1"
-                                                    placeholder="Enter Password">
+                                                <label for="exampleInputPassword1">Profile Image</label>
+                                                <input type="file" class="form-control" id="exampleInputPassword1"
+                                                name="avatar"  >
                                             </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Confirm Password</label>
-                                                <input type="password_confirmation" class="form-control"
-                                                    id="exampleInputPassword1" placeholder="Enter confirmation Password">
-                                            </div>
+                                           
 
                                             <button type="submit" class="btn btn-primary float-right">Submit</button>
                                         </form>
@@ -189,7 +190,7 @@
                                     <div class="form-group">
                                         <label for="exampleFormControlFile1">Current PassImage</label>
                                         <input type="file" class="form-control-file" id="exampleFormControlFile1"
-                                            name="currentimage">
+                                            name="currentimage" >
 
                                         <label for="actual-btn">Choose File</label>
 
