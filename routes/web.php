@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-  Route::get('/admin', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
 Route::get('/', function () {
     return redirect('/gallery');
 });
@@ -32,7 +29,9 @@ Route::middleware(['auth'])->group(function () {
   
     Route::post('/encode',[GalleryController::class,'encode']);
     Route::resource('/gallery' , GalleryController::class);
-    });
-    // Route::get('/logout',[App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
-Route::get('/counts',[DashboardController::class,'stats']);
+
+    Route::get('/dashboard',[DashboardController::class,'stats'])->middleware('admin')->name('dashboard');
+    
+});
+    
 require __DIR__.'/auth.php';
