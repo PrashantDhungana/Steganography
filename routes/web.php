@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+  Route::get('/admin', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
 Route::get('/', function () {
     return redirect('/gallery');
 });
@@ -26,9 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/user' , UserController::class);
     Route::post('/update-password',[UserController::class,'updatePassword'])->name('update_password');
     Route::resource('/favourite',FavouriteController::class);
-    // Route::get('/dashboard', function () {
-        //     return view('dashboard');
-        // })->name('dashboard');
+  
         Route::post('/encode',[GalleryController::class,'encode']);
         Route::resource('/gallery' , GalleryController::class);
     });

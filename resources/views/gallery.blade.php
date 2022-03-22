@@ -116,20 +116,15 @@
                 @csrf
                   <div class="row">
                     <div class="col-md-6">
-                          {{-- <div class="drag-area gap-3">
-                              <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                              <header>Encode</header>
-                              <span>OR</span>
-                              <button>Browse File</button> --}}
+                          
                               <div class="drop-zone">
                                 <span class="drop-zone__prompt">Drop file here or click to upload</span>
                                 <input type="file" name="encode" class="drop-zone__input">
                               </div>
-                          {{-- </div> --}}
+                         
                     </div>  
-                      {{-- <input type="file" name="encode"> --}}
                       <div class="col-md-6 p-5">
-                        <div class="form-group mt-3">
+                        <div class="form-group ">
                           <label for="exampleInputEmail1">Text to be encoded</label>
                           <input type="text" placeholder="Hidden text" class="form-control" name="encode_text" autocomplete="off" />
                         </div>
@@ -165,32 +160,26 @@
     </div>
     {{-- modal decode --}}
     <div class="modal fade" id="exampleModaldecode" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-dialog modal-dialog-centered " role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Decode </h5>
+            <h5 class="modal-title mx-auto" id="exampleModalLongTitle">Decoding the Image </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-              <form method="POST" action="/encode" enctype="multipart/form-data">
+              <form method="POST" action="/decode" enctype="multipart/form-data">
                 @csrf
                   <div class="row">
-                    <div class="col-md-6">
-                              <input type="file" name="encode">
+                    <div class="col-md-12" style="margin-left:70px;">
+                      <div class="drop-zone">
+                        <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                        <input type="file" name="decode" class="drop-zone__input">
+                      </div>
                       
                     </div>  
                       {{-- <input type="file" name="encode"> --}}
-                      <div class="col-md-6 p-5">
-                        <div class="form-group mt-3">
-                          <label for="exampleInputEmail1">Text to be encoded</label>
-                          <input type="text" placeholder="Hidden text" class="form-control" name="encode_text" autocomplete="off" />
-                        </div>
-                  
-            
-                        
-                      </div>
                   </div>
                     
           </div>
@@ -264,11 +253,17 @@ function createGraph(id,before,after){
     config
   );
 }
+
+//encode javascript
 document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
   const dropZoneElement = inputElement.closest(".drop-zone");
 
   dropZoneElement.addEventListener("click", (e) => {
     inputElement.click();
+  });
+    dropZoneElement.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZoneElement.classList.add("drop-zone--over");
   });
 
   inputElement.addEventListener("change", (e) => {
@@ -277,22 +272,21 @@ document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
     }
   });
 
-  dropZoneElement.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    dropZoneElement.classList.add("drop-zone--over");
-  });
 
   ["dragleave", "dragend"].forEach((type) => {
     dropZoneElement.addEventListener(type, (e) => {
+      // console.log("hello");
       dropZoneElement.classList.remove("drop-zone--over");
     });
   });
 
   dropZoneElement.addEventListener("drop", (e) => {
     e.preventDefault();
+    console.log(e.dataTransfer.files);
 
     if (e.dataTransfer.files.length) {
       inputElement.files = e.dataTransfer.files;
+      // console.log(inputElement.files);
       updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
     }
 
@@ -305,8 +299,10 @@ document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
  *
  * @param {HTMLElement} dropZoneElement
  * @param {File} file
- */
+//  */
 function updateThumbnail(dropZoneElement, file) {
+  console.log(dropZoneElement);
+  console.log(file);
   let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
 
   // First time - remove the prompt
