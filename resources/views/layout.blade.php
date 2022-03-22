@@ -23,9 +23,9 @@
      <li class="nav-item dropdown" style="list-style:none;" id="navbarNav">
        <a class="nav-link dropdown-toggle mx-2" data-toggle="dropdown" href="/destination.html" role="button" style="text-decoration: none; color: white;" aria-haspopup="true" aria-expanded="false">Menu</a>
        <div class="dropdown-menu">
-         <a class="dropdown-item" href="/destination.html">User Profile</a>
-         <a class="dropdown-item" href="#">User History</a>
-         <a class="dropdown-item" href="#">Feeds</a>
+         <a class="dropdown-item" href="/user">User Profile</a>
+         <a class="dropdown-item" href="/gallery">Gallery</a>
+         {{-- <a class="dropdown-item" href="#">Feeds</a> --}}
      </li>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
@@ -48,14 +48,7 @@
                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                    Profile
                </a>
-               <a class="dropdown-item " href="#">
-                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                   Settings
-               </a>
-               <a class="dropdown-item " href="#">
-                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                   Activity Log
-               </a>
+              
                <div class="dropdown-divider text-white"></div>
                <!-- <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -63,7 +56,8 @@
                </a> -->
                <form action="/logout" method="POST">
                  @csrf
-                 <button type="submit" class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Logout</button>
+
+                 <button type="submit" class="dropdown-item  "><i class="fas  fa-sign-out-alt  fa-fw mr-2 text-gray-400"></i>Logout</button>
                </form>
            </div>
        </li>
