@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\EncodeDecodeController;
 use App\Http\Controllers\FavouriteController;
@@ -29,9 +30,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/update-password',[UserController::class,'updatePassword'])->name('update_password');
     Route::resource('/favourite',FavouriteController::class);
   
-        Route::post('/encode',[GalleryController::class,'encode']);
-        Route::resource('/gallery' , GalleryController::class);
+    Route::post('/encode',[GalleryController::class,'encode']);
+    Route::resource('/gallery' , GalleryController::class);
     });
     // Route::get('/logout',[App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
-
+Route::get('/counts',[DashboardController::class,'stats']);
 require __DIR__.'/auth.php';
