@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="form col-md-8 display__control " id="editform" >
                                     <div class="userb">
-                                        <h3 class="text-dark">Edit User Information</h3>
+                                        <h3 class="text-dark px-auto font-weight-bold" style="padding-left: 256px;">Edit User Information</h3>
                                         <form class="m-3" method="POST" action="{{route('user.update',$user->id)}}" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
