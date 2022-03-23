@@ -32,88 +32,56 @@ trait EncodeDecodeTrait
         $height = imagesy($img);
       
         $messagePosition = 0;
-      
         $histoAfterBlue = [];
 
         for ($y = 0; $y < $height; $y++) {
           for ($x = 0; $x < $width; $x++) {
-      
-            if (!isset($binaryMessage[$messagePosition])) {
-              // No need to keep processing beyond the end of the message.
-              break 2;
-            }
-      
             // Extract the colour.
             $rgb = imagecolorat($img, $x, $y);
             $colors = imagecolorsforindex($img, $rgb);
-      
+            
+            $blue = $colors['blue'];
             $red = $colors['red'];
             $green = $colors['green'];
-            $blue = $colors['blue'];
             $alpha = $colors['alpha'];
-
+            
             // Convert the blue to binary.
             $binaryBlue = str_pad(decbin($blue), 8, '0', STR_PAD_LEFT);
-      
-            // Replace the final bit of the blue colour with our message.
-            $binaryBlue[strlen($binaryBlue) - 1] = $binaryMessage[$messagePosition];
-            $newBlue = bindec($binaryBlue);
 
-            array_push($histoAfterBlue,$newBlue);
-            // Inject that new colour back into the image.
-            $newColor = imagecolorallocatealpha($img, $red, $green, $newBlue, $alpha);
-            imagesetpixel($img, $x, $y, $newColor);
-      
-            // Advance message position.
-            $messagePosition++;
+            if($messagePosition < strlen($binaryMessage)){
+
+              // Replace the final bit of the blue colour with our message.
+              $binaryBlue[strlen($binaryBlue) - 1] = $binaryMessage[$messagePosition];
+              $newBlue = bindec($binaryBlue);
+              
+              // dump($newBlue);
+              // Inject that new colour back into the image.
+              $newColor = imagecolorallocatealpha($img, $red, $green, $newBlue, $alpha);
+              imagesetpixel($img, $x, $y, $newColor);
+              
+              // Advance message position.
+              $messagePosition++;
+
+              // Array for prev
+              $this->histoCount(round(($red+$green+$blue)/3),0);
+
+              // Array for new
+              $this->histoCount(round(($red+$green+$newBlue)/3),1);
+
+            }
+            else{
+              $this->histoCount(round(($red+$green+$blue)/3),2);
+            }
+            
           }
         }
 
-      $histoBefore = [];
-      $histoAfter = [];
-
-      $i = 0;
-
-      for ($y = 0; $y < $height; $y++) {
-        for ($x = 0; $x < $width; $x++) {
-          if($skip)
-            break;
-          // Extract the colour.
-          $rgb = imagecolorat($img, $x, $y);
-          $colors = imagecolorsforindex($img, $rgb);
-    
-          $red = $colors['red'];
-          $green = $colors['green'];
-          $blue = $colors['blue'];
-          
-          $averagebefore = round(($red+$green+$blue)/3);
-
-          array_push($histoBefore,$averagebefore); 
-
-          $randomNum = [1,-1];
-          if($i <= strlen($binaryMessage)-1)
-          {
-            $averageafter = round(($red+$green+$histoAfterBlue[$i])/3)+$randomNum[rand(0,1)];
-            array_push($histoAfter,$averageafter);
-          
-          }
-          else{
-            array_push($histoAfter,$averagebefore);
-          }
-
-          $i++;
+        for ($i=0; $i <= 255 ; $i++) 
+        { 
+            $histoBefore[$i] = $this->previousCount[$i] + $this->totalCount[$i];
+            $histoAfter[$i] = $this->afterCount[$i] + $this->totalCount[$i];
         }
-      }
-        // $histogram = $this->histoArray($histogram);
-        // $bluesClues = $this->histoArray($bluesClues);
-        //// GALLERY BEFORE AFTER COLUMN INSERT ELOQUENT
-
-        if(!$skip){
-          $histoBefore = $this->histoCount($histoBefore);
-          $histoAfter = $this->histoCount($histoAfter);
-        }
-
-
+        
         $filename = uniqid('img_').".".$file->extension();
         // Save the image to a file.
         $newImage = 'images/'.$filename;
@@ -193,17 +161,24 @@ trait EncodeDecodeTrait
       return $message;
   }
 
-  public function histoCount($pixels){
+  public $previousCount = [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0];
+  
+  public $afterCount = [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0];
+
+  public $totalCount = [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0];
+
+  public function histoCount($pixels,$operation){
+
     //[0,1,2,3...,255]
-    $initialArray = [];
-    for ($i=0; $i <=255 ; $i++) { 
-      $initialArray[$i] = 0;
-    }
+    if($operation == 0)
+      $this->previousCount[$pixels]++;
+    
+    else if($operation == 1)
+      $this->afterCount[$pixels]++;
+    
+    else if($operation == 2)
+      $this->totalCount[$pixels]++;
 
-    for ($i=0; $i <count($pixels); $i++) { 
-      $initialArray[$pixels[$i]]++;
-    }
-    return $initialArray;
-
+    
   }
 }
