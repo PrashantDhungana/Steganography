@@ -22,12 +22,12 @@ Route::get('/', function () {
     return redirect('/gallery');
 });
 Route::middleware(['auth'])->group(function () {
+    Route::post('/encode',[GalleryController::class,'encode']);
     Route::post('/decode',[GalleryController::class,'decode']);
     Route::resource('/user' , UserController::class);
     Route::post('/update-password',[UserController::class,'updatePassword'])->name('update_password');
     Route::resource('/favourite',FavouriteController::class);
   
-    Route::post('/encode',[GalleryController::class,'encode']);
     Route::resource('/gallery' , GalleryController::class);
 
     Route::get('/dashboard',[DashboardController::class,'stats'])->middleware('admin')->name('dashboard');
