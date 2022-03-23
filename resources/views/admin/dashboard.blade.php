@@ -1,5 +1,6 @@
 @extends('admin.layout')
 @section('contents')
+{{-- @dd( $usersCount); --}}
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
@@ -26,9 +27,9 @@
                         <!-- Logo text -->
                         <span class="logo-text">
                             <!-- dark Logo text -->
-                            <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                            <img src="../images/logo-text.png" alt="STEGGY" class="dark-logo" />
                             <!-- Light Logo text -->
-                            <img src="../assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
+                            {{-- <img src="../assets/images/logo-light-text.png" class="light-logo" alt="homepage" /> --}}
                         </span>
                     </a>
                     <!-- ============================================================== -->
@@ -99,10 +100,10 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="index.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="pages-profile.html" aria-expanded="false"><i
                                     class="mdi mdi-account-network"></i><span class="hide-menu">Profile</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                       {{-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="table-basic.html" aria-expanded="false"><i class="mdi mdi-border-all"></i><span
                                     class="hide-menu">Table</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
@@ -113,11 +114,8 @@
                                     class="hide-menu">Blank</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="error-404.html" aria-expanded="false"><i class="mdi mdi-alert-outline"></i><span
-                                    class="hide-menu">404</span></a></li>
-                        <li class="text-center p-40 upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/"
-                                class="btn d-block w-100 btn-danger text-white" target="_blank">Upgrade to Pro</a>
-                        </li>
+                                    class="hide-menu">404</span></a></li> --}}
+                        
                     </ul>
 
                 </nav>
@@ -147,10 +145,7 @@
                         <h1 class="mb-0 fw-bold">Dashboard</h1> 
                     </div>
                     <div class="col-6">
-                        <div class="text-end upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/" class="btn btn-primary text-white"
-                                target="_blank">Upgrade to Pro</a>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -164,7 +159,121 @@
                 <!-- ============================================================== -->
                 <!-- Sales chart -->
                 <!-- ============================================================== -->
+                <!-- Card stats -->
                 <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card  text-white" style="width: 18rem; background-color:#1e4db7;">
+                            <div class="card-body text-white">
+                                <div class="dash-icon">
+                                    <span><i class="fas  fa-2x text-dark fa-lock"></i></span>
+                                    <div class="dash-text">
+                                        <h5 class="text-white text-center pl-2">Total Encodes</h5>
+                                        <h1 class="text-center">{{$encodeDecodeCount->encode_count}}
+                                        </h1>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card  text-white" style="width: 18rem; background-color:#1e4db7;">
+                            <div class="card-body text-white">
+                                <div class="dash-icon">
+                                    <span><i class="fas fa-2x text-dark fa-unlock"></i></span>
+                                    <div class="dash-text">
+                                        <h5 class="text-white text-center pl-2">Total Decodes</h5>
+                                        <h1 class="text-center">{{$encodeDecodeCount->decode_count}}
+                                        </h1>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card  text-white" style="width: 18rem; background-color:#1e4db7;">
+                            <div class="card-body text-white">
+                                <div class="dash-icon">
+                                    <span><i class="fas fa-2x text-dark fa-users"></i></span>
+                                    <div class="dash-text">
+                                        <h5 class="text-white text-center pl-2">User Count</h5>
+                                        <h1 class="text-center">{{ $usersCount->user_count}}
+                                        </h1>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card  text-white" style="width: 18rem; background-color:#1e4db7;">
+                            <div class="card-body text-white">
+                                <div class="dash-icon">
+                                    <span><i class="fas fa-2x text-dark fa-user-shield"></i></span>
+                                    <div class="dash-text">
+                                        <h5 class="text-white text-center pl-2">Admin Count</h5>
+                                        <h1 class="text-center">{{ $usersCount->admin_count}}
+                                        </h1>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <!-- Card stats -->
+                <div class="row post">
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card  text-white" style="width: 23rem; background-color:#fc4b6c;">
+                            <div class="card-body text-white">
+                                <div class="dash-icon">
+                                    <span><i class="fas  fa-3x text-dark fa-images"></i></span>
+                                    <div class="dash-text">
+                                        <h5 class="text-white text-center pl-2">Total Images</h5>
+                                        <h1 class="text-center">{{$encodeDecodeCount->private_count + $encodeDecodeCount->public_count}}
+                                        </h1>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card  text-white" style="width: 23rem; background-color:#fc4b6c;">
+                            <div class="card-body text-white">
+                                <div class="dash-icon">
+                                    <span><i class="fas fa-3x text-dark fa-photo-video"></i></span>
+                                    <div class="dash-text">
+                                        <h5 class="text-white text-center pl-2">Private Images</h5>
+                                        <h1 class="text-center">{{$encodeDecodeCount->private_count}}
+                                        </h1>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card  text-white" style="width: 23rem; background-color:#fc4b6c;">
+                            <div class="card-body text-white">
+                                <div class="dash-icon">
+                                    <span><i class="fas fa-3x text-dark fa-photo-video"></i></span>
+                                    <div class="dash-text">
+                                        <h5 class="text-white text-center pl-2">Public Images</h5>
+                                        <h1 class="text-center">{{$encodeDecodeCount->public_count}}
+                                        </h1>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                {{-- <div class="row">
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-body">
@@ -257,14 +366,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- ============================================================== -->
                 <!-- Sales chart -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
                 <!-- Table -->
                 <!-- ============================================================== -->
-                <div class="row">
+                {{-- <div class="row">
                     <!-- column -->
                     <div class="col-12">
                         <div class="card">
@@ -395,14 +504,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- ============================================================== -->
                 <!-- Table -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
                 <!-- Recent comment and chats -->
                 <!-- ============================================================== -->
-                <div class="row">
+                {{-- <div class="row">
                     <!-- column -->
                     <div class="col-lg-6">
                         <div class="card">
@@ -527,7 +636,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- ============================================================== -->
                 <!-- Recent comment and chats -->
                 <!-- ============================================================== -->

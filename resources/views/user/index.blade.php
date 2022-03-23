@@ -93,7 +93,6 @@
                                                 <a href="#" type="button" rel="tooltip" class="btn  "
                                                     data-toggle="modal" data-target="#postdelete{{ $post->id }}">
                                                     <i class="fas fa-trash-alt"></i></a>
-                                                <a href=""><i class="bi bi-unlock-fill"></i></a>
 
                                             </td>
 
@@ -154,8 +153,8 @@
                                                                         id="decodes{{ $post->id }}"
                                                                         onclick="changeClick(this,{{ $post->id }},'{{ $post->decoded }}')">
 
-                                                                        <a href=""><i class="bi bi-lock-fill"></i></a>
-                                                                        Decoding the message
+                                                                        <a href=""><i class="bi bi-lock-fill mr-2"></i></a>
+                                                                        Decode message
 
                                                                     </div>
                                                                     <span class="enc_text"
@@ -449,13 +448,13 @@
             const div = document.querySelector(`#decodes${id}`);
             if (div.classList.contains("decode-block")) {
                 document.getElementById(`decodes${id}`).innerHTML =
-                    `<a href=""><i class="bi bi-unlock-fill"></i></a> Hide the Message`;
+                    `<a href=""><i class="bi bi-unlock-fill mr-2"></i></a> Hide Message`;
                 div.classList.remove("decode-block");
                 element.classList.add("encodes");
                 document.querySelector(`#display_text${id}`).style.display = "block"
             } else {
                 document.getElementById(`decodes${id}`).innerHTML =
-                    `<a href=""><i class="bi bi-lock-fill"></i></a> Decoding the Message`;
+                    `<a href=""><i class="bi bi-lock-fill mr-2"></i></a> Decode Message`;
                 div.classList.remove("encodes");
                 element.classList.add("decode-block");
                 document.querySelector(`#display_text${id}`).style.display = "none"

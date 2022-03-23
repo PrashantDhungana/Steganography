@@ -1,0 +1,47 @@
+.dash-icon{
+    display: flex;
+    flex-direction: row;
+}
+.dash-text{
+    padding-left: 8px;
+}
+.dash-text h1{
+    color: white;
+}
+.dash-text h5{
+    color: blanchedalmond;
+    font-size: 15px;
+}
+.dash-icon span{
+    background: white;      
+      border-radius: 50%;
+     text-align: center;
+     padding: 20px;
+     width: 77px;
+
+    }
+    .fa-signal{
+        color: black;
+        text-align: center;
+        
+    }
+    .fa-chart-area , .fa-calendar-day , .fa-chart-line{
+        color: black;
+        text-align: center;
+    }
+    .post .dash-icon span{
+        background: white;
+        border-radius: 50%;
+        text-align: center;
+        padding: 25px;
+        width: 96px;
+    
+        }
+    .post .dash-text h5{
+        color: white;
+        font-size: 22px;
+    }
+    .post .dash-text h1{
+        color: white;
+        font-size: 20px;
+    }
