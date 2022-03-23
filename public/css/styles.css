@@ -134,20 +134,21 @@ margin: 5px 5px 5px 20px;
     text-align: center;
     font-size: 30px;
     width: 350px;
-    height: 350px;
+    height: 420px;
     margin-top: 60px;
     /* margin: 5% 0px 0px 20%; */
-    background-color: #f5f1f1;
+    background-color: #ffffff;
     position: relative;
     float: left;
     width: 95%;
+    border-radius: 7px;
   }
   .profile_image{
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
     object-fit: cover;
     border-radius: 50%;
-    margin: 20px auto 40px auto;
+    margin: 30px auto 20px auto;
     display: block;
   
   }
@@ -163,12 +164,12 @@ margin: 5px 5px 5px 20px;
   .userb{
     width: 350px;
     height: 350px;
-    padding: 20px;
+    padding: 45px;
    margin-top :60px;
     width: 350px;
-    height: 350px;
- 
-    background-color: #f5f1f1;
+    height: 420px;
+   border-radius: 7px;
+    background-color: #ffffff;
     position: relative;
     float: left;
     width: 95%;
