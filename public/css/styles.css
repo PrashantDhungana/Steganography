@@ -274,7 +274,7 @@ tr:nth-child(even){
   color: rgb(0, 162, 255);
 }
 .bi-unlock-fill{
-  color: orange;
+  color: rgb(250, 249, 249);
 }
 .gallery .card-img-top {
   /*height: 11vw;*/
@@ -294,19 +294,25 @@ tr:nth-child(even){
 }
 .decode-block{
   margin-top: 40px;
-  background: #12d7cd;
-padding: 7px;
-border-radius: 7px;
+  background: #851d1d;
+/* padding: 7px;*/
+color: #fff;
+border-radius: 7px; 
+width: 200px;
+padding: 14px 15px; 
 }
 .bi-lock-fill{
-  color: coral;
+  color: rgb(252, 252, 252);
 }
 
 .encodes{
   margin-top: 40px;
-  padding: 7px;
-border-radius: 7px;
-  background-color: red;
+  background: #2faf7e;
+/* padding: 7px;*/
+color: #fff;
+border-radius: 7px; 
+width: 200px;
+padding: 14px 15px; 
 }
 .enc_text{
   font-size: 18px;
