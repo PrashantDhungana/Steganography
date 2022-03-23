@@ -185,10 +185,13 @@
                     </div>
                     <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
                         aria-labelledby="v-pills-messages-tab">
+                        @error('change_error')
+                            <div class="bg-danger text-white">{{ $message }}</div>
+                        @enderror
                         <div class="card-pass">
                             <div class="img-sec col-md-6">
-                                <h5 class="my-2">Lets Change the Password</h5>
-                                <img src="/img/secure.png" / style="width: 100%">
+                                <h5 class="my-2">Let's change the Password</h5>
+                                <img src="/img/secure.png" style="width: 100%">
                             </div>
                             <div class="text-sec col-md-6">
                                 <form class="m-3" method="post" enctype="multipart/form-data"
@@ -196,25 +199,25 @@
                                     @csrf
                                     <div class="button form-group mt-5">
                                         <div class="file-upload mt-2">
-                                            <input class="file-upload__input" type="file" name="currentimage" id="myFile">
-                                            <button class="file-upload__button" type="button">Choose File(s)</button><br><br>
+                                            <input class="file-upload__input" type="file" name="currentimage" id="myFile" required>
+                                            <button class="file-upload__button" type="button">Choose File</button><br><br>
                                             <span class="file-upload__label"></span>
                                           </div>
                                     </div>
 
                                     <div class="form-group mt-2">
-                                        <label for="exampleInputPassword1">Password</label>
+                                        <label for="exampleInputPassword1">New Password</label>
                                         <input type="password" class="form-control" id="exampleInputPassword1"
-                                            placeholder="Enter Password" name="password">
+                                        placeholder="Enter New Password" name="password" required>
                                     </div>
                                     <div class="file-upload mt-2">
-                                        <input class="file-upload__input" type="file" name="newimage" id="myFile">
-                                        <button class="file-upload__button" type="button">Choose File(s)</button><br><br>
+                                        <input class="file-upload__input" type="file" name="newimage" id="myFile" required>
+                                        <button class="file-upload__button" type="button">Choose File</button><br><br>
                                         <span class="file-upload__label"></span>
                                       </div>
 
                                       <div>
-                                        <button type="submit" class="btn btn-primary mt-5 float-right">Submit</button>
+                                        <button type="submit" class="btn btn-primary mt-5 float-right">Change PassImage</button>
 
                                       </div>
                                 </form>

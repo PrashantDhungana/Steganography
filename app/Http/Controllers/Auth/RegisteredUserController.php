@@ -59,7 +59,6 @@ class RegisteredUserController extends Controller
             'password' => $encryptedPassword,
             'name' => $request->name,
             'filename' => $filename,
-            'avatar' => 'avatar.png'
         ]);
 
     
