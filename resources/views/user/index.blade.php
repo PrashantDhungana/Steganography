@@ -1,6 +1,6 @@
 @extends('layout')
 @section('contents')
-    {{-- @dd($favourites); --}}
+    {{-- @dd($user); --}}
     <div class="wrapper">
         <div class="container-fluid" id="contains">
             <div class="row">
@@ -27,32 +27,36 @@
                             <div class="row">
                                 <div class="user col-md-4">
                                     <div class="profile">
-                                        <img src="/img/user.png" alt="User Profile image" class="profile_image">
+                                        <img src="/storage/profile/{{auth()->user()->avatar}}" alt="User Profile image" class="profile_image">
                                         <div class="profile_name">{{ auth()->user()->name }}</div>
                                         <p class="email">{{ auth()->user()->email }}</p>
-                                        <button type="Admin" class="btn btn-primary">Edit Profile</button>
+                                        <button type="Admin" class="btn btn-primary" id="btnedit">Edit Profile</button>
                                     </div>
                                 </div>
-                                <div class="form col-md-8 ">
+                                <div class="form col-md-8 display__control " id="editform" >
                                     <div class="userb">
-                                        <form class="m-3">
+                                        <h3 class="text-dark">Edit User Information</h3>
+                                        <form class="m-3" method="POST" action="{{route('user.update',$user->id)}}" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('PUT')
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Username</label>
                                                 <input type="name" class="form-control" id="exampleInputEmail1"
-                                                    aria-describedby="emailHelp" placeholder="Enter email">
+                                                 name="name"   aria-describedby="emailHelp" placeholder="Enter Name" value="{{$user->name}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Email</label>
+                                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                                name="email"    aria-describedby="emailHelp" placeholder="Enter email" value="{{$user->email}}">
                                             </div>
 
 
                                             <div class="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword1"
-                                                    placeholder="Enter Password">
+                                                <label for="exampleInputPassword1">Profile Image</label>
+                                                <input type="file" class="form-control" id="exampleInputPassword1"
+                                                name="avatar"  value="">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Confirm Password</label>
-                                                <input type="password_confirmation" class="form-control"
-                                                    id="exampleInputPassword1" placeholder="Enter confirmation Password">
-                                            </div>
+                                           
 
                                             <button type="submit" class="btn btn-primary float-right">Submit</button>
                                         </form>
@@ -186,12 +190,12 @@
                                 <form class="m-3" method="post" enctype="multipart/form-data"
                                     action="{{ route('update_password') }}">
                                     @csrf
-                                    <div class="form-group">
+                                    <div class="button form-group">
                                         <label for="exampleFormControlFile1">Current PassImage</label>
                                         <input type="file" class="form-control-file" id="exampleFormControlFile1"
-                                            name="currentimage">
+                                            name="currentimage" class="actual-btn" hidden>
 
-                                        <label for="actual-btn">Choose File</label>
+                                        {{-- <label for="actual-btn">Choose File</label> --}}
 
                                     </div>
 
@@ -491,6 +495,9 @@
     <script src="/js/decrypt.js"></script>
 
     <script>
+        $('#btnedit').click(function() {
+   $('#editform').toggle();
+});
         $(document).ready(function() {
             $('a[data-toggle="pill"]').on('show.bs.tab', function(e) {
                 localStorage.setItem('activeTab', $(e.target).attr('href'));
