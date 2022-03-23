@@ -62,15 +62,18 @@ trait EncodeDecodeTrait
               // Advance message position.
               $messagePosition++;
 
-              // Array for prev
-              $this->histoCount(round(($red+$green+$blue)/3),0);
-
-              // Array for new
-              $this->histoCount(round(($red+$green+$newBlue)/3),1);
+              if(!$skip){
+                // Array for prev
+                $this->histoCount(round(($red+$green+$blue)/3),0);
+  
+                // Array for new
+                $this->histoCount(round(($red+$green+$newBlue)/3),1);
+              }
 
             }
             else{
-              $this->histoCount(round(($red+$green+$blue)/3),2);
+              if(!$skip)
+                $this->histoCount(round(($red+$green+$blue)/3),2);
             }
             
           }
@@ -81,7 +84,7 @@ trait EncodeDecodeTrait
             $histoBefore[$i] = $this->previousCount[$i] + $this->totalCount[$i];
             $histoAfter[$i] = $this->afterCount[$i] + $this->totalCount[$i];
         }
-        
+
         $filename = uniqid('img_').".".$file->extension();
         // Save the image to a file.
         $newImage = 'images/'.$filename;

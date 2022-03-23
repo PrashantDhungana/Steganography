@@ -7,6 +7,7 @@ use App\Models\Gallery;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -124,7 +125,7 @@ class UserController extends Controller
         }
     }
     public function updatePassword(Request $request){
-        // dd("hello");
+        
         $request->validate([
             'currentimage' =>['required','image'],
             'password' => ['required'],
@@ -133,7 +134,7 @@ class UserController extends Controller
         $loggedUser = auth()->user();
         // dd($this->desteganize($request->currentimage));
        if( $loggedUser->password != $this->desteganize($request->currentimage)){
-           abort(404);
+           throw ValidationException::withMessages(['change_error' =>["Invalid Image"]]);
        }
        else{
             $newpass = Crypt::encryptString($request->password);
@@ -143,7 +144,7 @@ class UserController extends Controller
             $loggedUser->password = $newpass;
             $loggedUser->filename = $result[0];
             if($loggedUser->save())
-                return redirect('/user');
+                return redirect('/user')->with('success','Password Changed Successfully');
 
 
        }

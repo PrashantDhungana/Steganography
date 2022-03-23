@@ -37,7 +37,7 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Comparison of historgram after
+                                        <h5 class="modal-title" id="exampleModalLabel">Comparison of histogram after
                                             encode and decode</h5>
                                         <button type="button" class="close" data-dismiss="modal"
                                             aria-label="Close">
@@ -124,7 +124,7 @@
 
                                 <div class="drop-zone">
                                     <span class="drop-zone__prompt">Drop file here or click to upload</span>
-                                    <input type="file" name="encode" class="drop-zone__input">
+                                    <input type="file" name="encode" class="drop-zone__input" required>
                                 </div>
 
                             </div>
@@ -132,25 +132,25 @@
                                 <div class="form-group ">
                                     <label for="exampleInputEmail1">Text to be encoded</label>
                                     <input type="text" placeholder="Hidden text" class="form-control" name="encode_text"
-                                        autocomplete="off" />
+                                    autocomplete="off" required/>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="visibility" value="public"
-                                        id="chkYes" onclick="ShowHideDiv()">
-                                    <label class="form-check-label" for="exampleRadios2">
+                                    id="public" onclick="ShowHideDiv()" required>
+                                    <label class="form-check-label" for="public">
                                         Post Publicly
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="visibility" value="private"
-                                        id="chkNo" onclick="ShowHideDiv()">
-                                    <label class="form-check-label" for="exampleRadios2">
+                                    id="private" onclick="ShowHideDiv()">
+                                    <label class="form-check-label" for="private">
                                         Post Privately
                                     </label>
                                 </div>
                                 <div class="form-group mt-3" id="dvtext" style="display: none">
                                     <label for="exampleInputEmail1">Small Message</label>
-                                    <input type="text" placeholder="Regular" class="form-control" name="message" />
+                                    <input type="text" placeholder="Text Describing the image" class="form-control" name="message" />
                                 </div>
 
 
@@ -184,7 +184,7 @@
                             <div class="col-md-12" style="margin-left:70px;">
                                 <div class="drop-zone">
                                     <span class="drop-zone__prompt">Drop file here or click to upload</span>
-                                    <input type="file" name="decode" class="drop-zone__input">
+                                    <input type="file" name="decode" class="drop-zone__input" required>
                                 </div>
 
                             </div>
@@ -204,7 +204,7 @@
 @section('javascripts')
     <script>
         function ShowHideDiv() {
-            var chkYes = document.getElementById("chkYes");
+            var chkYes = document.getElementById("public");
             var dvtext = document.getElementById("dvtext");
             dvtext.style.display = chkYes.checked ? "block" : "none";
         }
@@ -224,7 +224,7 @@
             const data = {
                 labels: labelArray,
                 datasets: [{
-                        label: 'Weekly Sales',
+                        label: 'Before Encoding',
                         data: before,
                         backgroundColor: 'rgba(255, 26, 104, 0.2)',
                         borderColor: 'rgba(255, 26, 104, 1)',
@@ -232,7 +232,7 @@
                         borderWidth: 1
                     },
                     {
-                        label: 'Weekly Sales',
+                        label: 'After Encoding',
                         data: after,
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
 
