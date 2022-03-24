@@ -84,7 +84,7 @@
              <button type="submit" class="btn btn-primary">Start Decode</button>
            </form> --}}
                         <!-- Button trigger modal -->
-                        <button type="button" class=" mt-3 btn btn-primary" data-toggle="modal"
+                        <button type="button" class=" mt-3 btn btn-primary" data-toggle="modal" id="decodeModal"
                             data-target="#exampleModaldecode">
                             Start Decode
                         </button>
@@ -186,7 +186,9 @@
                                     <span class="drop-zone__prompt">Drop file here or click to upload</span>
                                     <input type="file" name="decode" class="drop-zone__input" required>
                                 </div>
-
+                                @if(session()->has('decodedText'))
+                                    {{ session('decodedText') }}
+                                @endif
                             </div>
                             {{-- <input type="file" name="encode"> --}}
                         </div>
@@ -340,5 +342,11 @@
                 thumbnailElement.style.backgroundImage = null;
             }
         }
+        $(window).on('load', function() {
+ // code here
+ @if (session()->has('decodedText'))
+     $("#decodeModal").click();
+ @endif
+});
     </script>
 @endsection
