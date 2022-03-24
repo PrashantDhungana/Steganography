@@ -92,9 +92,9 @@
 
                 </div>
                 <!-- <div class="box">
-          <div class="enc"><h6 class="hide">Hide message</h6></div>
-          <div class="dec"><h6 class="decc">Decode message</h6></div>
-        </div> -->
+              <div class="enc"><h6 class="hide">Hide message</h6></div>
+              <div class="dec"><h6 class="decc">Decode message</h6></div>
+            </div> -->
 
             </div>
 
@@ -132,25 +132,26 @@
                                 <div class="form-group ">
                                     <label for="exampleInputEmail1">Text to be encoded</label>
                                     <input type="text" placeholder="Hidden text" class="form-control" name="encode_text"
-                                    autocomplete="off" required/>
+                                        autocomplete="off" required />
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="visibility" value="public"
-                                    id="public" onclick="ShowHideDiv()" required>
+                                        id="public" onclick="ShowHideDiv()" required>
                                     <label class="form-check-label" for="public">
                                         Post Publicly
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="visibility" value="private"
-                                    id="private" onclick="ShowHideDiv()">
+                                        id="private" onclick="ShowHideDiv()">
                                     <label class="form-check-label" for="private">
                                         Post Privately
                                     </label>
                                 </div>
                                 <div class="form-group mt-3" id="dvtext" style="display: none">
                                     <label for="exampleInputEmail1">Small Message</label>
-                                    <input type="text" placeholder="Text Describing the image" class="form-control" name="message" />
+                                    <input type="text" placeholder="Text Describing the image" class="form-control"
+                                        name="message" />
                                 </div>
 
 
@@ -178,7 +179,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="/decode" enctype="multipart/form-data">
+                    @if (session()->has('decodedText'))
+                    <div class="text__decode">
+                        The Decoded Text is
+                        {{ session('decodedText') }}
+                    </div>
+                    @endif
+                    <form method="POST" action="/decode" enctype="multipart/form-data" id="formdecode">
                         @csrf
                         <div class="row">
                             <div class="col-md-12" style="margin-left:70px;">
@@ -186,9 +193,8 @@
                                     <span class="drop-zone__prompt">Drop file here or click to upload</span>
                                     <input type="file" name="decode" class="drop-zone__input" required>
                                 </div>
-                                @if(session()->has('decodedText'))
-                                    {{ session('decodedText') }}
-                                @endif
+                                
+                                    
                             </div>
                             {{-- <input type="file" name="encode"> --}}
                         </div>
@@ -343,10 +349,14 @@
             }
         }
         $(window).on('load', function() {
- // code here
- @if (session()->has('decodedText'))
-     $("#decodeModal").click();
- @endif
-});
+            // code here
+            
+            @if (session()->has('decodedText'))
+                $("#decodeModal").click();
+                // $('#formdecode').css('display', 'none');
+                // location.reload();
+            @endif
+            
+        });
     </script>
 @endsection
