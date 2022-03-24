@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\Auth\DashboardController;
-use App\Http\Controllers\CookieController;
-use App\Http\Controllers\EncodeDecodeController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\UserController;
@@ -21,14 +19,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/gallery');
 });
+
 Route::middleware(['auth'])->group(function () {
+    Route::resource('/gallery' , GalleryController::class);
     Route::post('/encode',[GalleryController::class,'encode']);
     Route::post('/decode',[GalleryController::class,'decode']);
     Route::resource('/user' , UserController::class);
     Route::post('/update-password',[UserController::class,'updatePassword'])->name('update_password');
     Route::resource('/favourite',FavouriteController::class);
   
-    Route::resource('/gallery' , GalleryController::class);
 
     Route::get('/dashboard',[DashboardController::class,'stats'])->middleware('admin')->name('dashboard');
     
