@@ -50,9 +50,9 @@
                                                 <canvas id="myChart{{ $gall->id }}"></canvas>
                                             </div>
                                         </div>
-                                        <div>
-                                            <span>Mean Square Error(MSE): <br>{{ $gall->mse }}</span><br>
-                                            <span>Peak Signal-to-Noise Ratio(PSNR): <br>{{ $gall->psnr }}</span>
+                                        <div class="mse_psn">
+                                            <span><b>Mean Square Error(MSE): </b><br>{{ $gall->mse }}</span><br>
+                                            <span><b>Peak Signal-to-Noise Ratio(PSNR):</b> <br>{{ $gall->psnr }}</span>
 
                                         </div>
                                     </div>
