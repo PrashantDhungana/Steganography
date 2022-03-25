@@ -45,3 +45,34 @@
         color: white;
         font-size: 20px;
     }
+    .image{
+        display: flex;
+justify-content: center;
+flex-direction: column;
+text-align: center;
+    }
+    .image img{
+        border-radius: 10px;
+    }
+    .content__wrap{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .content__wrap .span{
+        margin: auto;
+display: flex;
+flex-direction: column;
+font-size: 18px;
+color: black;
+margin-top: 10px;
+
+    }
+    .modal-title{
+        margin: auto;
+padding-left: 92px;
+font-size: 20px;
+    }
+    .modal-dialog{
+        width: 425px;
+    }
