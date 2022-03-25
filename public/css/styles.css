@@ -421,3 +421,14 @@ padding: 14px 15px;
   white-space: nowrap;
   font-family: "Quicksand", sans-serif;
 }
+.text__decode{
+  background-color: #229bae;
+  color: white;
+  width: 70%;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  margin: auto;
+  margin-bottom: 17px;
+
+}
