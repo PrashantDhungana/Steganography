@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\DashboardController;
+use App\Http\Controllers\Auth\UserController as AuthUserController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\UserController;
@@ -30,6 +31,8 @@ Route::middleware(['auth'])->group(function () {
   
 
     Route::get('/dashboard',[DashboardController::class,'stats'])->middleware('admin')->name('dashboard');
+    Route::resource('/admin' , AuthUserController::class)->middleware('admin');
+    
     
 });
     
