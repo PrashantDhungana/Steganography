@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 use App\Http\Traits\EncodeDecodeTrait;
+use Illuminate\Support\Facades\Crypt;
 
 class GalleryController extends Controller
 {
@@ -115,7 +116,7 @@ class GalleryController extends Controller
         ]);
 
         $image = $request->encode;
-        $plainText =  $request->encode_text;
+        $plainText =  Crypt::encryptString($request->encode_text);
 
         $imageInfo = $this->steganize($image,$plainText);
         // dd($imageInfo);
@@ -150,7 +151,7 @@ class GalleryController extends Controller
         ]);
 
         $file = $request->decode;
-        $decodedText = $this->desteganize($file);
+        $decodedText = Crypt::decryptString($this->desteganize($file));
         // dd($decodedText);
         return redirect('/gallery')->with('decodedText',$decodedText);
     }

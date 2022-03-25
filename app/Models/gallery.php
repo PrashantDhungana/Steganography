@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Traits\EncodeDecodeTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 
 class Gallery extends Model
 {
@@ -17,6 +18,6 @@ class Gallery extends Model
 
     public function getDecodedAttribute()
     {
-        return $this->desteganize('images/'.$this->image);
+        return Crypt::decryptString($this->desteganize('images/'.$this->image));
     }
 }
