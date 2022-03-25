@@ -21,12 +21,16 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-info m-0 py-2">
     <div class="container">
      <li class="nav-item dropdown" style="list-style:none;" id="navbarNav">
-       <a class="nav-link dropdown-toggle mx-2" data-toggle="dropdown" href="/destination.html" role="button" style="text-decoration: none; color: white;" aria-haspopup="true" aria-expanded="false">Menu</a>
+       <a class="nav-link dropdown-toggle mx-2" data-toggle="dropdown" href="#" role="button" style="text-decoration: none; color: white;" aria-haspopup="true" aria-expanded="false">Menu</a>
        <div class="dropdown-menu">
          <a class="dropdown-item" href="/user">User Profile</a>
          <a class="dropdown-item" href="/gallery">Gallery</a>
-         {{-- <a class="dropdown-item" href="#">Feeds</a> --}}
-     </li>
+        </li>
+        @if (auth()->user()->is_admin)
+         <a class="nav-link" href="/dashboard" style="text-decoration: none; color: white;">
+         <i class="fas fa-user-tie"></i> <span class="mx-2">Dashboard</span> 
+          </a>
+          @endif
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
      </button>
