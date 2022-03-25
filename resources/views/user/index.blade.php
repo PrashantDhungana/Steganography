@@ -89,7 +89,7 @@
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $post->image }} </td>
                                             <td>{{ $post->public == '0' ? 'private' : 'public' }}</td>
-                                            <td>{{ $post->created_at }}</td>
+                                            <td>{{ $post->created_at->diffForHumans() }}</td>
                                             <td>
                                                 <a href="#" type="button" rel="tooltip" data-toggle="modal"
                                                     data-target="#showModal{{ $post->id }}">
@@ -245,7 +245,7 @@
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $favourite->image }} </td>
                                             <td>{{ $favourite->public == '0' ? 'private' : 'public' }}</td>
-                                            <td>{{ $favourite->created_at }}</td>
+                                            <td>{{ $favourite->created_at->diffForHumans() }}</td>
                                             <td>
                                                 <a href="#" type="button" rel="tooltip" data-toggle="modal"
                                                     data-target="#showModal{{ $favourite->id }}">
