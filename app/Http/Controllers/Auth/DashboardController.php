@@ -23,9 +23,18 @@ class DashboardController extends Controller
         selectRaw("SUM(CASE WHEN is_admin = 0  THEN 1 ELSE 0 END) as user_count")
         ->selectRaw("SUM(CASE WHEN is_admin = 1  THEN 1 ELSE 0 END) as admin_count")
         ->first();
+         $galleries = Gallery::all();
 
         
-        return view('admin.dashboard',compact('encodeDecodeCount','savedCount','usersCount'));
+        return view('admin.dashboard',compact('encodeDecodeCount','savedCount','usersCount','galleries'));
         
+    }
+    public function destroy($id){
+        $gallery = Gallery::where('id',$id)->firstOrFail(); 
+
+        if($gallery->delete()){
+            return redirect()->route('dashboard');
+        }
+
     }
 }

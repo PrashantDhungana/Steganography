@@ -432,3 +432,11 @@ padding: 14px 15px;
   margin-bottom: 17px;
 
 }
+.mse_psn{
+  display: flex;
+flex-direction: row;
+justify-content: space-around;
+}
+.mse_psn b{
+  font-size: 18px;
+}
