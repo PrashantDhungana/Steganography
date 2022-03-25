@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Traits;
+define("R",255);
 
 use Exception;
 
@@ -31,6 +33,8 @@ trait EncodeDecodeTrait
         $height = imagesy($img);
       
         $messagePosition = 0;
+        $summation = 0;
+        $dimension = $height*$width;
 
         for ($y = 0; $y < $height; $y++) {
           for ($x = 0; $x < $width; $x++) {
@@ -61,6 +65,11 @@ trait EncodeDecodeTrait
               $messagePosition++;
 
               if(!$skip){
+
+                //Calulate PSNR
+                $diffOfPixels = ($newColor - $rgb)**2;
+                $summation += $diffOfPixels;
+
                 // Array for prev
                 $this->histoCount(round(($red+$green+$blue)/3),0);
   
@@ -73,7 +82,14 @@ trait EncodeDecodeTrait
               if(!$skip)
                 $this->histoCount(round(($red+$green+$blue)/3),2);
             }
-            
+          }
+
+          //Mean Square error Calculation
+          $mse = $summation/$dimension;
+          try{
+            $psnr = 10* log10(R**2/$mse);
+          }catch(\Exception $e){
+            $psnr = "Infinite";
           }
         }
 
@@ -91,7 +107,7 @@ trait EncodeDecodeTrait
         {
           // Destroy the image handler.
           imagedestroy($img);
-          return [$filename,$histoBefore??NULL,$histoAfter??NULL];
+          return [$filename,$histoBefore??NULL,$histoAfter??NULL,$mse,$psnr];
         }
     }
 
@@ -181,5 +197,10 @@ trait EncodeDecodeTrait
       $this->totalCount[$pixels]++;
 
     
+  }
+
+  public function psrCount()
+  {
+
   }
 }

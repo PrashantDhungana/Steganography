@@ -25,7 +25,7 @@
                                             <button type="submit" class="btn"><i class="fa fa-bookmark text-info"
                                                     aria-hidden="true"></i></button>
                                         </form>
-                                        <a href=""><i class="fa fa-eye text-danger" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-eye text-danger" aria-hidden="true"></i></a>
                                     </div>
 
                                 </div>
@@ -49,6 +49,11 @@
                                             <div class="chartBox">
                                                 <canvas id="myChart{{ $gall->id }}"></canvas>
                                             </div>
+                                        </div>
+                                        <div>
+                                            <span>Mean Square Error(MSE): <br>{{ $gall->mse }}</span><br>
+                                            <span>Peak Signal-to-Noise Ratio(PSNR): <br>{{ $gall->psnr }}</span>
+
                                         </div>
                                     </div>
                                     <div class="modal-footer">
