@@ -37,16 +37,24 @@
 					<a href="https://www.linkedin.com/" class="icon"><i class="fab fa-linkedin-in"></i></a>
 				</div> -->
 				<input type="text" name="name" placeholder="Name" value="{{ old('name') }}" required>
-				
+				@error('name')
+					<span>{{ $message}}</span>	
+				@enderror
 				<input type="email" name="email" placeholder="E-mail" value="{{ old('email') }}" required>
-				
+				@error('email')
+					<span>{{ $message}}</span>	
+				@enderror
 				<input type="password" name="password" id="password" placeholder="Password">
-				
+				@error('password')
+					<span>{{ $message}}</span>	
+				@enderror
 				<input type="password" name="password_confirmation" placeholder="Confirm Password">
 				
 				<label for="Passimage">PassImage</label>
 				<input type="file" name="passimg" placeholder="Upload a Password photo" required>
-				
+				@error('passimg')
+					<span>{{ $message}}</span>	
+				@enderror
 				 <br><br>
 				<button type="Sign Up" class="button button1">Sign Up</button>
 			</form>

@@ -110,8 +110,8 @@ class GalleryController extends Controller
     {
         // dd(request()->all());
         $request->validate([
-            'encode' => 'required|image',
-            'encode_text' => 'required'
+            'encode' => ['required','image'],
+            'encode_text' => ['required']
         ]);
 
         $image = $request->encode;
@@ -133,6 +133,9 @@ class GalleryController extends Controller
             $gallery->process = 0;
             $gallery->before = json_encode($imageInfo[1]);
             $gallery->after = json_encode($imageInfo[2]);
+            //Save MSE and PSNR value to column
+            $gallery->mse = $imageInfo[3];
+            $gallery->psnr = $imageInfo[4];
 
             if($gallery->save())
                 return redirect('/gallery')->with('message','Image Encoded Successfully');
