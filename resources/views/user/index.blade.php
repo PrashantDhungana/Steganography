@@ -1,6 +1,5 @@
 @extends('layout')
 @section('contents')
-    {{-- @dd($user); --}}
     <div class="wrapper">
         <div class="container-fluid" id="contains">
             <div class="row">
@@ -80,7 +79,6 @@
                                         <th scope="col">Visibility</th>
                                         <th scope="col">Uploaded At</th>
                                         <th scope="col">Action</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>

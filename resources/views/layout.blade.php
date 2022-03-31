@@ -23,8 +23,12 @@
      <li class="nav-item dropdown" style="list-style:none;" id="navbarNav">
        <a class="nav-link dropdown-toggle mx-2" data-toggle="dropdown" href="#" role="button" style="text-decoration: none; color: white;" aria-haspopup="true" aria-expanded="false">Menu</a>
        <div class="dropdown-menu">
-         <a class="dropdown-item" href="/user">User Profile</a>
-         <a class="dropdown-item" href="/gallery">Gallery</a>
+         <a class="dropdown-item" href="/user">
+         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> User Profile
+        </a>
+         <a class="dropdown-item" href="/gallery">
+           <i class="fas fa-images mr-2 text-gray-400"></i> Gallery
+          </a>
         </li>
         @if (auth()->user()->is_admin)
          <a class="nav-link" href="/dashboard" style="text-decoration: none; color: white;">

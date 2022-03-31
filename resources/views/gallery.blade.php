@@ -1,5 +1,9 @@
 @extends('layout')
 @section('contents')
+
+@if (session('error'))
+    <div class="alert alert-danger d-flex justify-content-center">{{ session('error') }}</div>
+@endif
     <div class="wrap__body mt-3">
         <div class="container">
             <div class="gallery">
