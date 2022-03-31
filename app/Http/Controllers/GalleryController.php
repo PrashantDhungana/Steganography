@@ -120,7 +120,7 @@ class GalleryController extends Controller
 
         $imageInfo = $this->steganize($image,$plainText);
         // dd($imageInfo);
-        if($imageInfo[0])
+        if(isset($imageInfo[0]))
         {
             $gallery = new Gallery();
             $gallery->user_id = auth()->user()->id;
@@ -140,6 +140,10 @@ class GalleryController extends Controller
 
             if($gallery->save())
                 return redirect('/gallery')->with('message','Image Encoded Successfully');
+        }
+        else
+        {
+            return redirect('/gallery')->with('error','Length of Text is too big! Please try again');
         }
     }
 

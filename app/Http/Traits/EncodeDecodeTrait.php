@@ -7,34 +7,39 @@ use Exception;
 
 trait EncodeDecodeTrait
 {
-    public function steganize($file, $message, $skip=false) 
-    {
-        // Encode the message into a binary string.
-        $binaryMessage = '';
-        for ($i = 0; $i < mb_strlen($message); ++$i) {
-          $character = ord($message[$i]);
-          $binaryMessage .= str_pad(decbin($character), 8, '0', STR_PAD_LEFT);
-        }
-      
-        // Inject the 'end of text' character into the string.
-        $binaryMessage .= '00000011';
-
+  public function steganize($file, $message, $skip=false) 
+  {
         // Load the image into memory.
         $mimeType = $file->getMimeType();
-        // dd($mimeType);
         if(str_contains($mimeType, 'png'))
           $img = imagecreatefrompng($file);
         if(str_contains($mimeType, 'jpg')||str_contains($mimeType, 'jpeg'))
           $img = imagecreatefromjpeg($file);
 
         // Get image dimensions.
-
         $width = imagesx($img);
         $height = imagesy($img);
+        $dimension = $height*$width;
+
+        // Encode the message into a binary string.
+        $binaryMessage = '';
+
+        $bitlen = (strlen($message)*8) + 8;
+        if($bitlen > $dimension){
+          imagedestroy($img);
+          return false;
+        }
+
+        for ($i = 0; $i < mb_strlen($message); ++$i) {
+          $character = ord($message[$i]);
+          $binaryMessage .= str_pad(decbin($character), 8, '0', STR_PAD_LEFT);
+        }
+
+        // Inject the 'end of text' character into the string.
+        $binaryMessage .= '00000011';
       
         $messagePosition = 0;
         $summation = 0;
-        $dimension = $height*$width;
 
         for ($y = 0; $y < $height; $y++) {
           for ($x = 0; $x < $width; $x++) {
