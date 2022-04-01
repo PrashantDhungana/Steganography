@@ -22,6 +22,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::view('/download','download');
     Route::resource('/gallery' , GalleryController::class);
     Route::post('/encode',[GalleryController::class,'encode']);
     Route::post('/decode',[GalleryController::class,'decode']);
