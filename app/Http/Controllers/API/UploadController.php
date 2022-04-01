@@ -15,8 +15,7 @@ class UploadController extends Controller
 {
     use EncodeDecodeTrait;
     public function index(Request $request){
-
-
+        
         $base64File = $request->input('image');
 
         // decode the base64 file

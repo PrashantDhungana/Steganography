@@ -34,6 +34,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('admin/{gallery}',[DashboardController::class,'destroy'])->name('admin.destroy');
     Route::resource('/admin' , AuthUserController::class)->middleware('admin');
     
+    Route::get('/generateToken',[UserController::class,'generateToken']);
+    Route::get('/delToken',[UserController::class,'delToken']);
+
     
 });
     

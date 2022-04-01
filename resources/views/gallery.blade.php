@@ -10,31 +10,26 @@
 
                 <div class="card-deck mt-3">
                     @foreach ($gallery as $gall)
-                    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+                <!-- Modal -->
+                <div class="modal fade" id="decodeeye{{$gall->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Decoded Text</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        The decoded text is: {{$gall->decoded}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
                         <div class="col-3 mt-5">
                             <div class="card position-relative" style="margin-left: 0px; margin-right:0px; height:333px;">
                                 <img class="card-img-top" src="images/{{ $gall->image }}" alt="Card image cap">
@@ -54,7 +49,7 @@
                                             <button type="submit" class="btn"><i class="fa fa-bookmark text-info"
                                                     aria-hidden="true"></i></button>
                                         </form>
-                                        <a href="#"><i class="fa fa-eye text-danger" aria-hidden="true"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#decodeeye{{$gall->id}}"><i class="fa fa-eye text-danger" aria-hidden="true"></i></a>
                                     </div>
 
                                 </div>

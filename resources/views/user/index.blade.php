@@ -161,7 +161,7 @@
 
                                                                     </div>
                                                                     <span class="enc_text"
-                                                                        id="display_text{{ $post->id }}"
+                                                                        id="history{{ $post->id }}"
                                                                         style="display: none;"></span>
                                                                 </div>
                                                             </div>
@@ -313,14 +313,14 @@
                                                                 <div class="col-sm-4">
                                                                     <div class="decode-block"
                                                                         id="decodes{{ $favourite->id }}"
-                                                                        onclick="changeClick(this,{{ $favourite->id }},'{{ $favourite->decoded }}')">
+                                                                        onclick="changeClick(this,{{ $favourite->id }},'{{ $favourite->decoded }}', 'fav')">
 
                                                                         <a href=""><i class="bi bi-lock-fill"></i></a>
                                                                         Decode Message
 
                                                                     </div>
                                                                     <span class="enc_text"
-                                                                        id="display_text{{ $favourite->id }}"
+                                                                        id="fav{{ $favourite->id }}"
                                                                         style="display: none;"></span>
                                                                 </div>
                                                             </div>
@@ -444,12 +444,11 @@
             return result;
         }
 
-        function changeClick(element, id, finaltext) {
-
+        function changeClick(element, id, finaltext ,place="history") {
             //Create Decode Text Effect
             let randomString = generateString(finaltext.length)
-            $(`#display_text${id}`).html(randomString)
-            $(`#display_text${id}`).decrypt_effect({
+            $(`#${place}${id}`).html(randomString)
+            $(`#${place}${id}`).decrypt_effect({
                 speed: 45,
                 decrypted_text: finaltext
             });
@@ -461,13 +460,13 @@
                     `<a href=""><i class="bi bi-unlock-fill mr-2"></i></a> Hide Message`;
                 div.classList.remove("decode-block");
                 element.classList.add("encodes");
-                document.querySelector(`#display_text${id}`).style.display = "block"
+                document.querySelector(`#${place}${id}`).style.display = "block"
             } else {
                 document.getElementById(`decodes${id}`).innerHTML =
                     `<a href=""><i class="bi bi-lock-fill mr-2"></i></a> Decode Message`;
                 div.classList.remove("encodes");
                 element.classList.add("decode-block");
-                document.querySelector(`#display_text${id}`).style.display = "none"
+                document.querySelector(`#${place}${id}`).style.display = "none"
             }
         }
         //   $(document).ready( function() {

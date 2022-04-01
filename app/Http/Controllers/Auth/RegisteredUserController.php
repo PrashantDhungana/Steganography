@@ -61,8 +61,7 @@ class RegisteredUserController extends Controller
             'filename' => $filename,
         ]);
 
-    
-
+        
         event(new Registered($user));
 
         Auth::login($user);

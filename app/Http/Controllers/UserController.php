@@ -150,4 +150,18 @@ class UserController extends Controller
        }
 
     }
+
+    public function generateToken()
+    {
+        $user = auth()->user();
+        $token = $user->createToken('myapptoken')->plainTextToken;
+        dd($token);
+    }
+
+    public function delToken()
+    {
+        $user = auth()->user();
+        $user->tokens()->delete();
+        
+    }
 }
