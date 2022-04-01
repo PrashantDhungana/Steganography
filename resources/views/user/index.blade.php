@@ -13,7 +13,7 @@
                         role="tab" aria-controls="v-pills-messages" aria-selected="false">Change Password</a>
                     <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings"
                         role="tab" aria-controls="v-pills-settings" aria-selected="false">Favourite Saved</a>
-                    <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-private_gallery"
+                    <a class="nav-link" id="v-pills-private_gallery" data-toggle="pill" href="#v-pills-private_gallery"
                         role="tab" aria-controls="v-pills-private_gallery" aria-selected="false">Private Gallery</a>
 
                 </div>
@@ -197,27 +197,29 @@
                                     @csrf
                                     <div class="button form-group mt-5">
                                         <div class="file-upload mt-2">
-                                            <input class="file-upload__input" type="file" name="currentimage" id="myFile" required>
+                                            <input class="file-upload__input" type="file" name="currentimage" id="myFile"
+                                                required>
                                             <button class="file-upload__button" type="button">Choose File</button><br><br>
                                             <span class="file-upload__label"></span>
-                                          </div>
+                                        </div>
                                     </div>
 
                                     <div class="form-group mt-2">
                                         <label for="exampleInputPassword1">New Password</label>
                                         <input type="password" class="form-control" id="exampleInputPassword1"
-                                        placeholder="Enter New Password" name="password" required>
+                                            placeholder="Enter New Password" name="password" required>
                                     </div>
                                     <div class="file-upload mt-2">
                                         <input class="file-upload__input" type="file" name="newimage" id="myFile" required>
                                         <button class="file-upload__button" type="button">Choose File</button><br><br>
                                         <span class="file-upload__label"></span>
-                                      </div>
+                                    </div>
 
-                                      <div>
-                                        <button type="submit" class="btn btn-primary mt-5 float-right">Change PassImage</button>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary mt-5 float-right">Change
+                                            PassImage</button>
 
-                                      </div>
+                                    </div>
                                 </form>
                             </div>
 
@@ -246,7 +248,7 @@
                                             <td>{{ $favourite->created_at->diffForHumans() }}</td>
                                             <td>
                                                 <a href="#" type="button" rel="tooltip" data-toggle="modal"
-                                                    data-target="#showModal{{ $favourite->id }}">
+                                                    data-target="#showModalfav{{ $favourite->id }}">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                                 {{-- <a href="#" type="button" rel="tooltip" class="btn  " data-toggle="modal" data-target="#postdelete{{ $post->id }}">
@@ -288,7 +290,7 @@
 
                                             <!-- Modal for viewing image -->
                                             <div class="modal fade bd-example-modal-lg"
-                                                id="showModal{{ $favourite->id }}" tabindex="-1" role="dialog"
+                                                id="showModalfav{{ $favourite->id }}" tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                                     <div class="modal-content">
@@ -314,7 +316,7 @@
                                                                         onclick="changeClick(this,{{ $favourite->id }},'{{ $favourite->decoded }}')">
 
                                                                         <a href=""><i class="bi bi-lock-fill"></i></a>
-                                                                        Decoding the message
+                                                                        Decode Message
 
                                                                     </div>
                                                                     <span class="enc_text"
@@ -648,34 +650,33 @@
     </script>
     <script>
         Array.prototype.forEach.call(
-  document.querySelectorAll(".file-upload__button"),
-  function(button) {
-    const hiddenInput = button.parentElement.querySelector(
-      ".file-upload__input"
-    );
-    const label = button.parentElement.querySelector(".file-upload__label");
-    const defaultLabelText = "";
+            document.querySelectorAll(".file-upload__button"),
+            function(button) {
+                const hiddenInput = button.parentElement.querySelector(
+                    ".file-upload__input"
+                );
+                const label = button.parentElement.querySelector(".file-upload__label");
+                const defaultLabelText = "";
 
-    // Set default text for label
-    label.textContent = defaultLabelText;
-    label.title = defaultLabelText;
+                // Set default text for label
+                label.textContent = defaultLabelText;
+                label.title = defaultLabelText;
 
-    button.addEventListener("click", function() {
-      hiddenInput.click();
-    });
+                button.addEventListener("click", function() {
+                    hiddenInput.click();
+                });
 
-    hiddenInput.addEventListener("change", function() {
-      const filenameList = Array.prototype.map.call(hiddenInput.files, function(
-        file
-      ) {
-        return file.name;
-      });
+                hiddenInput.addEventListener("change", function() {
+                    const filenameList = Array.prototype.map.call(hiddenInput.files, function(
+                        file
+                    ) {
+                        return file.name;
+                    });
 
-      label.textContent = filenameList.join(", ") || defaultLabelText;
-      label.title = label.textContent;
-    });
-  }
-);
-
+                    label.textContent = filenameList.join(", ") || defaultLabelText;
+                    label.title = label.textContent;
+                });
+            }
+        );
     </script>
 @endsection
