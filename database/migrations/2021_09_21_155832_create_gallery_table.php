@@ -21,6 +21,7 @@ class CreateGalleryTable extends Migration
             $table->boolean('process');
             $table->text('before');
             $table->text('after');
+            $table->string('passphrase',16);
             $table->string('text')->nullable();
             $table->timestamps();
         });

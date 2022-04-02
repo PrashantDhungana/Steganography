@@ -38,6 +38,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/delToken',[UserController::class,'delToken']);
 
     
+    
 });
+Route::get('/test', [GalleryController::class,'test']);
     
 require __DIR__.'/auth.php';

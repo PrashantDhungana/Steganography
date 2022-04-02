@@ -22,6 +22,9 @@ class Gallery extends Model
 
     public function getDecodedAttribute()
     {
-        return Crypt::decryptString($this->desteganize('images/'.$this->image));
+        $passphrase = $this->passphrase;
+        $encrypter = new \Illuminate\Encryption\Encrypter($passphrase, 'AES-128-CBC');
+
+        return $encrypter->decrypt($this->desteganize('images/'.$this->image));
     }
 }
