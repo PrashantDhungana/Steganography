@@ -176,36 +176,4 @@ class GalleryController extends Controller
         
         return redirect('/gallery')->with('decodedText',$decodedText);
     }
-
-    public function test()
-    {
-        /*
-        //Keys and cipher used by encrypter(s)
-        $fromKey = base64_decode("from_key_as_a_base_64_encoded_string");
-        $toKey = base64_decode("to_key_as_a_base_64_encoded_string");
-        $cipher = "AES-256-CBC"; //or AES-128-CBC if you prefer
-
-        //Create two encrypters using different keys for each
-        $encrypterFrom = new Encrypter($fromKey, $cipher);
-        $encrypterTo = new Encrypter($toKey, $cipher);
-
-        //Decrypt a string that was encrypted using the "from" key
-        $decryptedFromString = $encrypterFrom->decryptString("gobbledygook=that=is=a=from=key=encrypted=string==");
-
-        //Now encrypt the decrypted string using the "to" key
-        $encryptedToString = $encrypterTo->encryptString($decryptedFromString);
-        dd($decrypted);
-        */
-
-        $encrypter = new \Illuminate\Encryption\Encrypter('qqqqqqqqqqqqqqq@', 'AES-128-CBC');
-
-        $encrypted = $encrypter->encrypt('Hello world');
-        dump($encrypted);
-
-        // $decrypted = $encrypter->decrypt("eyJpdiI6IlZXMTdCN2hnS2I2d0ZOYVlSVEhQekE9PSIsInZhbHVlIjoiYUREalgwS3ZkNE5sVEY2WGFwWUtpa293SHRRc2dCZGxyOTdjeVY4NFJMcz0iLCJtYWMiOiI1NTI2ODA5ZmIyNGQ1NTQzZmY4N2MwNjY2MGViODQ2Y2VlNzQxMjcwMzRjNWY4NTMxZGExNDQyYjdlMjdlNWMwIiwidGFnIjoiIn0=");
-        // dump($decrypted);
-
-    }
-
-    
 }

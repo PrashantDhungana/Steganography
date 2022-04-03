@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Steganography</title>
+	<title>Steggy | Login | Signup </title>
 	<link rel="stylesheet" type="text/css" href="/css/form.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
@@ -60,7 +60,7 @@
 
 				@csrf
 
-				<h1>Sign in to Steg</h1>
+				<h1>Sign in to Steggy</h1>
 				<!-- <div class="icon-container">
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-f"></i></a>
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-google-plus-g"></i></a>
@@ -82,7 +82,7 @@
 					</div>
 				@enderror
 
-				<label class="forgot-password"><a >Forget Passimage?</a></label>
+				<label class="forgot-password"><a href="/forgot-password">Forget Passimage?</a></label>
                 <input type="checkbox" name="remember"> <label class="form-remember">Remember me</label>
 				<br><br><br>
 				<button type="Sign in" class="button button2">Sign in</button>
