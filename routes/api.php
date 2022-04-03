@@ -19,8 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('/encode',[UploadController::class,'encode']);
+// Route::middleware(['auth:sanctum'])->group(function () {
     
-});
+// });
+Route::post('/encode',[UploadController::class,'encode']);
 Route::post('/decode',[UploadController::class,'decode']);

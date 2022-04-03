@@ -3,18 +3,20 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DecodeRequest;
+use App\Http\Requests\EncodeRequest;
 use App\Http\Traits\EncodeDecodeTrait;
-use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Symfony\Component\HttpFoundation\File\File;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Crypt;
 
 
 class UploadController extends Controller
 {
     use EncodeDecodeTrait;
-    public function encode(Request $request){
+    public function encode(EncodeRequest $request){
         
         $base64File = $request->input('image');
 
@@ -36,7 +38,10 @@ class UploadController extends Controller
             true // Mark it as test, since the file isn't from real HTTP POST.
         );
 
-        $encrptedText = Crypt::encryptString($request->encode_text);
+        
+        $encrypter = new \Illuminate\Encryption\Encrypter($request->passphrase, 'AES-128-CBC');
+
+        $encrptedText = $encrypter->encrypt($request->encode_text);
 
         $imageInfo = $this->steganize($file,$encrptedText,true);
         
@@ -45,23 +50,34 @@ class UploadController extends Controller
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        dd($base64);
+        return $base64;
         
     
     }
 
-    public function decode(Request $request)
+    public function decode(DecodeRequest $request)
     {
-        $base64File = $request->input('image');
+        $base64File = $request->input('decode');
         $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
 
         // save it to temporary dir first.
         $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
         file_put_contents($tmpFilePath, $fileData);
         
-        // this just to help us get file info.
         $tmpFile = new File($tmpFilePath);
-        return $this->desteganize($tmpFile);
+        $encrypter = new \Illuminate\Encryption\Encrypter($request->passphrase, 'AES-128-CBC');
+
+        try
+        {
+            return $encrypter->decrypt($this->desteganize($tmpFile));
+        }
+        catch(DecryptException $e)
+        {
+            return ['message' => 'Invalid Passphrase'];
+        }catch(Exception $e)
+        {
+            return ['message' => 'Something went wrong'];
+        }
     }
     
 }

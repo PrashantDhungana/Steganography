@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DecodeRequest;
+use App\Http\Requests\EncodeRequest;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 use App\Http\Traits\EncodeDecodeTrait;
@@ -110,7 +112,7 @@ class GalleryController extends Controller
         }
     }
 
-    public function encode(Request $request)
+    public function encode(EncodeRequest $request)
     {
         // dd(request()->all());
         $request->validate([
@@ -155,14 +157,8 @@ class GalleryController extends Controller
         }
     }
 
-    public function decode(Request $request)
+    public function decode(DecodeRequest $request)
     {
-
-        $request->validate([
-            'decode' => 'required|image',
-            'passphrase' =>'required|size:16'
-        ]);
-
         $file = $request->decode;
 
         $encrypter = new \Illuminate\Encryption\Encrypter($request->passphrase, 'AES-128-CBC');
@@ -173,8 +169,6 @@ class GalleryController extends Controller
         catch(\Exception $e){
             return redirect('/gallery')->with('decode_error','The passphrase didn\'t match!');
         }
-
-        
         
         return redirect('/gallery')->with('decodedText',$decodedText);
     }
