@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Crypt;
 class UploadController extends Controller
 {
     use EncodeDecodeTrait;
-    public function index(Request $request){
+    public function encode(Request $request){
         
         $base64File = $request->input('image');
 
@@ -48,6 +48,20 @@ class UploadController extends Controller
         dd($base64);
         
     
+    }
+
+    public function decode(Request $request)
+    {
+        $base64File = $request->input('image');
+        $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
+
+        // save it to temporary dir first.
+        $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
+        file_put_contents($tmpFilePath, $fileData);
+        
+        // this just to help us get file info.
+        $tmpFile = new File($tmpFilePath);
+        return $this->desteganize($tmpFile);
     }
     
 }

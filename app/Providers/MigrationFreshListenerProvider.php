@@ -3,10 +3,8 @@
 namespace App\Providers;
 
 use Event;
-use Illuminate\Database\Events\MigrationsStarted;
 use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Filesystem\Filesystem;
 
 
 class MigrationFreshListenerProvider extends ServiceProvider
@@ -28,9 +26,6 @@ class MigrationFreshListenerProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Event::listen(MigrationsStarted::class, function (MigrationsStarted $event){
-        //     dd('here');
-        // });
 
         Event::listen(CommandStarting::class, function (CommandStarting $event) {
             if ($event->input->hasParameterOption('migrate:fresh'))

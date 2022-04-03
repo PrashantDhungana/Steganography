@@ -124,7 +124,7 @@ trait EncodeDecodeTrait
       catch(Exception $e){
         $mimeType = $file->getMimeType();
       }
-
+      
       if(str_contains($mimeType, 'png'))
           $img = imagecreatefrompng($file);
         if(str_contains($mimeType, 'jpg')||str_contains($mimeType, 'jpeg'))
