@@ -44,11 +44,6 @@
 				@error('email')
 					<span>{{ $message}}</span>	
 				@enderror
-				<input type="password" name="password" id="password" placeholder="Password">
-				@error('password')
-					<span>{{ $message}}</span>	
-				@enderror
-				<input type="password" name="password_confirmation" placeholder="Confirm Password">
 				
 				<label for="Passimage">PassImage</label>
 				<input type="file" name="passimg" placeholder="Upload a Password photo" required>
@@ -62,16 +57,6 @@
 		<div class="sign-in">
 
 			<form method="POST" action="/login" enctype="multipart/form-data">
-
-			@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 				@csrf
 
@@ -89,7 +74,7 @@
 					</div>
 				@enderror
 
-				Password:
+				ImagePass:
 				<input type="file" name="loginpassimg" required>
 				@error('loginpassimg')
 					<div class="alert alert-danger">
@@ -149,24 +134,6 @@
 		}
 		else
 			main.classList.remove("right-panel-active");
-
-// 		var owl = $('.owl-carousel');
-// owl.owlCarousel({
-//     items:1,
-//     nav:true,
-//     dots:true,
-//     loop:true,
-//     margin:10,
-//     autoplay:true,
-//     autoplayTimeout:3000,
-//     autoplayHoverPause:true,
-// });
-// $('.play').on('click',function(){
-//     owl.trigger('play.owl.autoplay',[3000])
-// })
-// $('.stop').on('click',function(){
-//     owl.trigger('stop.owl.autoplay')
-// })
 
 </script>
 </body>
