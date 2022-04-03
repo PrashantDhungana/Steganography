@@ -173,6 +173,8 @@ class GalleryController extends Controller
         catch(\Exception $e){
             return redirect('/gallery')->with('decode_error','The passphrase didn\'t match!');
         }
+
+        
         
         return redirect('/gallery')->with('decodedText',$decodedText);
     }
