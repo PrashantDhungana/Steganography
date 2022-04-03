@@ -21,7 +21,9 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-info m-0 py-2">
     <div class="container">
      <li class="nav-item dropdown" style="list-style:none;" id="navbarNav">
-       <a class="nav-link dropdown-toggle mx-2" data-toggle="dropdown" href="#" role="button" style="text-decoration: none; color: white;" aria-haspopup="true" aria-expanded="false">Menu</a>
+      <a class="nav-link dropdown-toggle mx-2" data-toggle="dropdown" href="#" role="button" style="text-decoration: none; color: white;" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-cog"></i> Menu
+      </a>
        <div class="dropdown-menu">
          <a class="dropdown-item" href="/user">
          <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> User Profile

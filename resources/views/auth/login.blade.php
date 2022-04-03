@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Steganography</title>
+	<title>Steggy | Login | Signup </title>
 	<link rel="stylesheet" type="text/css" href="/css/form.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
@@ -44,11 +44,6 @@
 				@error('email')
 					<span>{{ $message}}</span>	
 				@enderror
-				<input type="password" name="password" id="password" placeholder="Password">
-				@error('password')
-					<span>{{ $message}}</span>	
-				@enderror
-				<input type="password" name="password_confirmation" placeholder="Confirm Password">
 				
 				<label for="Passimage">PassImage</label>
 				<input type="file" name="passimg" placeholder="Upload a Password photo" required>
@@ -63,19 +58,9 @@
 
 			<form method="POST" action="/login" enctype="multipart/form-data">
 
-			@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
 				@csrf
 
-				<h1>Sign in to Steg</h1>
+				<h1>Sign in to Steggy</h1>
 				<!-- <div class="icon-container">
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-f"></i></a>
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-google-plus-g"></i></a>
@@ -89,7 +74,7 @@
 					</div>
 				@enderror
 
-				Password:
+				ImagePass:
 				<input type="file" name="loginpassimg" required>
 				@error('loginpassimg')
 					<div class="alert alert-danger">
@@ -97,7 +82,7 @@
 					</div>
 				@enderror
 
-				<label class="forgot-password"><a >Forget Passimage?</a></label>
+				<label class="forgot-password"><a href="/forgot-password">Forget Passimage?</a></label>
                 <input type="checkbox" name="remember"> <label class="form-remember">Remember me</label>
 				<br><br><br>
 				<button type="Sign in" class="button button2">Sign in</button>
@@ -149,24 +134,6 @@
 		}
 		else
 			main.classList.remove("right-panel-active");
-
-// 		var owl = $('.owl-carousel');
-// owl.owlCarousel({
-//     items:1,
-//     nav:true,
-//     dots:true,
-//     loop:true,
-//     margin:10,
-//     autoplay:true,
-//     autoplayTimeout:3000,
-//     autoplayHoverPause:true,
-// });
-// $('.play').on('click',function(){
-//     owl.trigger('play.owl.autoplay',[3000])
-// })
-// $('.stop').on('click',function(){
-//     owl.trigger('stop.owl.autoplay')
-// })
 
 </script>
 </body>

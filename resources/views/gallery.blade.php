@@ -149,7 +149,7 @@
                     <form method="POST" action="/encode" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-5">
 
                                 <div class="drop-zone">
                                     <span class="drop-zone__prompt">Drop file here or click to upload</span>
@@ -161,8 +161,15 @@
                                 <div class="form-group ">
                                     <label for="exampleInputEmail1">Text to be encoded</label>
                                     <input type="text" placeholder="Hidden text" class="form-control" name="encode_text"
-                                        autocomplete="off" required />
+                                    autocomplete="off" required />
                                 </div>
+                                <div class="form-group ">
+                                    <label for="passphrase">Passphrase</label>
+                                    <input type="text" pattern="\w{16}" id="passphrase" placeholder="16 digit passphrase" class="form-control" name="passphrase" autocomplete="off" required />
+                                </div>
+                                @error('passphrase')
+                                    <div class="text-danger">*{{ $message }}</div>
+                                @enderror
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="visibility" value="public"
                                         id="public" onclick="ShowHideDiv()" required>
@@ -190,7 +197,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Encode Message</button>
                 </div>
                 </form>
             </div>
@@ -225,10 +232,13 @@
                                 
                                     
                             </div>
-                            {{-- <input type="file" name="encode"> --}}
                         </div>
-
-                </div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="passphrase">Enter PassPhrase:</label>
+                        <input type="text" name="passphrase" id="passphrase" placeholder="16 digit passphrase">
+                    </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Decode</button>

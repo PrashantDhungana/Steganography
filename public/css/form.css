@@ -11,6 +11,10 @@ body{
 	margin: 60px 30px 60px 30px;
 
 }
+a{
+	color: #fff;
+	text-decoration: none;
+}
 .container{
 	position: relative;
 	width: 900px;

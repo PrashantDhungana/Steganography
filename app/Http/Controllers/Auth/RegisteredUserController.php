@@ -9,6 +9,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -34,7 +36,6 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name'=> ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'confirmed','min:7','max:255'],
             'passimg' => ['required', 'image']
             
         ]);
@@ -47,7 +48,7 @@ class RegisteredUserController extends Controller
             return redirect('/uploadfile');
     }
 
-        $encryptedPassword = Crypt::encryptString($request->password);
+        $encryptedPassword = Crypt::encryptString(Str::random(16));
         // dd($encryptedPassword);
         $file = $request->file('passimg') ;
         $filename = uniqid('img_').".".$file->extension();
@@ -65,8 +66,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::HOME)->with('register', 'true');
        
     }
     

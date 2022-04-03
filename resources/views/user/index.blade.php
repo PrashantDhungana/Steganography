@@ -30,7 +30,14 @@
                                             class="profile_image">
                                         <div class="profile_name">{{ auth()->user()->name }}</div>
                                         <p class="email">{{ auth()->user()->email }}</p>
-                                        <button type="Admin" class="btn btn-primary" id="btnedit">Edit Profile</button>
+                                        <button type="Admin" class="btn btn-primary" id="btnedit">
+                                        <i class="fas fa-user fa-sm fa-fw"></i>Edit Profile
+                                        </button>
+                                        <a href="/users/{{ auth()->user()->filename }}" download>
+                                            <button class="btn btn-primary" id="passimg_download">
+                                                <i class="fa fa-download"></i> <span>Download PassImage</span>
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="form col-md-8 display__control " id="editform">
@@ -677,5 +684,14 @@
                 });
             }
         );
+
+        $(document).ready(function() { 
+            @if (session()->has('register'))
+                alert('hulu');
+                localStorage.setItem('activeTab', '#v-pills-home');
+                $("#passimg_download").click();
+            @endif
+            });
+
     </script>
 @endsection
