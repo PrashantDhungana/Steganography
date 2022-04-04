@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
+
 
 class UserController extends Controller
 {
@@ -128,7 +130,6 @@ class UserController extends Controller
         
         $request->validate([
             'currentimage' =>['required','image'],
-            'password' => ['required'],
             'newimage' => ['required','image']
         ]);
         $loggedUser = auth()->user();
@@ -137,8 +138,8 @@ class UserController extends Controller
            throw ValidationException::withMessages(['change_error' =>["Invalid Image"]]);
        }
        else{
-            $newpass = Crypt::encryptString($request->password);
-            $result = $this->steganize($request->newimage, $newpass,true);
+            $newpass = Crypt::encryptString(Str::random(16));
+            $result = $this->steganize($request->newimage, $newpass,true,"users/");
 
             $loggedUser = User::find($loggedUser->id);
             $loggedUser->password = $newpass;

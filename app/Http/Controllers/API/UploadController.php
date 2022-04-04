@@ -18,7 +18,7 @@ class UploadController extends Controller
     use EncodeDecodeTrait;
     public function encode(EncodeRequest $request){
         
-        $base64File = $request->input('image');
+        $base64File = $request->input('encode');
 
         // decode the base64 file
         $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
@@ -79,5 +79,5 @@ class UploadController extends Controller
             return ['message' => 'Something went wrong'];
         }
     }
-    
+
 }

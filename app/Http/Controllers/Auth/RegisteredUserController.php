@@ -66,7 +66,9 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-        return redirect(RouteServiceProvider::HOME)->with('register', 'true');
+        return redirect(RouteServiceProvider::HOME)
+              ->with('activetab', '#v-pills-home')
+              ->with('register','true');
        
     }
     
