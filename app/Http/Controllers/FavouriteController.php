@@ -47,8 +47,8 @@ class FavouriteController extends Controller
             'user_id' => 'required'
         ]);
         $gallery = Gallery::find($request->gall_id);
-        $gallery->user()->attach($request->user_id);
-        return redirect()->route('user.index');
+        $gallery->user()->sync($request->user_id);
+        return redirect()->route('user.index')->with('activetab','#v-pills-settings');
     }
 
     /**

@@ -160,7 +160,7 @@
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <div class="decode-block"
-                                                                        id="decodes{{ $post->id }}"
+                                                                        id="decodeshistory{{ $post->id }}"
                                                                         onclick="changeClick(this,{{ $post->id }},'{{ $post->decoded }}')">
 
                                                                         <a href=""><i class="bi bi-lock-fill mr-2"></i></a>
@@ -170,6 +170,8 @@
                                                                     <span class="enc_text"
                                                                         id="history{{ $post->id }}"
                                                                         style="display: none;"></span>
+                                                                    <strong>Passphrase:</strong> 
+                                                                    {{ $post->passphrase }}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -204,20 +206,16 @@
                                     @csrf
                                     <div class="button form-group mt-5">
                                         <div class="file-upload mt-2">
+                                            <label for="myFile">Upload Current PassImage</label><br>
                                             <input class="file-upload__input" type="file" name="currentimage" id="myFile"
                                                 required>
                                             <button class="file-upload__button" type="button">Choose File</button><br><br>
                                             <span class="file-upload__label"></span>
                                         </div>
                                     </div>
-
-                                    <div class="form-group mt-2">
-                                        <label for="exampleInputPassword1">New Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1"
-                                            placeholder="Enter New Password" name="password" required>
-                                    </div>
                                     <div class="file-upload mt-2">
-                                        <input class="file-upload__input" type="file" name="newimage" id="myFile" required>
+                                        <label for="newFile">Upload New PassImage</label><br>
+                                        <input class="file-upload__input" type="file" name="newimage" id="newFile" required>
                                         <button class="file-upload__button" type="button">Choose File</button><br><br>
                                         <span class="file-upload__label"></span>
                                     </div>
@@ -319,7 +317,7 @@
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <div class="decode-block"
-                                                                        id="decodes{{ $favourite->id }}"
+                                                                        id="decodesfav{{ $favourite->id }}"
                                                                         onclick="changeClick(this,{{ $favourite->id }},'{{ $favourite->decoded }}', 'fav')">
 
                                                                         <a href=""><i class="bi bi-lock-fill"></i></a>
@@ -461,15 +459,15 @@
             });
 
 
-            const div = document.querySelector(`#decodes${id}`);
+            const div = document.querySelector(`#decodes${place}${id}`);
             if (div.classList.contains("decode-block")) {
-                document.getElementById(`decodes${id}`).innerHTML =
+                document.getElementById(`decodes${place}${id}`).innerHTML =
                     `<a href=""><i class="bi bi-unlock-fill mr-2"></i></a> Hide Message`;
                 div.classList.remove("decode-block");
                 element.classList.add("encodes");
                 document.querySelector(`#${place}${id}`).style.display = "block"
             } else {
-                document.getElementById(`decodes${id}`).innerHTML =
+                document.getElementById(`decodes${place}${id}`).innerHTML =
                     `<a href=""><i class="bi bi-lock-fill mr-2"></i></a> Decode Message`;
                 div.classList.remove("encodes");
                 element.classList.add("decode-block");
@@ -685,13 +683,13 @@
             }
         );
 
-        $(document).ready(function() { 
-            @if (session()->has('register'))
-                alert('hulu');
-                localStorage.setItem('activeTab', '#v-pills-home');
-                $("#passimg_download").click();
-            @endif
-            });
+        @if (session()->has('activetab'))
+            localStorage.setItem('activeTab', "{{ session('activetab') }}");
+        @endif
+        @if (session()->has('register'))
+            $("#passimg_download").click();
+        @endif
+            
 
     </script>
 @endsection

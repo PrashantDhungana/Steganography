@@ -115,11 +115,6 @@ class GalleryController extends Controller
     public function encode(EncodeRequest $request)
     {
         // dd(request()->all());
-        $request->validate([
-            'encode' => ['required','image'],
-            'encode_text' => ['required'],
-            'passphrase' => ['required','size:16']
-        ]);
 
         $image = $request->encode;
         
