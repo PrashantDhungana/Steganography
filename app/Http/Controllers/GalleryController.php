@@ -66,7 +66,6 @@ class GalleryController extends Controller
             // dd($gallery->public);
             if($gallery->public == 1)
             $gallery->text = $request->message;
-            $gallery->process = 0;
             $gallery->before = json_encode($imageInfo[1]);
             $gallery->after = json_encode($imageInfo[2]);
             //Save MSE and PSNR value to column
@@ -75,7 +74,8 @@ class GalleryController extends Controller
             $gallery->passphrase = $request->passphrase;
 
             if($gallery->save())
-                return redirect('/gallery')->with('message','Image Encoded Successfully');
+                return redirect('/gallery')->with('message','Image Encoded Successfully')
+                                           ->with('encode',$imageInfo[0]);
         }
         else
         {

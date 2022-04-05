@@ -31,4 +31,14 @@ class Gallery extends Model
         
         return $encrypter->decrypt($this->desteganize($file));
     }
+
+    public function setPassphraseAttribute($value)
+    {
+        $this->attributes['passphrase'] = Crypt::encrypt($value);
+    }
+
+    public function getPassphraseAttribute($value)
+    {
+        return Crypt::decrypt($value);
+    }
 }

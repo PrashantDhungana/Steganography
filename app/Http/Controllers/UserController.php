@@ -26,7 +26,7 @@ class UserController extends Controller
         $favourite = User::where('id',auth()->user()->id)->get();
         $favourites = $favourite[0]->gallery()->get();
         $user = User::where('id' , auth()->user()->id)->first();
-        // dd($favourites);
+
         return view('user.index' ,compact('posts' ,'favourites','gallery','user'));
     }
 
@@ -115,13 +115,13 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $token = $user->createToken('myapptoken')->plainTextToken;
-        dd($token);
+
+        return ['message' => 'Do not share this token with anyone','Bearer_Token'=>$token];
     }
 
     public function delToken()
     {
         $user = auth()->user();
         $user->tokens()->delete();
-        
     }
 }

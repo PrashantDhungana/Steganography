@@ -18,10 +18,9 @@ class CreateGalleryTable extends Migration
             $table->foreignId('user_id')->constrained('users','id');
             $table->string('image');
             $table->boolean('public');
-            $table->boolean('process');
             $table->text('before')->nullable();
             $table->text('after')->nullable();
-            $table->string('passphrase',16);
+            $table->string('passphrase',255);
             $table->string('text')->nullable();
             $table->timestamps();
         });

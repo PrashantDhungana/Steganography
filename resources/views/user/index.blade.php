@@ -38,8 +38,13 @@
                                                 <i class="fa fa-download"></i> <span>Download PassImage</span>
                                             </button>
                                         </a><br>
-                                        <span class="text-danger " style="font-size: 15px;"><strong>**</strong> Do not
-                                            share the <strong> PassImage</strong> with anyone <strong>**</strong></span>
+                                        <span class="text-danger " style="font-size: 15px;"><strong>**</strong> Do not share the <strong> PassImage</strong> with anyone <strong>**</strong></span><br>
+                                        <div class="form-group">
+                                            <span style="font-size: 15px;">Want to access Steggy API?</span>
+                                            <a href="/gentoken" class="btn btn-warning" target="_blank">
+                                                <i class="fas fa-key"></i> Generate Access Token
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form col-md-8 display__control " id="editform">
