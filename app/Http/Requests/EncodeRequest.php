@@ -24,7 +24,7 @@ class EncodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'encode' => ['required','image','mimes:png,jpg,jpeg'],
+            'encode' => ['required'],
             'encode_text' => ['required'],
             'passphrase' => ['required','size:16']
         ];

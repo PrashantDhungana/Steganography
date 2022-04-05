@@ -59,7 +59,6 @@
 			<form method="POST" action="/login" enctype="multipart/form-data">
 
 				@csrf
-
 				<h1>Sign in to Steggy</h1>
 				<!-- <div class="icon-container">
 					<a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-f"></i></a>

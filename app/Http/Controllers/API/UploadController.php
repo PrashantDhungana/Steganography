@@ -19,6 +19,9 @@ class UploadController extends Controller
     use EncodeDecodeTrait;
     public function encode(EncodeRequest $request){
         
+        if(!str_contains($request->encode, 'data:image'))
+            return ['message'=>'Invalid Base64 Image'];
+
         $base64File = $request->input('encode');
 
         // decode the base64 file
