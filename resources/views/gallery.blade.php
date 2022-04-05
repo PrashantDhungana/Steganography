@@ -398,6 +398,14 @@
                 // location.reload();
             @endif
 
+            @if (session()->has('encode'))
+                var a = document.createElement('a');
+                a.href = "/images/{{session()->get('encode')}}";
+                a.download = "encoded.png";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            @endif
         });
     </script>
 @endsection

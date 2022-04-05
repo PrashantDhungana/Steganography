@@ -143,7 +143,8 @@ class GalleryController extends Controller
             $gallery->passphrase = $request->passphrase;
 
             if($gallery->save())
-                return redirect('/gallery')->with('message','Image Encoded Successfully');
+                return redirect('/gallery')->with('message','Image Encoded Successfully')
+                                           ->with('encode',$imageInfo[0]);
         }
         else
         {

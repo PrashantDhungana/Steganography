@@ -157,13 +157,12 @@ class UserController extends Controller
         $user = auth()->user();
         $token = $user->createToken('myapptoken')->plainTextToken;
 
-        return ['message' => 'Use this token for Accessing Steggy API','Bearer_Token'=>$token];
+        return ['message' => 'Do not share this token with anyone','Bearer_Token'=>$token];
     }
 
     public function delToken()
     {
         $user = auth()->user();
         $user->tokens()->delete();
-        
     }
 }
