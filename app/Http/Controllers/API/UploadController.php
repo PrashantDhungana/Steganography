@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DecodeRequest;
 use App\Http\Requests\EncodeRequest;
 use App\Http\Traits\EncodeDecodeTrait;
+use App\Models\Gallery;
 use Exception;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Symfony\Component\HttpFoundation\File\File;
@@ -45,13 +46,21 @@ class UploadController extends Controller
 
         $imageInfo = $this->steganize($file,$encrptedText,true);
         
-        $path = 'images/'.$imageInfo[0];
+        $imageName = $imageInfo[0];
+        $path = 'images/'.$imageName;
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        return $base64;
-        
+        // Save to gallery
+        $gallery = new Gallery();
+        $gallery->user_id = auth()->user()->id;
+        $gallery->image = $imageName;
+        $gallery->public = 0;
+        $gallery->passphrase = $request->passphrase;
+
+        if($gallery->save())
+            return response()->json(['message'=>'Image Encoded Successfully','image'=>$base64]);
     
     }
 

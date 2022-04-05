@@ -135,7 +135,6 @@ class GalleryController extends Controller
             // dd($gallery->public);
             if($gallery->public == 1)
             $gallery->text = $request->message;
-            $gallery->process = 0;
             $gallery->before = json_encode($imageInfo[1]);
             $gallery->after = json_encode($imageInfo[2]);
             //Save MSE and PSNR value to column
