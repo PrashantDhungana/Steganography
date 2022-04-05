@@ -383,7 +383,7 @@ padding: 14px 15px;
 }
 
 .file-upload {
-  display: inline-flex;
+  /* display: inline-flex; */
   align-items: center;
   font-size: 15px;
 }

@@ -203,22 +203,24 @@
                                 <img src="/img/secure.png" style="width: 100%">
                             </div>
                             <div class="text-sec col-md-6">
-                                <form class="m-3" method="post" enctype="multipart/form-data"
+                                
+                                <form class="m-5" method="post" enctype="multipart/form-data"
                                     action="{{ route('update_password') }}">
                                     @csrf
-                                    <div class="button form-group mt-5">
-                                        <div class="file-upload mt-2">
-                                            <label for="myFile">Upload Current PassImage</label><br>
+                                
+                                        <div class="file-upload form-group mt-4">
+                                            <label for="myFile" class="pb-2">Upload Current PassImage</label><br>
                                             <input class="file-upload__input" type="file" name="currentimage" id="myFile"
                                                 required>
-                                            <button class="file-upload__button" type="button">Choose File</button><br><br>
+                                            <button class="file-upload__button" type="button">Choose File</button>
                                             <span class="file-upload__label"></span>
                                         </div>
-                                    </div>
-                                    <div class="file-upload mt-2">
-                                        <label for="newFile">Upload New PassImage</label><br>
+                                        
+                                  
+                                    <div class="file-upload form-group mt-4">
+                                        <label for="newFile" class="pb-2">Upload New PassImage</label><br>
                                         <input class="file-upload__input" type="file" name="newimage" id="newFile" required>
-                                        <button class="file-upload__button" type="button">Choose File</button><br><br>
+                                        <button class="file-upload__button" type="button">Choose File</button>
                                         <span class="file-upload__label"></span>
                                     </div>
 

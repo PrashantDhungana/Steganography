@@ -101,19 +101,14 @@
                     <div class="category">
                         <div class="hell mt-5">Encoding</div>
                         <!-- Button trigger modal -->
-                        <button type="button" class=" mt-3 btn btn-primary" data-toggle="modal"
+                        <button type="button" class=" mt-3 btn btn-primary" data-toggle="modal" id="encodeModal"
                             data-target="#exampleModalCenter">
                             Start Encode
                         </button>
                     </div>
                     <div class="category">
                         <div class="hell mt-5">Decode</div>
-                        {{-- <form action="/decode" method="POST" enctype="multipart/form-data">
-             @csrf
-             <input type="file" name="decode" required>
-             <button type="submit" class="btn btn-primary">Start Decode</button>
-           </form> --}}
-                        <!-- Button trigger modal -->
+
                         <button type="button" class=" mt-3 btn btn-primary" data-toggle="modal" id="decodeModal"
                             data-target="#exampleModaldecode">
                             Start Decode
@@ -121,10 +116,7 @@
                     </div>
 
                 </div>
-                <!-- <div class="box">
-                  <div class="enc"><h6 class="hide">Hide message</h6></div>
-                  <div class="dec"><h6 class="decc">Decode message</h6></div>
-                </div> -->
+
 
             </div>
 
@@ -147,6 +139,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                    <div class="text-danger text-center" style="margin: 0px 60px;">{{ $error }}</div>
+
+                       @endforeach
+                        @endif
+                  
                     <form method="POST" action="/encode" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
@@ -169,9 +168,7 @@
                                     <input type="text" pattern="\w{16}" id="passphrase" placeholder="16 digit passphrase"
                                         class="form-control" name="passphrase" autocomplete="off" required />
                                 </div>
-                                @error('passphrase')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="visibility" value="public"
                                         id="public" onclick="ShowHideDiv()" required>
@@ -217,6 +214,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    @error('passphrases')
+                        <div class="text-danger" style="margin: 0px 60px;">{{ $message }}</div>
+                    @enderror
                     @if (session()->has('decodedText'))
                         <div class="text__decode">
                             The Decoded Text is
@@ -239,7 +239,7 @@
                 </div>
                 <div class="form-group mx-auto">
                     <label for="passphrase">Enter PassPhrase:</label>
-                    <input type="text" name="passphrase" id="passphrase" placeholder="16 digit passphrase">
+                    <input type="text" name="passphrases" id="passphrase" placeholder="16 digit passphrase">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -396,6 +396,14 @@
                 $("#decodeModal").click();
                 // $('#formdecode').css('display', 'none');
                 // location.reload();
+            @endif
+            
+            @if ($errors->has('passphrases'))
+                $("#decodeModal").click();
+            @endif
+
+            @if ($errors->has('encode_text','passphrase' ,'encode'))
+                $('#encodeModal').click();
             @endif
 
         });
