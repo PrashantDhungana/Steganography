@@ -13,7 +13,7 @@
                         role="tab" aria-controls="v-pills-messages" aria-selected="false">Change Password</a>
                     <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings"
                         role="tab" aria-controls="v-pills-settings" aria-selected="false">Favourite Saved</a>
-                    <a class="nav-link" id="v-pills-private_gallery" data-toggle="pill" href="#v-pills-private_gallery"
+                    <a class="nav-link" id="v-pills-private_gallery-tab" data-toggle="pill" href="#v-pills-private_gallery"
                         role="tab" aria-controls="v-pills-private_gallery" aria-selected="false">Private Gallery</a>
 
                 </div>
@@ -31,13 +31,15 @@
                                         <div class="profile_name">{{ auth()->user()->name }}</div>
                                         <p class="email">{{ auth()->user()->email }}</p>
                                         <button type="Admin" class="btn btn-primary" id="btnedit">
-                                        <i class="fas fa-user fa-sm fa-fw"></i>Edit Profile
+                                            <i class="fas fa-user fa-sm fa-fw"></i>Edit Profile
                                         </button>
                                         <a href="/users/{{ auth()->user()->filename }}" download>
                                             <button class="btn btn-primary" id="passimg_download">
                                                 <i class="fa fa-download"></i> <span>Download PassImage</span>
                                             </button>
-                                        </a>
+                                        </a><br>
+                                        <span class="text-danger " style="font-size: 15px;"><strong>**</strong> Do not
+                                            share the <strong> PassImage</strong> with anyone <strong>**</strong></span>
                                     </div>
                                 </div>
                                 <div class="form col-md-8 display__control " id="editform">
@@ -169,8 +171,8 @@
                                                                     </div>
                                                                     <span class="enc_text"
                                                                         id="history{{ $post->id }}"
-                                                                        style="display: none;"></span>
-                                                                    <strong>Passphrase:</strong> 
+                                                                        style="display: none; word-wrap: break-word;"></span>
+                                                                    <strong>Passphrase:</strong>
                                                                     {{ $post->passphrase }}
                                                                 </div>
                                                             </div>
@@ -324,9 +326,9 @@
                                                                         Decode Message
 
                                                                     </div>
-                                                                    <span class="enc_text"
+                                                                    <span class="enc_text "
                                                                         id="fav{{ $favourite->id }}"
-                                                                        style="display: none;"></span>
+                                                                        style="display: none; word-wrap: break-word;"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -449,7 +451,7 @@
             return result;
         }
 
-        function changeClick(element, id, finaltext ,place="history") {
+        function changeClick(element, id, finaltext, place = "history") {
             //Create Decode Text Effect
             let randomString = generateString(finaltext.length)
             $(`#${place}${id}`).html(randomString)
@@ -689,7 +691,5 @@
         @if (session()->has('register'))
             $("#passimg_download").click();
         @endif
-            
-
     </script>
 @endsection
