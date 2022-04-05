@@ -13,13 +13,16 @@
   {{-- <link rel="stylesheet" type="text/css" href="index.css"> --}}
   <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="/css/styles.css" rel="stylesheet">
+  <link rel="icon" href="img/logo.png" type="image/png">
+
 </head>
 <body>
   
 
 <div class="wrapper">
   <nav class="navbar navbar-expand-lg navbar-light bg-info m-0 py-2">
-    <div class="container">
+    <div class="container-fluid">
+      <img src="/img/logo_with_txt.png" alt="Steggy Logo" style="height: 56px;">
      <li class="nav-item dropdown" style="list-style:none;" id="navbarNav">
       <a class="nav-link dropdown-toggle mx-2" data-toggle="dropdown" href="#" role="button" style="text-decoration: none; color: white;" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-cog"></i> Menu

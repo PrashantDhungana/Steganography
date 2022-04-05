@@ -25,7 +25,7 @@ class DecodeRequest extends FormRequest
     {
         return [
             'decode' => 'required',
-            'passphrase' =>'required|size:16'
+            'passphrases' =>'required|size:16'
         ];
     }
 }

@@ -13,7 +13,7 @@
                         role="tab" aria-controls="v-pills-messages" aria-selected="false">Change Password</a>
                     <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings"
                         role="tab" aria-controls="v-pills-settings" aria-selected="false">Favourite Saved</a>
-                    <a class="nav-link" id="v-pills-private_gallery" data-toggle="pill" href="#v-pills-private_gallery"
+                    <a class="nav-link" id="v-pills-private_gallery-tab" data-toggle="pill" href="#v-pills-private_gallery"
                         role="tab" aria-controls="v-pills-private_gallery" aria-selected="false">Private Gallery</a>
 
                 </div>
@@ -31,13 +31,20 @@
                                         <div class="profile_name">{{ auth()->user()->name }}</div>
                                         <p class="email">{{ auth()->user()->email }}</p>
                                         <button type="Admin" class="btn btn-primary" id="btnedit">
-                                        <i class="fas fa-user fa-sm fa-fw"></i>Edit Profile
+                                            <i class="fas fa-user fa-sm fa-fw"></i>Edit Profile
                                         </button>
                                         <a href="/users/{{ auth()->user()->filename }}" download>
                                             <button class="btn btn-primary" id="passimg_download">
                                                 <i class="fa fa-download"></i> <span>Download PassImage</span>
                                             </button>
-                                        </a>
+                                        </a><br>
+                                        <span class="text-danger " style="font-size: 15px;"><strong>**</strong> Do not share the <strong> PassImage</strong> with anyone <strong>**</strong></span><br>
+                                        <div class="form-group">
+                                            <span style="font-size: 15px;">Want to access Steggy API?</span>
+                                            <a href="/gentoken" class="btn btn-warning" target="_blank">
+                                                <i class="fas fa-key"></i> Generate Access Token
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form col-md-8 display__control " id="editform">
@@ -160,7 +167,7 @@
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <div class="decode-block"
-                                                                        id="decodes{{ $post->id }}"
+                                                                        id="decodeshistory{{ $post->id }}"
                                                                         onclick="changeClick(this,{{ $post->id }},'{{ $post->decoded }}')">
 
                                                                         <a href=""><i class="bi bi-lock-fill mr-2"></i></a>
@@ -169,7 +176,9 @@
                                                                     </div>
                                                                     <span class="enc_text"
                                                                         id="history{{ $post->id }}"
-                                                                        style="display: none;"></span>
+                                                                        style="display: none; word-wrap: break-word;"></span>
+                                                                    <strong>Passphrase:</strong>
+                                                                    {{ $post->passphrase }}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -199,26 +208,24 @@
                                 <img src="/img/secure.png" style="width: 100%">
                             </div>
                             <div class="text-sec col-md-6">
-                                <form class="m-3" method="post" enctype="multipart/form-data"
+                                
+                                <form class="m-5" method="post" enctype="multipart/form-data"
                                     action="{{ route('update_password') }}">
                                     @csrf
-                                    <div class="button form-group mt-5">
-                                        <div class="file-upload mt-2">
+                                
+                                        <div class="file-upload form-group mt-4">
+                                            <label for="myFile" class="pb-2">Upload Current PassImage</label><br>
                                             <input class="file-upload__input" type="file" name="currentimage" id="myFile"
                                                 required>
-                                            <button class="file-upload__button" type="button">Choose File</button><br><br>
+                                            <button class="file-upload__button" type="button">Choose File</button>
                                             <span class="file-upload__label"></span>
                                         </div>
-                                    </div>
-
-                                    <div class="form-group mt-2">
-                                        <label for="exampleInputPassword1">New Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1"
-                                            placeholder="Enter New Password" name="password" required>
-                                    </div>
-                                    <div class="file-upload mt-2">
-                                        <input class="file-upload__input" type="file" name="newimage" id="myFile" required>
-                                        <button class="file-upload__button" type="button">Choose File</button><br><br>
+                                        
+                                  
+                                    <div class="file-upload form-group mt-4">
+                                        <label for="newFile" class="pb-2">Upload New PassImage</label><br>
+                                        <input class="file-upload__input" type="file" name="newimage" id="newFile" required>
+                                        <button class="file-upload__button" type="button">Choose File</button>
                                         <span class="file-upload__label"></span>
                                     </div>
 
@@ -319,16 +326,16 @@
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <div class="decode-block"
-                                                                        id="decodes{{ $favourite->id }}"
+                                                                        id="decodesfav{{ $favourite->id }}"
                                                                         onclick="changeClick(this,{{ $favourite->id }},'{{ $favourite->decoded }}', 'fav')">
 
                                                                         <a href=""><i class="bi bi-lock-fill"></i></a>
                                                                         Decode Message
 
                                                                     </div>
-                                                                    <span class="enc_text"
+                                                                    <span class="enc_text "
                                                                         id="fav{{ $favourite->id }}"
-                                                                        style="display: none;"></span>
+                                                                        style="display: none; word-wrap: break-word;"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -451,7 +458,7 @@
             return result;
         }
 
-        function changeClick(element, id, finaltext ,place="history") {
+        function changeClick(element, id, finaltext, place = "history") {
             //Create Decode Text Effect
             let randomString = generateString(finaltext.length)
             $(`#${place}${id}`).html(randomString)
@@ -461,15 +468,15 @@
             });
 
 
-            const div = document.querySelector(`#decodes${id}`);
+            const div = document.querySelector(`#decodes${place}${id}`);
             if (div.classList.contains("decode-block")) {
-                document.getElementById(`decodes${id}`).innerHTML =
+                document.getElementById(`decodes${place}${id}`).innerHTML =
                     `<a href=""><i class="bi bi-unlock-fill mr-2"></i></a> Hide Message`;
                 div.classList.remove("decode-block");
                 element.classList.add("encodes");
                 document.querySelector(`#${place}${id}`).style.display = "block"
             } else {
-                document.getElementById(`decodes${id}`).innerHTML =
+                document.getElementById(`decodes${place}${id}`).innerHTML =
                     `<a href=""><i class="bi bi-lock-fill mr-2"></i></a> Decode Message`;
                 div.classList.remove("encodes");
                 element.classList.add("decode-block");
@@ -685,13 +692,11 @@
             }
         );
 
-        $(document).ready(function() { 
-            @if (session()->has('register'))
-                alert('hulu');
-                localStorage.setItem('activeTab', '#v-pills-home');
-                $("#passimg_download").click();
-            @endif
-            });
-
+        @if (session()->has('activetab'))
+            localStorage.setItem('activeTab', "{{ session('activetab') }}");
+        @endif
+        @if (session()->has('register'))
+            $("#passimg_download").click();
+        @endif
     </script>
 @endsection

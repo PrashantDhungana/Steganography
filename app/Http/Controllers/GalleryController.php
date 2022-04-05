@@ -28,75 +28,6 @@ class GalleryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    // public function store(Request $request) 
-    // {
-    //     // dd($request->all());
-    //     request()->validate([
-    //         'encode' => 'required|image',
-    //         'encode_text' => 'required'
-    //     ]);
-
-    //     $image = request()->encode;
-    //     $plainText =  request()->encode_text;
-
-    //     if($imageName = $this->steganize($image,$plainText))
-    //     {
-    //         $gallery = new Gallery();
-    //         // $gallery->user_id = auth()->user()->id;
-    //         if($gallery->user_id == null)
-    //             $gallery->user_id = 1;
-    //         $gallery->image = $imageName; 
-    //         $gallery->public = request()->visibility == 'public'?1:0;
-    //         if($gallery->public == 1)
-    //             $gallery->text = request()->message;
-    //         $gallery->process = 0;
-    //         if($gallery->save())
-    //             return redirect('/gallery')->with('message','Image Encoded Successfully');
-    //     }
-        
-    //     // $decode = 
-    // }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -115,11 +46,6 @@ class GalleryController extends Controller
     public function encode(EncodeRequest $request)
     {
         // dd(request()->all());
-        $request->validate([
-            'encode' => ['required','image'],
-            'encode_text' => ['required'],
-            'passphrase' => ['required','size:16']
-        ]);
 
         $image = $request->encode;
         
@@ -140,7 +66,6 @@ class GalleryController extends Controller
             // dd($gallery->public);
             if($gallery->public == 1)
             $gallery->text = $request->message;
-            $gallery->process = 0;
             $gallery->before = json_encode($imageInfo[1]);
             $gallery->after = json_encode($imageInfo[2]);
             //Save MSE and PSNR value to column
@@ -149,7 +74,8 @@ class GalleryController extends Controller
             $gallery->passphrase = $request->passphrase;
 
             if($gallery->save())
-                return redirect('/gallery')->with('message','Image Encoded Successfully');
+                return redirect('/gallery')->with('message','Image Encoded Successfully')
+                                           ->with('encode',$imageInfo[0]);
         }
         else
         {
@@ -161,7 +87,7 @@ class GalleryController extends Controller
     {
         $file = $request->decode;
 
-        $encrypter = new \Illuminate\Encryption\Encrypter($request->passphrase, 'AES-128-CBC');
+        $encrypter = new \Illuminate\Encryption\Encrypter($request->passphrases, 'AES-128-CBC');
 
         try{
             $decodedText = $encrypter->decrypt($this->desteganize($file));

@@ -23,23 +23,19 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::view('/download','download');
-    Route::resource('/gallery' , GalleryController::class);
+    Route::resource('/gallery' , GalleryController::class)->except('show','edit' ,'update','store','create');
     Route::post('/encode',[GalleryController::class,'encode']);
     Route::post('/decode',[GalleryController::class,'decode']);
-    Route::resource('/user' , UserController::class);
+    Route::resource('/user' , UserController::class)->except('create','store','edit','show');
     Route::post('/update-password',[UserController::class,'updatePassword'])->name('update_password');
-    Route::resource('/favourite',FavouriteController::class);
+    Route::resource('/favourite',FavouriteController::class)->only('store','index');
   
     Route::get('/dashboard',[DashboardController::class,'stats'])->middleware('admin')->name('dashboard');
     Route::delete('admin/{gallery}',[DashboardController::class,'destroy'])->name('admin.destroy');
     Route::resource('/admin' , AuthUserController::class)->middleware('admin');
     
-    Route::get('/generateToken',[UserController::class,'generateToken']);
-    Route::get('/delToken',[UserController::class,'delToken']);
-
-    
+    Route::get('/gentoken',[UserController::class,'generateToken']);    
     
 });
-Route::get('/test', [GalleryController::class,'test']);
     
 require __DIR__.'/auth.php';

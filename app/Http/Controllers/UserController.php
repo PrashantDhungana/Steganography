@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
+
 
 class UserController extends Controller
 {
@@ -24,52 +26,11 @@ class UserController extends Controller
         $favourite = User::where('id',auth()->user()->id)->get();
         $favourites = $favourite[0]->gallery()->get();
         $user = User::where('id' , auth()->user()->id)->first();
-        // dd($favourites);
+
         return view('user.index' ,compact('posts' ,'favourites','gallery','user'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit()
-    {
-       
-    }
+   
 
     /**
      * Update the specified resource in storage.
@@ -128,7 +89,6 @@ class UserController extends Controller
         
         $request->validate([
             'currentimage' =>['required','image'],
-            'password' => ['required'],
             'newimage' => ['required','image']
         ]);
         $loggedUser = auth()->user();
@@ -137,8 +97,8 @@ class UserController extends Controller
            throw ValidationException::withMessages(['change_error' =>["Invalid Image"]]);
        }
        else{
-            $newpass = Crypt::encryptString($request->password);
-            $result = $this->steganize($request->newimage, $newpass,true);
+            $newpass = Crypt::encryptString(Str::random(16));
+            $result = $this->steganize($request->newimage, $newpass,true,"users/");
 
             $loggedUser = User::find($loggedUser->id);
             $loggedUser->password = $newpass;
@@ -155,13 +115,13 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $token = $user->createToken('myapptoken')->plainTextToken;
-        dd($token);
+
+        return ['message' => 'Do not share this token with anyone','Bearer_Token'=>$token];
     }
 
     public function delToken()
     {
         $user = auth()->user();
         $user->tokens()->delete();
-        
     }
 }

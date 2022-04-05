@@ -7,7 +7,7 @@ use Exception;
 
 trait EncodeDecodeTrait
 {
-  public function steganize($file, $message, $skip=false) 
+  public function steganize($file, $message, $skip=false, $saveto="images/") 
   {
         // Load the image into memory.
         $mimeType = $file->getMimeType();
@@ -106,7 +106,7 @@ trait EncodeDecodeTrait
 
         $filename = uniqid('img_').".".$file->extension();
         // Save the image to a file.
-        $newImage = 'images/'.$filename;
+        $newImage = $saveto.$filename;
         // $newImage = 'secret.png';
         if(imagepng($img, $newImage, 9))
         {

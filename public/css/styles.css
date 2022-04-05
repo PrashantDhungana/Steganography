@@ -134,7 +134,7 @@ margin: 5px 5px 5px 20px;
     text-align: center;
     font-size: 30px;
     width: 350px;
-    height: 420px;
+    height: 475px;
     margin-top: 60px;
     /* margin: 5% 0px 0px 20%; */
     background-color: #ffffff;
@@ -369,8 +369,6 @@ padding: 14px 15px;
 }
 
 .button label {
-  background-color: rgb(209, 109, 27);
-  color: white;
   padding: 0.5rem;
   font-family: sans-serif;
   border-radius: 0.3rem;
@@ -385,7 +383,7 @@ padding: 14px 15px;
 }
 
 .file-upload {
-  display: inline-flex;
+  /* display: inline-flex; */
   align-items: center;
   font-size: 15px;
 }

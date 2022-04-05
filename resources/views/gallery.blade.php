@@ -1,35 +1,35 @@
 @extends('layout')
 @section('contents')
-
-@if (session('error'))
-    <div class="alert alert-danger d-flex justify-content-center">{{ session('error') }}</div>
-@endif
+    @if (session('error'))
+        <div class="alert alert-danger d-flex justify-content-center">{{ session('error') }}</div>
+    @endif
     <div class="wrap__body mt-3">
         <div class="container">
             <div class="gallery">
 
                 <div class="card-deck mt-3">
                     @foreach ($gallery as $gall)
-
-                <!-- Modal -->
-                <div class="modal fade" id="decodeeye{{$gall->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Decoded Text</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        The decoded text is: {{$gall->decoded}}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                    </div>
-                </div>
-                </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="decodeeye{{ $gall->id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Decoded Text</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        The decoded text is: {{ $gall->decoded }}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-3 mt-5">
                             <div class="card position-relative" style="margin-left: 0px; margin-right:0px; height:333px;">
                                 <img class="card-img-top" src="images/{{ $gall->image }}" alt="Card image cap">
@@ -49,7 +49,8 @@
                                             <button type="submit" class="btn"><i class="fa fa-bookmark text-info"
                                                     aria-hidden="true"></i></button>
                                         </form>
-                                        <a href="#" data-toggle="modal" data-target="#decodeeye{{$gall->id}}"><i class="fa fa-eye text-danger" aria-hidden="true"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#decodeeye{{ $gall->id }}"><i
+                                                class="fa fa-eye text-danger" aria-hidden="true"></i></a>
                                     </div>
 
                                 </div>
@@ -100,19 +101,14 @@
                     <div class="category">
                         <div class="hell mt-5">Encoding</div>
                         <!-- Button trigger modal -->
-                        <button type="button" class=" mt-3 btn btn-primary" data-toggle="modal"
+                        <button type="button" class=" mt-3 btn btn-primary" data-toggle="modal" id="encodeModal"
                             data-target="#exampleModalCenter">
                             Start Encode
                         </button>
                     </div>
                     <div class="category">
                         <div class="hell mt-5">Decode</div>
-                        {{-- <form action="/decode" method="POST" enctype="multipart/form-data">
-             @csrf
-             <input type="file" name="decode" required>
-             <button type="submit" class="btn btn-primary">Start Decode</button>
-           </form> --}}
-                        <!-- Button trigger modal -->
+
                         <button type="button" class=" mt-3 btn btn-primary" data-toggle="modal" id="decodeModal"
                             data-target="#exampleModaldecode">
                             Start Decode
@@ -120,10 +116,7 @@
                     </div>
 
                 </div>
-                <!-- <div class="box">
-              <div class="enc"><h6 class="hide">Hide message</h6></div>
-              <div class="dec"><h6 class="decc">Decode message</h6></div>
-            </div> -->
+
 
             </div>
 
@@ -146,6 +139,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                    <div class="text-danger text-center" style="margin: 0px 60px;">{{ $error }}</div>
+
+                       @endforeach
+                        @endif
+                  
                     <form method="POST" action="/encode" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
@@ -161,15 +161,14 @@
                                 <div class="form-group ">
                                     <label for="exampleInputEmail1">Text to be encoded</label>
                                     <input type="text" placeholder="Hidden text" class="form-control" name="encode_text"
-                                    autocomplete="off" required />
+                                        autocomplete="off" required />
                                 </div>
                                 <div class="form-group ">
                                     <label for="passphrase">Passphrase</label>
-                                    <input type="text" pattern="\w{16}" id="passphrase" placeholder="16 digit passphrase" class="form-control" name="passphrase" autocomplete="off" required />
+                                    <input type="text" pattern="\w{16}" id="passphrase" placeholder="16 digit passphrase"
+                                        class="form-control" name="passphrase" autocomplete="off" required />
                                 </div>
-                                @error('passphrase')
-                                    <div class="text-danger">*{{ $message }}</div>
-                                @enderror
+
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="visibility" value="public"
                                         id="public" onclick="ShowHideDiv()" required>
@@ -215,11 +214,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    @error('passphrases')
+                        <div class="text-danger" style="margin: 0px 60px;">{{ $message }}</div>
+                    @enderror
                     @if (session()->has('decodedText'))
-                    <div class="text__decode">
-                        The Decoded Text is
-                        {{ session('decodedText') }}
-                    </div>
+                        <div class="text__decode">
+                            The Decoded Text is
+                            {{ session('decodedText') }}
+                        </div>
                     @endif
                     <form method="POST" action="/decode" enctype="multipart/form-data" id="formdecode">
                         @csrf
@@ -229,16 +231,16 @@
                                     <span class="drop-zone__prompt">Drop file here or click to upload</span>
                                     <input type="file" name="decode" class="drop-zone__input" required>
                                 </div>
-                                
-                                    
+
+
                             </div>
                         </div>
-                        
-                    </div>
-                    <div class="form-group">
-                        <label for="passphrase">Enter PassPhrase:</label>
-                        <input type="text" name="passphrase" id="passphrase" placeholder="16 digit passphrase">
-                    </div>
+
+                </div>
+                <div class="form-group mx-auto">
+                    <label for="passphrase">Enter PassPhrase:</label>
+                    <input type="text" name="passphrases" id="passphrase" placeholder="16 digit passphrase">
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Decode</button>
@@ -389,13 +391,29 @@
         }
         $(window).on('load', function() {
             // code here
-            
+
             @if (session()->has('decodedText'))
                 $("#decodeModal").click();
                 // $('#formdecode').css('display', 'none');
                 // location.reload();
             @endif
             
+            @if ($errors->has('passphrases'))
+                $("#decodeModal").click();
+            @endif
+
+            @if ($errors->has('encode_text','passphrase' ,'encode'))
+                $('#encodeModal').click();
+            @endif
+
+            @if (session()->has('encode'))
+                var a = document.createElement('a');
+                a.href = "/images/{{session()->get('encode')}}";
+                a.download = "encoded.png";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            @endif
         });
     </script>
 @endsection
