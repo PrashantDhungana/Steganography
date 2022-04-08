@@ -28,11 +28,11 @@
         <i class="fas fa-cog"></i> Menu
       </a>
        <div class="dropdown-menu">
-         <a class="dropdown-item" href="/user">
-         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> User Profile
-        </a>
-         <a class="dropdown-item" href="/gallery">
-           <i class="fas fa-images mr-2 text-gray-400"></i> Gallery
+          <a class="dropdown-item" href="/gallery">
+            <i class="fas fa-images mr-2 text-gray-400"></i> Gallery
+          </a>
+          <a class="dropdown-item" href="/user">
+            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> User Profile
           </a>
         </li>
         @if (auth()->user()->is_admin)

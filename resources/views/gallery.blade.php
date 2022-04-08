@@ -390,9 +390,9 @@
             }
         }
         $(window).on('load', function() {
-            // code here
 
             @if (session()->has('decodedText'))
+                alert('hello')
                 $("#decodeModal").click();
                 // $('#formdecode').css('display', 'none');
                 // location.reload();
