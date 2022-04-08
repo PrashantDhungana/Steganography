@@ -217,6 +217,9 @@
                     @error('passphrases')
                         <div class="text-danger" style="margin: 0px 60px;">{{ $message }}</div>
                     @enderror
+                    @if (session('decode_error'))
+                        <div class="text-danger" style="margin: 0px 60px;">{{ session('decode_error') }}</div>
+                    @endif
                     @if (session()->has('decodedText'))
                         <div class="text__decode">
                             The Decoded Text is
@@ -392,13 +395,12 @@
         $(window).on('load', function() {
 
             @if (session()->has('decodedText'))
-                alert('hello')
                 $("#decodeModal").click();
                 // $('#formdecode').css('display', 'none');
                 // location.reload();
             @endif
             
-            @if ($errors->has('passphrases'))
+            @if ($errors->has('passphrases') || session()->has('decode_error'))
                 $("#decodeModal").click();
             @endif
 
