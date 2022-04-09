@@ -185,8 +185,7 @@
                                 </div>
                                 <div class="form-group mt-3" id="dvtext" style="display: none">
                                     <label for="exampleInputEmail1">Small Message</label>
-                                    <input type="text" placeholder="Text Describing the image" class="form-control"
-                                        name="message" />
+                                    <input type="text" placeholder="Text Describing the image" class="form-control" name="message" autocomplete="off" />
                                 </div>
 
 

@@ -12,10 +12,8 @@ class DashboardController extends Controller
 {
     public function stats()
     {
-        $encodeDecodeCount = Gallery::
-        selectRaw("SUM(CASE WHEN process = 0  THEN 1 ELSE 0 END) as encode_count")
-        ->selectRaw("SUM(CASE WHEN process = 1  THEN 1 ELSE 0 END) as decode_count")
-        ->selectRaw("SUM(CASE WHEN public = 0  THEN 1 ELSE 0 END) as private_count")
+        $encodeCount = Gallery::
+        selectRaw("SUM(CASE WHEN public = 0  THEN 1 ELSE 0 END) as private_count")
         ->selectRaw("SUM(CASE WHEN public = 1  THEN 1 ELSE 0 END) as public_count")
         ->first();
         $savedCount = Gallery_User::count();
@@ -26,7 +24,7 @@ class DashboardController extends Controller
          $galleries = Gallery::all();
 
         
-        return view('admin.dashboard',compact('encodeDecodeCount','savedCount','usersCount','galleries'));
+        return view('admin.dashboard',compact('encodeCount','savedCount','usersCount','galleries'));
         
     }
     public function destroy($id){
